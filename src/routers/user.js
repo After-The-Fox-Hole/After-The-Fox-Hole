@@ -8,14 +8,35 @@ const app = require("../app");
 ///////sign up
 
 router.post('/users',async (req,res)=>{
-	const user = new User(req.body);
-	console.log(req.body);
+	let address = req.body.info.location.coordinates
+	let user = req.body
+	let requestOptions = {
+		method: 'GET',
+		redirect: 'follow'
+	};
 	try{
-		await user.save();
-		const token = await user.generateAuthToken()
-		res.status(201).send({user, token})
+		console.log(user);
+		await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.GOOGLE_MAP_API}`, requestOptions)
+			.then(response => response.json())
+			.then(result => {
+				console.log(result.results[0].geometry.location.lng, result.results[0].geometry.location.lat);
+				user.info.location.type = "Point"
+				user.info.location= { type: 'Point',coordinates: [result.results[0].geometry.location.lng, result.results[0].geometry.location.lat]}
+			})
+	}
+	catch (e) {
+		console.log(e)
+		throw new Error("Error finding location")
+	}
+	console.log(user);
+	try{
+		const userDB = new User(user);
+		await userDB.save();
+		const token = await userDB.generateAuthToken()
+		res.status(201).send({userDB, token})
 	}
 	catch (e){
+		console.log(e);
 		res.status(400).send(e);
 	}
 })

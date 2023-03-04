@@ -6,7 +6,7 @@
 	
 	
 	const userSchema = new mongoose.Schema({
-		info: [{
+		info: {
 			email: {
 				type: String,
 				unique: true,
@@ -23,15 +23,14 @@
 				type: {
 					type: String, // Don't do `{ location: { type: String } }`
 					enum: ['Point'], // 'location.type' must be 'Point'
-					required: false,
-					default: 'Point'
+					required: true
 				},
 				coordinates: {
 					type: [Number],
 					required: true
 				}
 			},
-			service: [{
+			service: {
 				branch: {
 					type: String,
 					required: true,
@@ -45,14 +44,14 @@
 					trim: true,
 					lowercase: true,
 				}
-			}],
+			},
 			currentJob:{
 				type: String,
 				required: false,
 				trim: true,
 				lowercase: true,
 			},
-			name:[{
+			name:{
 				first:{
 					type: String,
 					required: true,
@@ -72,8 +71,8 @@
 					trim: true,
 					lowercase: true,
 				}
-			}]
-		}],
+			}
+		},
 		displayName:{
 			type: String,
 			unique: true,
