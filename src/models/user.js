@@ -6,71 +6,137 @@
 	
 	
 	const userSchema = new mongoose.Schema({
-	name: {
-		type: String,
-		required: true,
-		trim: true
-	},
-	password: {
-		type: String,
-		required: true,
-		trim: true,
-		validate(value){
-			if (value.length < 6){
-				throw new Error("password to short")
+		info: [{
+			email: {
+				type: String,
+				unique: true,
+				required: true,
+				trim: true,
+				lowercase: true,
+				validate(value) {
+					if (!validator.isEmail(value)) {
+						throw new Error("email invalid")
+					}
+				}
+			},
+			location: {
+				type: {
+					type: String, // Don't do `{ location: { type: String } }`
+					enum: ['Point'], // 'location.type' must be 'Point'
+					required: false,
+					default: 'Point'
+				},
+				coordinates: {
+					type: [Number],
+					required: true
+				}
+			},
+			service: [{
+				branch: {
+					type: String,
+					required: true,
+					trim: true,
+					lowercase: true,
+				},
+				status: {
+					type: String,
+					required: true,
+					enum:["active", "veteran"],
+					trim: true,
+					lowercase: true,
+				}
+			}],
+			currentJob:{
+				type: String,
+				required: false,
+				trim: true,
+				lowercase: true,
+			},
+			name:[{
+				first:{
+					type: String,
+					required: true,
+					trim: true,
+					lowercase: true,
+				},
+				last:{
+					type: String,
+					required: true,
+					trim: true,
+					lowercase: true,
+				},
+				gender:{
+					type: String,
+					enum:["male", "female","trans-f", "trans-m", "non-binary"],
+					required: true,
+					trim: true,
+					lowercase: true,
+				}
+			}]
+		}],
+		displayName:{
+			type: String,
+			unique: true,
+			required: true,
+			trim: true,
+		},
+		password: {
+			type: String,
+			required: true,
+			trim: true,
+			validate(value){
+				if (value.length < 6){
+					throw new Error("password to short")
+				}
+				if (value.toLowerCase().includes("password")){
+					throw new Error("password contains password")
+				}
 			}
-			if (value.toLowerCase().includes("password")){
-				throw new Error("password contains password")
-			}
-		}
-	},
-	email:{
-		type: String,
-		unique: true,
-		required: true,
-		trim: true,
-		lowercase: true,
-		validate(value) {
-			if (!validator.isEmail(value)){
-				throw new Error("email invalid")
-			}
-		}
-	},
-	
-	tokens: [{
+		},
+		tokens: [{
 			token:{
 				type: String,
 				required: true
 			}
 		}],
-		
-	isAdmin: {
-		type: Boolean,
-		default: false,
-		
-	}
-	
+		admin:{
+			type: Boolean,
+			required: true,
+			default: false
+		},
+		eeMember:{
+			type: Boolean,
+			required: true,
+			default: false
+		},
+		tags:[],
+		status:{
+			type: String,
+			required: false
+		},
+		avatar:{
+			type: Buffer
+		},
 	},
-	
-{
+	{
 		timestamps:true,
+		
 	});
 	
-	userSchema.methods.toJSON = function (){
-		const user = this;
-		const userObj = user.toObject();
-		
-		delete userObj.password;
-		delete userObj.tokens;
-		
-		return userObj;
-	}
+	// userSchema.methods.toJSON = function (){
+	// 	const user = this;
+	// 	const userObj = user.toObject();
+	//
+	// 	delete userObj.password;
+	// 	delete userObj.tokens;
+	//
+	// 	return userObj;
+	// }
 	
 	userSchema.methods.generateAuthToken = async function(){
 		const user = this;
 		const token = jwt.sign({_id: user.id.toString()}, process.env.JWT_SECRET)
-		user.tokens = [];
-		user.tokens.push({token})
+		user.tokens = user.tokens.concat({token});
 		await user.save();
 		
 		return token;
@@ -88,7 +154,6 @@
 	if (!isMatch){
 		throw new Error("unable to login")
 	}
-	
 	return user
 	}
 	
