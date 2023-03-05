@@ -105,15 +105,18 @@ const orgSchema = new mongoose.Schema({
 		
 	});
 
-// orgSchema.methods.toJSON = function (){
-// 	const user = this;
-// 	const userObj = user.toObject();
-//
-// 	delete userObj.password;
-// 	delete userObj.tokens;
-//
-// 	return userObj;
-// }
+orgSchema.methods.toJSON = function (){
+	const org = this;
+	const orgObj = org.toObject();
+	
+	
+	delete orgObj.status;
+	delete orgObj.password;
+	delete orgObj.recovery;
+	delete orgObj.tokens;
+	
+	return orgObj;
+}
 
 orgSchema.methods.generateAuthToken = async function(){
 	const org = this;

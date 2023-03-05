@@ -130,15 +130,18 @@
 		
 	});
 	
-	// userSchema.methods.toJSON = function (){
-	// 	const user = this;
-	// 	const userObj = user.toObject();
-	//
-	// 	delete userObj.password;
-	// 	delete userObj.tokens;
-	//
-	// 	return userObj;
-	// }
+	userSchema.methods.toJSON = function (){
+		const user = this;
+		const userObj = user.toObject();
+
+		
+		delete userObj.status;
+		delete userObj.password;
+		delete userObj.recovery;
+		delete userObj.tokens;
+
+		return userObj;
+	}
 	
 	userSchema.methods.generateAuthToken = async function(){
 		const user = this;
