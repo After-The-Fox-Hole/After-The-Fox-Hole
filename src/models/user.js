@@ -17,6 +17,7 @@
 					if (!validator.isEmail(value)) {
 						throw new Error("email invalid")
 					}
+				
 				}
 			},
 			location: {
@@ -177,15 +178,22 @@
 	}
 	
 	
+	const escape = (str) => validator.escape(str);
+	
 	//// hasher
-	// userSchema.pre('save', async function(next){
-	// const user = this;
-	//
-	// if(user.isModified('password')){
-	// 	user.password = await bcrypt.hash(user.password, 8)
-	// }
-	// next()
-	// })
+	userSchema.pre('save', async function(next){
+	const user = this;
+	user.displayName = 	escape(user.displayName);
+	user.info.email = escape(user.info.email);
+	user.info.currentJob = escape(user.info.currentJob);
+	user.info.name.first = escape(user.info.name.first);
+	user.info.name.last = escape(user.info.name.last)
+	
+	if(user.isModified('password')){
+		user.password = await bcrypt.hash(user.password, 8)
+	}
+	next()
+	})
 	
 	
 	const User = mongoose.model('User', userSchema)

@@ -15,7 +15,6 @@ router.post('/users',async (req,res)=>{
 		redirect: 'follow'
 	};
 	try{
-		console.log(user);
 		await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.GOOGLE_MAP_API}`, requestOptions)
 			.then(response => response.json())
 			.then(result => {

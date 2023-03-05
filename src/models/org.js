@@ -152,10 +152,17 @@ orgSchema.statics.findByCredentials = async (email, password) =>{
 	throw new Error("Your account is suspended");
 }
 
+const escape = (str) => validator.escape(str);
+
+
 //// hasher
 orgSchema.pre('save', async function(next){
 	const org = this;
-	
+	org.displayName = 	escape(org.displayName);
+	org.info.email = escape(org.info.email);
+	org.info.name.org = escape(org.info.name.org);
+	org.info.name.first = escape(org.info.name.first);
+	org.info.name.last = escape(org.info.name.last)
 	if(org.isModified('password')){
 		org.password = await bcrypt.hash(org.password, 8)
 	}
