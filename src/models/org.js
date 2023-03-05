@@ -127,6 +127,12 @@ orgSchema.virtual("attending", {
 	foreignField: "owner"
 })
 
+orgSchema.virtual("comment", {
+	ref: "Comment",
+	localField: "_id",
+	foreignField: "owner"
+})
+
 
 orgSchema.methods.toJSON = function (){
 	const org = this;

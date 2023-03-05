@@ -152,6 +152,12 @@
 		foreignField: "owner"
 	})
 	
+	userSchema.virtual("comment", {
+		ref: "Comment",
+		localField: "_id",
+		foreignField: "owner"
+	})
+	
 	
 	
 	userSchema.methods.toJSON = function (){

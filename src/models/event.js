@@ -52,6 +52,12 @@ eventSchema.virtual("attending", {
 	foreignField: "event"
 })
 
+eventSchema.virtual("comment", {
+	ref: "Comment",
+	localField: "_id",
+	foreignField: "attach"
+})
+
 const escape = (str) => validator.escape(str);
 
 eventSchema.pre('save', async function(next){

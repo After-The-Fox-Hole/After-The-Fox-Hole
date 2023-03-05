@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const {Mongoose} = require("mongoose");
-const bcrypt = require("bcryptjs");
+
 
 
 
@@ -23,6 +23,13 @@ const postSchema = new mongoose.Schema({
 		timestamps:true,
 		
 	});
+
+postSchema.virtual("comment", {
+	ref: "Comment",
+	localField: "_id",
+	foreignField: "attach"
+})
+
 
 const escape = (str) => validator.escape(str);
 
