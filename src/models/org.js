@@ -85,8 +85,8 @@ const orgSchema = new mongoose.Schema({
 		tags:[],
 		status:{
 			type: String,
-			enum:["active", "suspended"],
-			required: false
+			enum:["active", "suspended", "recovery"],
+			default: "suspended",
 		},
 		type:{
 			type:String,
@@ -95,6 +95,10 @@ const orgSchema = new mongoose.Schema({
 		avatar:{
 			type: Buffer
 		},
+		recovery:{
+			type: String,
+			trim: true
+		}
 	},
 	{
 		timestamps:true,
@@ -122,17 +126,30 @@ orgSchema.methods.generateAuthToken = async function(){
 
 orgSchema.statics.findByCredentials = async (email, password) =>{
 	const org = await Org.findOne({"info.email":email})
-	
 	if (!org){
-		throw new Error("Unable to login")
+		throw new Error("Account does not exist")
 	}
-	
-	const isMatch = await bcrypt.compare(password, org.password)
-	
-	if (!isMatch){
-		throw new Error("unable to login")
+	if(org.status !== "suspended"){
+		const isMatch = await bcrypt.compare(password, org.password)
+		
+		if (!isMatch){
+			if (org.status !== "recovery"){
+				throw new Error("org name or password incorrect")
+			}
+		}
+		else{
+			return org
+		}
+		if(org.status === "recovery"){
+			const isMatch = await bcrypt.compare(password, org.recovery)
+			
+			if (!isMatch){
+				throw new Error("org name or password incorrect")
+			}
+			return org
+		}
 	}
-	return org
+	throw new Error("Your account is suspended");
 }
 
 //// hasher

@@ -109,8 +109,8 @@
 		tags:[],
 		status:{
 			type: String,
-			enum:["active", "suspended"],
-			required: false
+			enum:["active", "suspended", "recovery"],
+			default: "active",
 		},
 		avatar:{
 			type: Buffer
@@ -119,6 +119,10 @@
 			type:String,
 			default: "user"
 		},
+		recovery:{
+			type: String,
+			trim: true
+		}
 	},
 	{
 		timestamps:true,
@@ -147,26 +151,41 @@
 	userSchema.statics.findByCredentials = async (email, password) =>{
 		const user = await User.findOne({"info.email":email})
 		if (!user){
-			throw new Error("Unable to login")
+			throw new Error("Account does not exist")
 		}
-		
-		const isMatch = await bcrypt.compare(password, user.password)
+		if(user.status !== "suspended"){
+			const isMatch = await bcrypt.compare(password, user.password)
+			
+			if (!isMatch){
+				if (user.status !== "recovery"){
+					throw new Error("User name or password incorrect")
+				}
+			}
+			else{
+				return user
+			}
+			if(user.status === "recovery"){
+				const isMatch = await bcrypt.compare(password, user.recovery)
+				
+				if (!isMatch){
+					throw new Error("User name or password incorrect")
+				}
+				return user
+			}
+		}
+		throw new Error("Your account is suspended");
+	}
 	
-	if (!isMatch){
-		throw new Error("unable to login")
-	}
-	return user
-	}
 	
 	//// hasher
-	userSchema.pre('save', async function(next){
-	const user = this;
-	
-	if(user.isModified('password')){
-		user.password = await bcrypt.hash(user.password, 8)
-	}
-	next()
-	})
+	// userSchema.pre('save', async function(next){
+	// const user = this;
+	//
+	// if(user.isModified('password')){
+	// 	user.password = await bcrypt.hash(user.password, 8)
+	// }
+	// next()
+	// })
 	
 	
 	const User = mongoose.model('User', userSchema)

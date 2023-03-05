@@ -7,25 +7,32 @@ const router = new express.Router;
 router.post('/login', async (req, res)=>{
 	let token;
 	let user;
-	try {
 		if (req.body.type === "user") {
-			user = await User.findByCredentials(req.body.email, req.body.password);
+			try{
+				user = await User.findByCredentials(req.body.email, req.body.password);
+			}
+			catch (e) {
+				res.status(400).send(e.message)
+				return;
+			}
 			token = await user.generateAuthToken();
 			
 		} else if (req.body.type === "org") {
-			user = await Org.findByCredentials(req.body.email, req.body.password);
+			try{
+				user = await Org.findByCredentials(req.body.email, req.body.password);
+			}
+			catch (e) {
+				res.status(400).send(e.message)
+				return;
+			}
 			token = await user.generateAuthToken();
-			
 		} else {
-			res.status(400).send("No type selected")
+			res.status(400).send("No type selected");
+			return
 		}
 		res.cookie("access_token", token, {httpOnly: true});
 		res.render('profile', {user})
-	}
-	catch (e) {
-		console.log(e)
-		res.status(400).send("Bad credentials")
-	}
+	
 })
 
 module.exports = router;
