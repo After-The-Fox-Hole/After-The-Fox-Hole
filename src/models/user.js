@@ -164,6 +164,12 @@
 		foreignField: "owner"
 	})
 	
+	userSchema.virtual("ee", {
+		ref: "Ee",
+		localField: "_id",
+		foreignField: "owner"
+	})
+	
 	
 	
 	userSchema.methods.toJSON = function (){

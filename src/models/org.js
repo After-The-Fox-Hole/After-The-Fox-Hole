@@ -139,6 +139,12 @@ orgSchema.virtual("rating", {
 	foreignField: "org"
 })
 
+orgSchema.virtual("ee", {
+	ref: "Ee",
+	localField: "_id",
+	foreignField: "owner"
+})
+
 
 orgSchema.methods.toJSON = function (){
 	const org = this;

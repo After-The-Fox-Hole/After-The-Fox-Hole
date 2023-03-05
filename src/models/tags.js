@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const validator = require('validator')
 const {Mongoose} = require("mongoose");
 
 
@@ -14,7 +13,6 @@ const tagsSchema = new mongoose.Schema({
 			type:String,
 			required: true,
 		}
-		
 	});
 
 
