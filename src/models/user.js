@@ -40,9 +40,8 @@
 				status: {
 					type: String,
 					required: true,
-					enum:["active", "veteran"],
+					enum:["active", "veteran", "reserve"],
 					trim: true,
-					lowercase: true,
 				}
 			},
 			currentJob:{
@@ -69,7 +68,6 @@
 					enum:["male", "female","trans-f", "trans-m", "non-binary"],
 					required: true,
 					trim: true,
-					lowercase: true,
 				}
 			}
 		},
@@ -111,6 +109,7 @@
 		tags:[],
 		status:{
 			type: String,
+			enum:["active", "suspended"],
 			required: false
 		},
 		avatar:{
@@ -142,8 +141,7 @@
 	}
 	
 	userSchema.statics.findByCredentials = async (email, password) =>{
-		const user = await User.findOne({email})
-		
+		const user = await User.findOne({"info.email":email})
 		if (!user){
 			throw new Error("Unable to login")
 		}

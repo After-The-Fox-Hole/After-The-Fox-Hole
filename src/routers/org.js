@@ -1,5 +1,5 @@
 const express = require('express')
-const User = require("../models/user");
+const Org = require("../models/org");
 const router = new express.Router;
 const auth = require('../middleware/auth');
 const app = require("../app");
@@ -7,30 +7,29 @@ const app = require("../app");
 
 ///////sign up
 
-router.post('/users',async (req,res)=>{
+router.post('/orgs',async (req,res)=>{
 	let address = req.body.info.location.coordinates
-	let user = req.body
+	let org = req.body
 	let requestOptions = {
 		method: 'GET',
 		redirect: 'follow'
 	};
 	try{
-		console.log(user);
 		await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.GOOGLE_MAP_API}`, requestOptions)
 			.then(response => response.json())
 			.then(result => {
-				user.info.location.type = "Point"
-				user.info.location= { type: 'Point',coordinates: [result.results[0].geometry.location.lng, result.results[0].geometry.location.lat]}
+				org.info.location.type = "Point"
+				org.info.location= { type: 'Point',coordinates: [result.results[0].geometry.location.lng, result.results[0].geometry.location.lat]}
 			})
 	}
 	catch (e) {
 		throw new Error("Error finding location")
 	}
 	try{
-		const userDB = new User(user);
-		await userDB.save();
-		const token = await userDB.generateAuthToken()
-		res.status(201).send({userDB, token})
+		const orgDB = new Org(org);
+		await orgDB.save();
+		const token = await orgDB.generateAuthToken()
+		res.status(201).send({orgDB, token})
 	}
 	catch (e){
 		res.status(400).send(e);
@@ -38,11 +37,11 @@ router.post('/users',async (req,res)=>{
 })
 
 /////// log in
-// router.post('/users/login', async (req, res)=>{
+// router.post('/orgs/login', async (req, res)=>{
 // 	try{
-// 		const user = await User.findByCredentials(req.body.email, req.body.password);
-// 		const token = await user.generateAuthToken();
-// 		// if (user.isAdmin){
+// 		const org = await Org.findByCredentials(req.body.email, req.body.password);
+// 		const token = await org.generateAuthToken();
+// 		// if (org.isAdmin){
 // 		// 	res.cookie("access_token", token, { httpOnly: true });
 // 		// 	res.redirect(301, `/admin`)
 // 		// }
@@ -57,12 +56,12 @@ router.post('/users',async (req,res)=>{
 
 //////// log out
 
-router.post('/users/logout', auth, async (req, res)=>{
+router.post('/orgs/logout', auth, async (req, res)=>{
 	try{
-		req.user.tokens = req.user.tokens.filter((token)=>{
+		req.org.tokens = req.org.tokens.filter((token)=>{
 			return token.token !== req.token
 		})
-		await req.user.save();
+		await req.org.save();
 		res.send();
 	}
 	catch (e){
@@ -70,24 +69,25 @@ router.post('/users/logout', auth, async (req, res)=>{
 	}
 })
 
-router.post('/users/logoutAll', auth, async (req, res)=>{
+router.post('/orgs/logoutAll', auth, async (req, res)=>{
 	try{
-		req.user.tokens = [];
-		await req.user.save();
+		req.org.tokens = [];
+		await req.org.save();
 		res.send();
 	}
 	catch (e){
 		res.status(500).send();
 	}
-});
+})
 
-router.delete('/users/me',auth, async (req, res)=>{
+router.delete('/orgs/me',auth, async (req, res)=>{
 	try {
-		await req.user.remove();
-		res.send(req.user)
+		await req.org.remove();
+		res.send(req.org)
 	}
 	catch (e){
 		res.status(500).send(e)
 	}
 })
+
 module.exports = router;
