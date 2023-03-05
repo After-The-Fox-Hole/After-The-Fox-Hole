@@ -37,23 +37,7 @@ router.post('/users',async (req,res)=>{
 	}
 })
 
-/////// log in
-// router.post('/users/login', async (req, res)=>{
-// 	try{
-// 		const user = await User.findByCredentials(req.body.email, req.body.password);
-// 		const token = await user.generateAuthToken();
-// 		// if (user.isAdmin){
-// 		// 	res.cookie("access_token", token, { httpOnly: true });
-// 		// 	res.redirect(301, `/admin`)
-// 		// }
-// 		// else{
-// 		// 	res.status(200).send("Awaiting admin approval")
-// 		// }
-// 	}
-// 	catch (e){
-// 		res.status(400).send("Bad credentials")
-// 	}
-// })
+
 
 //////// log out
 
