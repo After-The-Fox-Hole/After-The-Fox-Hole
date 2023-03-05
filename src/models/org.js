@@ -88,6 +88,10 @@ const orgSchema = new mongoose.Schema({
 			enum:["active", "suspended"],
 			required: false
 		},
+		type:{
+			type:String,
+			default: "org"
+		},
 		avatar:{
 			type: Buffer
 		},
@@ -117,7 +121,7 @@ orgSchema.methods.generateAuthToken = async function(){
 }
 
 orgSchema.statics.findByCredentials = async (email, password) =>{
-	const org = await Org.findOne({email})
+	const org = await Org.findOne({"info.email":email})
 	
 	if (!org){
 		throw new Error("Unable to login")

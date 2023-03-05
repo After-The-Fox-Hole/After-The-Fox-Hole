@@ -115,6 +115,10 @@
 		avatar:{
 			type: Buffer
 		},
+		type:{
+			type:String,
+			default: "user"
+		},
 	},
 	{
 		timestamps:true,

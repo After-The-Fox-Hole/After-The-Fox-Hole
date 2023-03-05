@@ -1,7 +1,8 @@
 const express = require('express')
 require('./db/mongoose')
 const userRouter = require('./routers/user');
-const orgRouter = require('./routers/org')
+const orgRouter = require('./routers/org');
+const uniRouter = require('./routers/universal');
 const cookieParser = require('cookie-parser');
 const path = require("path");
 
@@ -17,6 +18,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(userRouter);
 app.use(orgRouter);
+app.use(uniRouter);
 
 
 
