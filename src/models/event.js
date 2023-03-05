@@ -1,8 +1,6 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const {Mongoose} = require("mongoose");
-const bcrypt = require("bcryptjs");
-const es = require("validator/es");
 
 
 
@@ -47,6 +45,13 @@ const eventSchema = new mongoose.Schema({
 		
 	});
 
+
+eventSchema.virtual("attending", {
+	ref: "Attending",
+	localField: "_id",
+	foreignField: "event"
+})
+
 const escape = (str) => validator.escape(str);
 
 eventSchema.pre('save', async function(next){
@@ -58,6 +63,6 @@ eventSchema.pre('save', async function(next){
 	next()
 })
 
-const Post = mongoose.model('Post', postSchema)
+const Event = mongoose.model('Event', eventSchema)
 
-module.exports = Post;
+module.exports = Event;

@@ -115,6 +115,17 @@ orgSchema.virtual("posts", {
 	foreignField: "owner"
 })
 
+orgSchema.virtual("event", {
+	ref: "Event",
+	localField: "_id",
+	foreignField: "owner"
+})
+
+orgSchema.virtual("attending", {
+	ref: "Attending",
+	localField: "_id",
+	foreignField: "owner"
+})
 
 
 orgSchema.methods.toJSON = function (){

@@ -140,6 +140,17 @@
 		foreignField: "owner"
 	})
 	
+	userSchema.virtual("event", {
+		ref: "Event",
+		localField: "_id",
+		foreignField: "owner"
+	})
+	
+	userSchema.virtual("attending", {
+		ref: "Attending",
+		localField: "_id",
+		foreignField: "owner"
+	})
 	
 	
 	
