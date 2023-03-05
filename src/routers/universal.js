@@ -31,7 +31,7 @@ router.post('/login', async (req, res)=>{
 			return
 		}
 		res.cookie("access_token", token, {httpOnly: true});
-		res.render('profile', {user})
+		res.status(200).render('profile', {user})
 	
 })
 
