@@ -8,7 +8,7 @@ const app = require("../app");
 ///////sign up
 
 router.post('/orgs',async (req,res)=>{
-	let address = req.body.info.location.coordinates
+	let address = req.body.info.location.text
 	let org = req.body
 	let requestOptions = {
 		method: 'GET',

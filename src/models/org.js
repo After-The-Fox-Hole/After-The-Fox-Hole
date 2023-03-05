@@ -20,9 +20,13 @@ const orgSchema = new mongoose.Schema({
 				}
 			},
 			location: {
+				text:{
+					type:String,
+					required:true
+				},
 				type: {
-					type: String, // Don't do `{ location: { type: String } }`
-					enum: ['Point'], // 'location.type' must be 'Point'
+					type: String,
+					enum: ['Point'],
 					required: true
 				},
 				coordinates: {
@@ -105,6 +109,14 @@ const orgSchema = new mongoose.Schema({
 		
 	});
 
+orgSchema.virtual("posts", {
+	ref: "Post",
+	localField: "_id",
+	foreignField: "owner"
+})
+
+
+
 orgSchema.methods.toJSON = function (){
 	const org = this;
 	const orgObj = org.toObject();
@@ -165,7 +177,8 @@ orgSchema.pre('save', async function(next){
 	org.info.email = escape(org.info.email);
 	org.info.name.org = escape(org.info.name.org);
 	org.info.name.first = escape(org.info.name.first);
-	org.info.name.last = escape(org.info.name.last)
+	org.info.name.last = escape(org.info.name.last);
+	org.info.localField.text = escape(org.info.localField.text)
 	if(org.isModified('password')){
 		org.password = await bcrypt.hash(org.password, 8)
 	}

@@ -8,7 +8,7 @@ const app = require("../app");
 ///////sign up
 
 router.post('/users',async (req,res)=>{
-	let address = req.body.info.location.coordinates
+	let address = req.body.info.location.text
 	let user = req.body
 	let requestOptions = {
 		method: 'GET',

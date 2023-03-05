@@ -21,9 +21,13 @@
 				}
 			},
 			location: {
+				text:{
+					type:String,
+					required:true
+				},
 				type: {
-					type: String, // Don't do `{ location: { type: String } }`
-					enum: ['Point'], // 'location.type' must be 'Point'
+					type: String,
+					enum: ['Point', "online"],
 					required: true
 				},
 				coordinates: {
@@ -130,6 +134,15 @@
 		
 	});
 	
+	userSchema.virtual("posts", {
+		ref: "Post",
+		localField: "_id",
+		foreignField: "owner"
+	})
+	
+	
+	
+	
 	userSchema.methods.toJSON = function (){
 		const user = this;
 		const userObj = user.toObject();
@@ -190,7 +203,8 @@
 	user.info.email = escape(user.info.email);
 	user.info.currentJob = escape(user.info.currentJob);
 	user.info.name.first = escape(user.info.name.first);
-	user.info.name.last = escape(user.info.name.last)
+	user.info.name.last = escape(user.info.name.last);
+	user.info.location.text = escape(user.info.location.text);
 	
 	if(user.isModified('password')){
 		user.password = await bcrypt.hash(user.password, 8)
