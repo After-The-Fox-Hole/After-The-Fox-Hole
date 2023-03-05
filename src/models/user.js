@@ -158,6 +158,12 @@
 		foreignField: "owner"
 	})
 	
+	userSchema.virtual("rating", {
+		ref: "Rating",
+		localField: "_id",
+		foreignField: "owner"
+	})
+	
 	
 	
 	userSchema.methods.toJSON = function (){
