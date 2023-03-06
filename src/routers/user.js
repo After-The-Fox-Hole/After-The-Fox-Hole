@@ -30,7 +30,7 @@ router.post('/users',async (req,res)=>{
 		await user.save();
 		const token = await user.generateAuthToken()
 		res.cookie("access_token", token, {httpOnly: true});
-		res.status(200).render('profile', {user})
+		res.status(200).redirect("/profile");
 	}
 	catch (e){
 		res.status(400).send(e);
