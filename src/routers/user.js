@@ -8,46 +8,70 @@ const app = require("../app");
 ///////sign up
 
 router.post('/users',async (req,res)=>{
-	const user = new User(req.body);
+	let address = req.body.info.location.text
+	let user = req.body
+	let requestOptions = {
+		method: 'GET',
+		redirect: 'follow'
+	};
 	try{
+		await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.GOOGLE_MAP_API}`, requestOptions)
+			.then(response => response.json())
+			.then(result => {
+				user.info.location.type= 'Point';
+				user.info.location.coordinates = [result.results[0].geometry.location.lng, result.results[0].geometry.location.lat];
+			})
+	}
+	catch (e) {
+		throw new Error("Error finding location")
+	}
+	try{
+		user = new User(user);
 		await user.save();
 		const token = await user.generateAuthToken()
-		res.status(201).send({user, token})
+		res.cookie("access_token", token, {httpOnly: true});
+		res.status(200).render('profile', {user})
 	}
 	catch (e){
 		res.status(400).send(e);
 	}
 })
 
-/////// log in
-router.post('/users/login', async (req, res)=>{
-	try{
-		const user = await User.findByCredentials(req.body.email, req.body.password);
-		const token = await user.generateAuthToken();
-		if (user.isAdmin){
-			res.cookie("access_token", token, { httpOnly: true });
-			res.redirect(301, `/admin`)
-		}
-		else{
-			res.status(200).send("Awaiting admin approval")
-		}
-	}
-	catch (e){
-		res.status(400).send("Bad credentials")
-	}
-})
+
 
 //////// log out
 
 router.post('/users/logout', auth, async (req, res)=>{
 	try{
-		req.user.tokens = [];
+		req.user.tokens = req.user.tokens.filter((token)=>{
+			return token.token !== req.token
+		})
 		await req.user.save();
-		res.redirect(301, `/`);
+		res.send();
 	}
 	catch (e){
-		res.status(500).send("could not logout");
+		res.status(500).send();
 	}
 })
 
+router.post('/users/logoutAll', auth, async (req, res)=>{
+	try{
+		req.user.tokens = [];
+		await req.user.save();
+		res.send();
+	}
+	catch (e){
+		res.status(500).send();
+	}
+});
+
+router.delete('/users/me',auth, async (req, res)=>{
+	try {
+		await req.user.remove();
+		res.send(req.user)
+	}
+	catch (e){
+		res.status(500).send(e)
+	}
+})
 module.exports = router;
