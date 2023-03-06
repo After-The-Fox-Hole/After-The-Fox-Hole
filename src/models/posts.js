@@ -17,6 +17,7 @@ const postSchema = new mongoose.Schema({
 	tags:[],
 	owner: { type: [mongoose.Schema.Types.ObjectId], refPath: 'model_type' },
 	model_type: {  type: String, enum: ['user','org' ], required: true },
+	timeCreated: {}
 	
 	},
 	{
