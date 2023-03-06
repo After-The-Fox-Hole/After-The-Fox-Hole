@@ -102,7 +102,8 @@ const orgSchema = new mongoose.Schema({
 		recovery:{
 			type: String,
 			trim: true
-		}
+		},
+		favTags:[]
 	},
 	{
 		timestamps:true,
@@ -168,6 +169,14 @@ orgSchema.virtual("ban", {
 	localField: "_id",
 	foreignField: "owner"
 })
+
+orgSchema.virtual("following", {
+	ref: "Following",
+	localField: "_id",
+	foreignField: "following"
+})
+
+
 
 orgSchema.methods.toJSON = function (){
 	const org = this;

@@ -106,11 +106,6 @@
 			required: true,
 			default: false
 		},
-		eeMember:{
-			type: Boolean,
-			required: true,
-			default: false
-		},
 		tags:[],
 		status:{
 			type: String,
@@ -127,7 +122,8 @@
 		recovery:{
 			type: String,
 			trim: true
-		}
+		},
+		favTags:[]
 	},
 	{
 		timestamps:true,
@@ -192,6 +188,18 @@
 		ref: "Bans",
 		localField: "_id",
 		foreignField: "owner"
+	})
+	
+	userSchema.virtual("following", {
+		ref: "Following",
+		localField: "_id",
+		foreignField: "owner"
+	})
+	
+	userSchema.virtual("following", {
+		ref: "Following",
+		localField: "_id",
+		foreignField: "following"
 	})
 	
 	

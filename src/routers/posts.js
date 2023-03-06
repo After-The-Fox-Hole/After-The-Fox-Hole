@@ -12,7 +12,6 @@ router.post('/posts',auth,async (req,res)=>{
 	const post = new Post({
 		...req.body,
 		owner: req.user._id,
-		timeCreated: new Date()
 	});
 	try{
 		await post.save();
