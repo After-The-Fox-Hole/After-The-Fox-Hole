@@ -145,6 +145,29 @@ orgSchema.virtual("ee", {
 	foreignField: "owner"
 })
 
+orgSchema.virtual("feedback", {
+	ref: "Feedback",
+	localField: "_id",
+	foreignField: "owner"
+})
+
+orgSchema.virtual("reports", {
+	ref: "Reports",
+	localField: "_id",
+	foreignField: "owner"
+})
+
+orgSchema.virtual("reports", {
+	ref: "Reports",
+	localField: "_id",
+	foreignField: "type"
+})
+
+orgSchema.virtual("ban", {
+	ref: "Bans",
+	localField: "_id",
+	foreignField: "owner"
+})
 
 orgSchema.methods.toJSON = function (){
 	const org = this;

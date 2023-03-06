@@ -30,6 +30,11 @@ postSchema.virtual("comment", {
 	foreignField: "attach"
 })
 
+postSchema.virtual("reports", {
+	ref: "Reports",
+	localField: "_id",
+	foreignField: "type"
+})
 
 const escape = (str) => validator.escape(str);
 

@@ -170,6 +170,29 @@
 		foreignField: "owner"
 	})
 	
+	userSchema.virtual("feedback", {
+		ref: "Feedback",
+		localField: "_id",
+		foreignField: "owner"
+	})
+	
+	userSchema.virtual("reports", {
+		ref: "Reports",
+		localField: "_id",
+		foreignField: "owner"
+	})
+	
+	userSchema.virtual("reports", {
+		ref: "Reports",
+		localField: "_id",
+		foreignField: "type"
+	})
+	
+	userSchema.virtual("bans", {
+		ref: "Bans",
+		localField: "_id",
+		foreignField: "owner"
+	})
 	
 	
 	userSchema.methods.toJSON = function (){

@@ -44,6 +44,6 @@ eeSchema.pre('save', async function(next){
 })
 
 
-const Ee = mongoose.model('ee', eeSchema)
+const Ee = mongoose.model('Ee', eeSchema)
 
 module.exports = Ee;

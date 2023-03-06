@@ -4,12 +4,7 @@ const {Mongoose} = require("mongoose");
 
 
 
-const commentSchema = new mongoose.Schema({
-	
-		votes:{
-			type:Number,
-			default:0,
-		},
+const reportsSchema = new mongoose.Schema({
 		content:{
 			required:true,
 			type:String,
@@ -24,45 +19,36 @@ const commentSchema = new mongoose.Schema({
 			enum: ['user','org'],
 			required: true
 		},
-		attach: {
+		type: {
 			required:true,
 			type: [mongoose.Schema.Types.ObjectId],
 			refPath: 'model_typeR'
 		},
 		model_typeR: {
 			type: String,
-			enum: ['post','event', 'comment'],
+			enum: ['user','org', 'post', 'event', 'feedback'],
 			required: true
 		},
+		status:{
+			type: String,
+			enum:['open', 'closed', 'in review']
+		}
 	},
 	{
 		timestamps:true,
 		
 	});
 
-commentSchema.virtual("comment", {
-	ref: "Comment",
-	localField: "_id",
-	foreignField: "attach"
-})
-
-commentSchema.virtual("reports", {
-	ref: "Reports",
-	localField: "_id",
-	foreignField: "type"
-})
-
 
 const escape = (str) => validator.escape(str);
 
-commentSchema.pre('save', async function(next){
-	const comment = this;
-	comment.content = escape(comment.content);
-	
+reportsSchema.pre('save', async function(next){
+	const reports = this;
+	reports.content = escape(reports.content);
 	
 	next()
 })
 
-const Comment = mongoose.model('Comment', commentSchema)
+const Reports = mongoose.model('Reports', reportsSchema)
 
-module.exports = Comment;
+module.exports = Reports;

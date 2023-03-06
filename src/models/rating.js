@@ -47,6 +47,6 @@ ratingSchema.pre('save', async function(next){
 	next()
 })
 
-const Rating = mongoose.model('rating', ratingSchema)
+const Rating = mongoose.model('Rating', ratingSchema)
 
 module.exports = Rating;
