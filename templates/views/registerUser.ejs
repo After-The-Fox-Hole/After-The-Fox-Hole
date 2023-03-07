@@ -10,10 +10,10 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <h1>Registration Page</h1>
-            <form action="/register" method="POST">
+            <form action="/users" method="POST">
                 <div class="form-group">
                     <label for="first">First Name</label>
-                    <input type="text" class="form-control" id="first" name="first" required>
+                    <input type="text" class="form-control" id="first" name="firstN" required>
                 </div>
                 <div class="form-group">
                     <label for="last">Last Name</label>
@@ -33,11 +33,11 @@
                 </div>
                 <div class="form-group">
                     <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" name="address" required>
+                    <input type="text" class="form-control" id="address" name="location" required>
                 </div>
                 <div class="form-group">
                     <label for="branchOfService">Branch of Service</label>
-                    <select class="form-control" id="branchOfService" name="branchOfService" required>
+                    <select class="form-control" id="branchOfService" name="branch" required>
                         <option value="" selected disabled>Choose your branch of service</option>
                         <option value="Army">Army</option>
                         <option value="Navy">Navy</option>
@@ -53,21 +53,16 @@
                             <input type="radio" name="status" value="active" required> Active Duty
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="status" value="vet" required> Veteran/Retired
+                            <input type="radio" name="status" value="veteran" required> Veteran/Retired
+                        </label>
+                        <label class="radio-inline">
+                        <input type="radio" name="status" value="reserve" required> Reserve
                         </label>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="currentJob">Current Job</label>
                     <input type="text" class="form-control" id="currentJob" name="currentJob" required>
-                </div>
-                <div class="form-group">
-                    <label for="tags">Tags</label>
-                    <select class="selectpicker" multiple aria-label="Default select example" data-live-search="true" name="tags">
-                        <% for (var i = 0; i < users.tags.length; i++) { %>
-                            <option value="<%= users.tags[i].value %>"><%= users.tags[i].label %></option>
-                        <% } %>
-                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>

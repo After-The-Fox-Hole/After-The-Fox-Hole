@@ -33,8 +33,11 @@ router.get("/profile", auth, async (req,res)=>{
 	
 	
 	let user = req.user.clean();
+	console.log(user)
 	console.log(req.user.posts)
-	res.status(200).render("profile", ({user, posts, events}))
+	
+	
+	res.status(200).render("profile", ({user, posts, events, edit}))
 	
 })
 

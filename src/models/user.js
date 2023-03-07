@@ -214,7 +214,6 @@
 		const user = this;
 		let userObj = user.toObject();
 		userObj._id = userObj._id.valueOf();
-		delete userObj.info;
 		delete userObj.status;
 		delete userObj.password;
 		delete userObj.recovery;

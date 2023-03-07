@@ -3,13 +3,36 @@ const User = require("../models/user");
 const router = new express.Router;
 const auth = require('../middleware/auth');
 const app = require("../app");
+const {add} = require("nodemon/lib/rules");
 
 
 ///////sign up
 
 router.post('/users',async (req,res)=>{
-	let address = req.body.info.location.text
-	let user = req.body
+	console.log(req.body)
+	
+	let address = req.body.location
+	let user = {
+		info:{
+			location:{
+				text: address
+			},
+			currentJob: req.body.currentJob,
+			name:{
+				first: req.body.firstN,
+				last: req.body.last
+			},
+			email:req.body.email,
+			service:{
+				branch: req.body.branch,
+				status: req.body.status
+			}
+		},
+		displayName: req.body.displayName,
+		password: req.body.password
+	}
+	
+	console.log(user)
 	let requestOptions = {
 		method: 'GET',
 		redirect: 'follow'
