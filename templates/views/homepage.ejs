@@ -35,10 +35,10 @@
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#fireteam" data-toggle="tab">Fireteam</a>
+                    <a class="nav-link active" href="#fireteam" data-toggle="tab" id="fireTab">Fireteam</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#scouting" data-toggle="tab">Scouting</a>
+                    <a class="nav-link" href="#scouting" data-toggle="tab" id="scoutTab">Scouting</a>
                 </li>
             </ul>
         </div>
@@ -79,18 +79,10 @@
             </div>
             <!-- Post and Event Feed -->
             <div class="tab-content">
-                <div class="tab-pane fade show active" id="fireteam">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title"><%post.title%></h5>
-                            <h6 class="card-subtitle mb-2 text-muted"><%post.owner%></h6>
-                            <p class="card-text"><%post.content%></p>
-                            <p class="card-text"><%post.timeCreated%></p>
-                            <a href="#" class="card-link">Link to post/event page</a>
-                        </div>
-                    </div>
+                <div class="tab-pane fade show active" id="fireteamCards" >
+
                 </div>
-                <div class="tab-pane fade" id="scouting">
+                <div class="tab-pane fade contentCards" id="scoutingCards">
 
                 </div>
             </div>
