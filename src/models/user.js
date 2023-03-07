@@ -68,12 +68,6 @@
 					trim: true,
 					lowercase: true,
 				},
-				gender:{
-					type: String,
-					enum:["male", "female","trans-f", "trans-m", "non-binary"],
-					required: true,
-					trim: true,
-				}
 			}
 		},
 		displayName:{
