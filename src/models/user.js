@@ -1,11 +1,11 @@
-	const mongoose = require('mongoose')
-	const validator = require('validator')
-	const {Mongoose} = require("mongoose");
-	const bcrypt = require('bcryptjs');
-	const jwt = require('jsonwebtoken')
-	
-	
-	const userSchema = new mongoose.Schema({
+const mongoose = require('mongoose')
+const validator = require('validator')
+const {Mongoose} = require("mongoose");
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken')
+
+
+const userSchema = new mongoose.Schema({
 		info: {
 			email: {
 				type: String,
@@ -17,7 +17,7 @@
 					if (!validator.isEmail(value)) {
 						throw new Error("email invalid")
 					}
-				
+					
 				}
 			},
 			location: {
@@ -39,34 +39,31 @@
 				branch: {
 					type: String,
 					required: true,
-					trim: true,
-					lowercase: true,
+					enum:["Coast Guard", "Marines", "Navy", "Army", "Air Force", "Space Force", "Army-NG", "Air-NG"]
 				},
 				status: {
 					type: String,
 					required: true,
-					enum:["active", "veteran", "reserve"],
-					trim: true,
+					enum:["Active", "Veteran", "Reserve"],
 				}
 			},
 			currentJob:{
 				type: String,
 				required: false,
 				trim: true,
-				lowercase: true,
 			},
 			name:{
 				first:{
 					type: String,
 					required: true,
 					trim: true,
-					lowercase: true,
+					
 				},
 				last:{
 					type: String,
 					required: true,
 					trim: true,
-					lowercase: true,
+					
 				},
 			}
 		},
@@ -107,7 +104,7 @@
 			default: "active",
 		},
 		avatar:{
-			type: Buffer
+			type: String
 		},
 		type:{
 			type:String,
@@ -123,147 +120,148 @@
 		timestamps:true,
 		
 	});
-	
-	userSchema.virtual("posts", {
-		ref: "Post",
-		localField: "_id",
-		foreignField: "owner"
-	})
-	
-	userSchema.virtual("event", {
-		ref: "Event",
-		localField: "_id",
-		foreignField: "owner"
-	})
-	
-	userSchema.virtual("attending", {
-		ref: "Attending",
-		localField: "_id",
-		foreignField: "owner"
-	})
-	
-	userSchema.virtual("comment", {
-		ref: "Comment",
-		localField: "_id",
-		foreignField: "owner"
-	})
-	
-	userSchema.virtual("rating", {
-		ref: "Rating",
-		localField: "_id",
-		foreignField: "owner"
-	})
-	
-	userSchema.virtual("ee", {
-		ref: "Ee",
-		localField: "_id",
-		foreignField: "owner"
-	})
-	
-	userSchema.virtual("feedback", {
-		ref: "Feedback",
-		localField: "_id",
-		foreignField: "owner"
-	})
-	
-	userSchema.virtual("reports", {
-		ref: "Reports",
-		localField: "_id",
-		foreignField: "owner"
-	})
-	
-	userSchema.virtual("reports", {
-		ref: "Reports",
-		localField: "_id",
-		foreignField: "type"
-	})
-	
-	userSchema.virtual("bans", {
-		ref: "Bans",
-		localField: "_id",
-		foreignField: "owner"
-	})
-	
-	userSchema.virtual("following", {
-		ref: "Following",
-		localField: "_id",
-		foreignField: "owner"
-	})
-	
-	userSchema.virtual("following", {
-		ref: "Following",
-		localField: "_id",
-		foreignField: "following"
-	})
-	
-	
-	userSchema.methods.toJSON = function (){
-		const user = this;
-		const userObj = user.toObject();
 
-		
-		delete userObj.status;
-		delete userObj.password;
-		delete userObj.recovery;
-		delete userObj.tokens;
+userSchema.virtual("posts", {
+	ref: "Post",
+	localField: "_id",
+	foreignField: "owner"
+})
 
-		return userObj;
-	}
+userSchema.virtual("event", {
+	ref: "Event",
+	localField: "_id",
+	foreignField: "owner"
+})
+
+userSchema.virtual("attending", {
+	ref: "Attending",
+	localField: "_id",
+	foreignField: "owner"
+})
+
+userSchema.virtual("comment", {
+	ref: "Comment",
+	localField: "_id",
+	foreignField: "owner"
+})
+
+userSchema.virtual("rating", {
+	ref: "Rating",
+	localField: "_id",
+	foreignField: "owner"
+})
+
+userSchema.virtual("ee", {
+	ref: "Ee",
+	localField: "_id",
+	foreignField: "owner"
+})
+
+userSchema.virtual("feedback", {
+	ref: "Feedback",
+	localField: "_id",
+	foreignField: "owner"
+})
+
+userSchema.virtual("reports", {
+	ref: "Reports",
+	localField: "_id",
+	foreignField: "owner"
+})
+
+userSchema.virtual("reports", {
+	ref: "Reports",
+	localField: "_id",
+	foreignField: "type"
+})
+
+userSchema.virtual("bans", {
+	ref: "Bans",
+	localField: "_id",
+	foreignField: "owner"
+})
+
+userSchema.virtual("following", {
+	ref: "Following",
+	localField: "_id",
+	foreignField: "owner"
+})
+
+userSchema.virtual("following", {
+	ref: "Following",
+	localField: "_id",
+	foreignField: "following"
+})
+
+
+userSchema.methods.toJSON = function (){
+	const user = this;
+	const userObj = user.toObject();
 	
-	userSchema.methods.clean = function (){
-		const user = this;
-		let userObj = user.toObject();
-		userObj._id = userObj._id.valueOf();
-		delete userObj.status;
-		delete userObj.password;
-		delete userObj.recovery;
-		delete userObj.tokens;
+	
+	delete userObj.status;
+	delete userObj.password;
+	delete userObj.recovery;
+	delete userObj.tokens;
+	
+	return userObj;
+}
+
+userSchema.methods.clean = function (){
+	const user = this;
+	let userObj = user.toObject();
+	userObj._id = userObj._id.valueOf();
+	
+	delete userObj.status;
+	delete userObj.password;
+	delete userObj.recovery;
+	delete userObj.tokens;
+	
+	return userObj;
+}
+
+userSchema.methods.generateAuthToken = async function(){
+	const user = this;
+	const token = jwt.sign({_id: user.id.toString()}, process.env.JWT_SECRET)
+	user.tokens = user.tokens.concat({token});
+	await user.save();
+	
+	return token;
+}
+
+userSchema.statics.findByCredentials = async (email, password) =>{
+	const user = await User.findOne({"info.email":email})
+	if (!user){
+		throw new Error("Account does not exist")
+	}
+	if(user.status !== "suspended"){
+		const isMatch = await bcrypt.compare(password, user.password)
 		
-		return userObj;
-	}
-	
-	userSchema.methods.generateAuthToken = async function(){
-		const user = this;
-		const token = jwt.sign({_id: user.id.toString()}, process.env.JWT_SECRET)
-		user.tokens = user.tokens.concat({token});
-		await user.save();
-		
-		return token;
-	}
-	
-	userSchema.statics.findByCredentials = async (email, password) =>{
-		const user = await User.findOne({"info.email":email})
-		if (!user){
-			throw new Error("Account does not exist")
+		if (!isMatch){
+			if (user.status !== "recovery"){
+				throw new Error("User name or password incorrect")
+			}
 		}
-		if(user.status !== "suspended"){
-			const isMatch = await bcrypt.compare(password, user.password)
+		else{
+			return user
+		}
+		if(user.status === "recovery"){
+			const isMatch = await bcrypt.compare(password, user.recovery)
 			
 			if (!isMatch){
-				if (user.status !== "recovery"){
-					throw new Error("User name or password incorrect")
-				}
+				throw new Error("User name or password incorrect")
 			}
-			else{
-				return user
-			}
-			if(user.status === "recovery"){
-				const isMatch = await bcrypt.compare(password, user.recovery)
-				
-				if (!isMatch){
-					throw new Error("User name or password incorrect")
-				}
-				return user
-			}
+			return user
 		}
-		throw new Error("Your account is suspended");
 	}
-	
-	
-	const escape = (str) => validator.escape(str);
-	
-	//// hasher
-	userSchema.pre('save', async function(next){
+	throw new Error("Your account is suspended");
+}
+
+
+const escape = (str) => validator.escape(str);
+
+//// hasher
+userSchema.pre('save', async function(next){
 	const user = this;
 	user.displayName = 	escape(user.displayName);
 	user.info.email = escape(user.info.email);
@@ -276,9 +274,9 @@
 		user.password = await bcrypt.hash(user.password, 8)
 	}
 	next()
-	})
-	
-	
-	const User = mongoose.model('User', userSchema)
-	
-	module.exports = User;
+})
+
+
+const User = mongoose.model('User', userSchema)
+
+module.exports = User;

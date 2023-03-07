@@ -32,7 +32,6 @@ router.post('/users',async (req,res)=>{
 		password: req.body.password
 	}
 	
-	console.log(user)
 	let requestOptions = {
 		method: 'GET',
 		redirect: 'follow'
@@ -70,7 +69,7 @@ router.post('/users/logout', auth, async (req, res)=>{
 			return token.token !== req.token
 		})
 		await req.user.save();
-		res.send();
+		res.status(200).render("login");
 	}
 	catch (e){
 		res.status(500).send();
