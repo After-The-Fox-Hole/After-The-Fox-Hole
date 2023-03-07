@@ -9,6 +9,7 @@ const postRouter = require('./routers/posts');
 const profileRouter = require('./routers/profile');
 const eventRouter = require('./routers/events');
 const bodyParser = require('body-parser');
+const homepageRouter = require('./routers/homepage');
 
 
 const publicDirectory = path.join(__dirname, '../public')
@@ -26,6 +27,7 @@ app.use(uniRouter);
 app.use(postRouter);
 app.use(profileRouter);
 app.use(eventRouter);
+app.use(homepageRouter);
 
 
 
