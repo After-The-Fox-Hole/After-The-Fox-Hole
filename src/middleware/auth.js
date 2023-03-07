@@ -20,7 +20,7 @@
 			next();
 		}
 		catch (e){
-			res.redirect(301, `/`);
+			res.status(200).render('index');
 		}
 	}
 	

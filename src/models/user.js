@@ -216,6 +216,19 @@
 		return userObj;
 	}
 	
+	userSchema.methods.clean = function (){
+		const user = this;
+		let userObj = user.toObject();
+		userObj._id = userObj._id.valueOf();
+		delete userObj.info;
+		delete userObj.status;
+		delete userObj.password;
+		delete userObj.recovery;
+		delete userObj.tokens;
+		
+		return userObj;
+	}
+	
 	userSchema.methods.generateAuthToken = async function(){
 		const user = this;
 		const token = jwt.sign({_id: user.id.toString()}, process.env.JWT_SECRET)

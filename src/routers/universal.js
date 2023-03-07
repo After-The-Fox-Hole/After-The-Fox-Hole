@@ -2,6 +2,7 @@ const app = require("../app");
 const User = require("../models/user");
 const Org = require("../models/org");
 const express = require("express");
+const auth = require("../middleware/auth");
 const router = new express.Router;
 
 router.post('/login', async (req, res)=>{
@@ -34,5 +35,21 @@ router.post('/login', async (req, res)=>{
 		res.status(200).render('profile', {user})
 	
 })
+
+
+router.post('/logout', auth, async (req, res)=>{
+	try{
+		req.user.tokens = req.user.tokens.filter((token)=>{
+			return token.token !== req.token
+		})
+		await req.user.save();
+		res.status(200).send();
+	}
+	catch (e){
+		res.status(500).send();
+	}
+})
+
+
 
 module.exports = router;

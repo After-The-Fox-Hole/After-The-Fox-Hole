@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const path = require("path");
 const postRouter = require('./routers/posts');
 const profileRouter = require('./routers/profile');
+const eventRouter = require('./routers/events');
 
 
 
@@ -23,6 +24,7 @@ app.use(orgRouter);
 app.use(uniRouter);
 app.use(postRouter);
 app.use(profileRouter);
+app.use(eventRouter);
 
 
 
