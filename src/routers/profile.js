@@ -8,10 +8,10 @@ const app = require("../app");
 
 router.get("/profile", auth, async (req,res)=>{
 	const match={};
-	const sort = {}
+	const sort = {};
 	
 	
-	await req.user.populate({
+	const posts = await req.user.populate({
 		path: "posts"
 		// match,
 		// options: {
@@ -20,8 +20,21 @@ router.get("/profile", auth, async (req,res)=>{
 		// 	// sort
 		// }
 	})
+	
+	const events = await req.user.populate({
+		path: "posts"
+		// match,
+		// options: {
+		// 	limit : parseInt(req.query.limit),
+		// 	skip: parseInt(req.query.skip),
+		// 	// sort
+		// }
+	})
+	
+	
+	let user = req.user.clean();
 	console.log(req.user.posts)
-	res.status(200).send(req.user)
+	res.status(200).render("profile", ({user, posts, events}))
 	
 })
 
