@@ -32,7 +32,7 @@
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
                 <div class="form-group">
-                    <label for="address">Address</label>
+                    <label for="address">Location (Can Be City, State, or Address)</label>
                     <input type="text" class="form-control" id="address" name="location" required>
                 </div>
                 <div class="form-group">
@@ -44,25 +44,27 @@
                         <option value="Air Force">Air Force</option>
                         <option value="Marines">Marines</option>
                         <option value="Coast Guard">Coast Guard</option>
+                        <option value="Army-NG">Army-NG</option>
+                        <option value="Air-NG">Air-NG</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="status">Status</label>
                     <div>
                         <label class="radio-inline">
-                            <input type="radio" name="status" value="active" required> Active Duty
+                            <input type="radio" name="status" value="Active" required> Active Duty
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="status" value="veteran" required> Veteran/Retired
+                            <input type="radio" name="status" value="Veteran" required> Veteran/Retired
                         </label>
                         <label class="radio-inline">
-                        <input type="radio" name="status" value="reserve" required> Reserve
+                        <input type="radio" name="status" value="Reserve" required> Reserve
                         </label>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="currentJob">Current Job</label>
-                    <input type="text" class="form-control" id="currentJob" name="currentJob" required>
+                    <label for="currentJob">Current Job (CIV/MILITARY) (optional)</label>
+                    <input type="text" class="form-control" id="currentJob" name="currentJob">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
