@@ -8,7 +8,7 @@ const path = require("path");
 const postRouter = require('./routers/posts');
 const profileRouter = require('./routers/profile');
 const eventRouter = require('./routers/events');
-
+const bodyParser = require('body-parser');
 
 
 const publicDirectory = path.join(__dirname, '../public')
@@ -16,6 +16,7 @@ const publicDirectory = path.join(__dirname, '../public')
 
 const app = express();
 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(express.json());

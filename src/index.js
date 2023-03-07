@@ -11,7 +11,7 @@ app.listen(port, ()=>{
 })
 
 app.get('', (request, response) => {
-	response.render('index')
+	response.render('login')
 });
 
 

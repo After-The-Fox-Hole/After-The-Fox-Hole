@@ -6,6 +6,7 @@ const auth = require("../middleware/auth");
 const router = new express.Router;
 
 router.post('/login', async (req, res)=>{
+	
 	let token;
 	let user;
 		if (req.body.type === "user") {
@@ -48,6 +49,10 @@ router.post('/logout', auth, async (req, res)=>{
 	catch (e){
 		res.status(500).send();
 	}
+})
+
+router.get('/register', async (req, res)=>{
+	res.status(200).render("registerUser");
 })
 
 
