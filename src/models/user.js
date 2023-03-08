@@ -104,7 +104,9 @@ const userSchema = new mongoose.Schema({
 			default: "active",
 		},
 		avatar:{
-			type: String
+			type: String,
+			default: "https://drive.google.com/uc?id=1B6q2qQTNBjzlTZgZwrYbMiYfuwHhaIdj"
+			
 		},
 		type:{
 			type:String,

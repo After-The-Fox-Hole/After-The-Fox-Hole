@@ -27,13 +27,12 @@ const postSchema = new mongoose.Schema({
 	},
 	{
 		timestamps:true,
-		
 	});
 
 postSchema.virtual("comment", {
 	ref: "Comment",
 	localField: "_id",
-	foreignField: "attach"
+	foreignField: "master"
 })
 
 postSchema.virtual("reports", {

@@ -24,14 +24,18 @@ const commentSchema = new mongoose.Schema({
 			enum: ['user','org'],
 			required: true
 		},
-		attach: {
+		attach: [{
+			type: [mongoose.Schema.Types.ObjectId],
+			refPath: 'comment'
+		}],
+		master:{
 			required:true,
 			type: [mongoose.Schema.Types.ObjectId],
-			refPath: 'model_typeR'
+			refPath: 'model_typeM'
 		},
-		model_typeR: {
+		model_typeM: {
 			type: String,
-			enum: ['post','event', 'comment'],
+			enum: ['post','event'],
 			required: true
 		},
 	},
