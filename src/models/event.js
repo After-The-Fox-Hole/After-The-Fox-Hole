@@ -15,9 +15,16 @@ const eventSchema = new mongoose.Schema({
 		},
 		tags:[],
 		owner: {
-			required:true,
-			type: [mongoose.Schema.Types.ObjectId],
-			refPath: 'model_type'
+			id:{
+				required:true,
+				type: [mongoose.Schema.Types.ObjectId],
+				refPath: 'model_type'
+			},
+			name:{
+				type:String,
+				required: true
+			}
+			
 		},
 		model_type: {
 			type: String,

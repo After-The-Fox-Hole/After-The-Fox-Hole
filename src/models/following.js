@@ -6,8 +6,16 @@ const {Mongoose} = require("mongoose");
 
 
 const followingSchema = new mongoose.Schema({
-		following: { type: [mongoose.Schema.Types.ObjectId], refPath: 'model_type' },
-		model_type: {  type: String, enum: ['user','org' ], required: true },
+		following: {
+			id:{
+				required:true,
+				type: [mongoose.Schema.Types.ObjectId],
+				refPath: 'user'
+			},
+			name:{
+				type:String,
+				required: true
+			}},
 		owner: { type: [mongoose.Schema.Types.ObjectId], ref: 'user' },
 	},
 	{
