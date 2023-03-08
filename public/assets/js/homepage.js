@@ -12,9 +12,6 @@ function displayFireteamCards(cards) {
 				<h6 class="card-subtitle mb-2 text-muted">${cd.owner}</h6>
 				<p class="card-text">${cd.content}</p>
 				<p class="card-text">${cd.timeCreated}</p>
-				<div class="btn-group" role="group" aria-label="up-down vote buttons">
-                    <button type="button" class="btn" id="upVote" value="${cd.id}">UpVote</button>
-                </div>
 			</div>
 		</div>`;
     });
@@ -177,34 +174,6 @@ scoutTab.addEventListener("click", function() {
             console.error(error);
         });
 });
-
-//up-down vote listeners
-let upVoteBtn = document.getElementById("upVote")
-upVoteBtn.addEventListener("click", function(){
-    // Define the post ID and the increment amount
-    let postId = document.getElementById("upVote").value;
-    let incrementAmount = 1;
-    let requestBody = {
-        "$inc": { "votes": incrementAmount }
-    };
-
-// Make a POST request to the server-side endpoint with the request body
-    fetch(`/homepage/${postId}/votes`, {
-        method: "POST",
-        body: JSON.stringify(requestBody),
-        headers: { "Content-Type": "application/json" }
-    })
-        .then(response => response.json())
-        .then(data => {
-            // Process the data returned from the server
-            console.log(data);
-        })
-        .catch(error => {
-            console.error(error);
-            // Handle the error as needed
-        });
-});
-
 
 
 //building the fetch
