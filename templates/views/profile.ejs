@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="/assets/css/styles.css">
     <title>Profile</title>
 </head>
 
@@ -13,39 +13,35 @@
 <div class="grid text-center container" id="edit">
     <div class="g-col-6 g-col-md-4">
         <div class="card" style="width: 18rem;">
-            <a href="<%avatar%>"></a>
+            <a href="<%=owner.avatar%>"></a>
             <div class="card-body">
-                <h6 class="card-title"><%=info.displayName%></h6>
-                <h2 class="card-title"><%=info.name.first + " " + info.name.last%></h2>
+                <h6 class="card-title"><%=owner.info.displayName%></h6>
+                <h2 class="card-title"><%=owner.info.name.first + " " + owner.info.name.last%></h2>
                 <p class="card-text">
-                    Location:<%=info.location.text%>
-                    Branch of Service:<%=info.service.branch%>
-                    Status:<%=info.service.status%>
-                    Current Job:<%=info.service.currentJob%>
+                    Location:<%=owner.info.location.text%>
+                    Branch of Service:<%=owner.info.service.branch%>
+                    Status:<%=owner.info.service.status%>
+                    Current Job:<%=owner.info.service.currentJob%>
                 </p>
                 <button type="submit" id="edit-button">Edit Profile</button>
                 <button type="submit" id="end-editing">Save Profile</button>
-<!--                <td><a href="<%=`users/${user._id}/delete?_method=DELETE`%>" -->
-<!--                       onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>-->
-<!--                </td>-->
-<!--                <form method="post" action="/users/delete/<%user_id%>">&ndash;&gt;-->
-                    <!--                    <input type="submit" name="delete" value="delete" onclick="return confirm('Are you sure you want to delete?')">-->
-                    <!--                    <input type="hidden" value="DELETE">-->
-                    <!--</form>-->
+
             </div>
         </div>
     </div>
 <!--Recent post-->
     <div class="g-col-6 g-col-md-4">
         <h3>Recent Post</h3>
+        <% posts.forEach(function (post){%>
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title post-title"><%post.title%></h5>
-                <h6 class="card-subtitle mb-2 text-muted"><%post.owner%></h6>
-                <p class="card-text post-content"><%post.content%></p>
-                <p class="card-text post-time"><%post.timeCreated%></p>
+                <h5 class="card-title post-title"><%=post.title%></h5>
+                <h6 class="card-subtitle mb-2 text-muted"><%=post.owner%></h6>
+                <p class="card-text post-content"><%=post.content%></p>
+                <p class="card-text post-time"><%=post.timeCreated%></p>
             </div>
         </div>
+        <%});%>
     </div>
 <!--Fireteam-->
     <div class="g-col-6 g-col-md-4">
@@ -53,8 +49,7 @@
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h6 class="card-title following">Following</h6>
-                <%following.forEach(function(friend){ %>
-                    <li><%= friend %></li> <% }); %>
+
             </div>
         </div>
     </div>
@@ -64,7 +59,7 @@
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h6 class="card-title interest-tags">Interest tags</h6>
-                <%tags.forEach(function(tag){ %>
+                <%owner.tags.forEach(function(tag){ %>
                     <li><%= tag %></li> <% }); %>
             </div>
         </div>
@@ -75,5 +70,5 @@
 
 </body>
 
-<script src="/public/assets/js/profile.js"></script>
+<script src="../assets/js/profile.js"></script>
 </html>

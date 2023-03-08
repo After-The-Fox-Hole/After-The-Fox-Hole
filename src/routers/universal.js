@@ -32,8 +32,11 @@ router.post('/login', async (req, res)=>{
 			res.status(400).send("No type selected");
 			return
 		}
+		
+		user._id = user._id.valueOf();
+		
 		res.cookie("access_token", token, {httpOnly: true});
-		res.status(200).render('profile', {user})
+		res.status(200).redirect(`/profile?id=${user._id}`)
 	
 })
 

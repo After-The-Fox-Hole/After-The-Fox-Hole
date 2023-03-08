@@ -39,7 +39,7 @@ typeSelect.addEventListener("change", function() {
     let selectedValue = typeSelect.value;
 
     if (selectedValue === "post"){
-        fetch(`/homepage?type=post&tab=${selectedTab}`)
+        fetch(`/homepage/info?type=post&tab=${selectedTab}`)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -53,7 +53,7 @@ typeSelect.addEventListener("change", function() {
                 console.error(error);
             });
     } else if (selectedValue === "event"){
-        fetch(`/homepage?type=event&tab=${selectedTab}`)
+        fetch(`/homepage/info?type=event&tab=${selectedTab}`)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -67,7 +67,7 @@ typeSelect.addEventListener("change", function() {
                 console.error(error);
             });
     } else if (selectedValue === "all"){
-        fetch(`/homepage?type=all&tab=${selectedTab}`)
+        fetch(`/homepage/info?type=all&tab=${selectedTab}`)
             .then(response => response.json())
             .then(data => {
                 console.log(data);

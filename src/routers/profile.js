@@ -3,6 +3,7 @@ const User = require("../models/user");
 const router = new express.Router;
 const auth = require('../middleware/auth');
 const app = require("../app");
+const Post = require("../models/posts");
 
 
 
@@ -10,34 +11,31 @@ router.get("/profile", auth, async (req,res)=>{
 	const match={};
 	const sort = {};
 	
+	let owner = req.query.id;
+	owner = await User.findOne({_id:owner})
+	const posts = await Post.find({owner:owner._id})
 	
-	const posts = await req.user.populate({
-		path: "posts"
-		// match,
-		// options: {
-		// 	limit : parseInt(req.query.limit),
-		// 	skip: parseInt(req.query.skip),
-		// 	// sort
-		// }
-	})
-	
-	const events = await req.user.populate({
-		path: "posts"
-		// match,
-		// options: {
-		// 	limit : parseInt(req.query.limit),
-		// 	skip: parseInt(req.query.skip),
-		// 	// sort
-		// }
-	})
-	
+	// const events = await req.user.populate({
+	// 	path: "posts"
+	// 	// match,
+	// 	// options: {
+	// 	// 	limit : parseInt(req.query.limit),
+	// 	// 	skip: parseInt(req.query.skip),
+	// 	// 	// sort
+	// 	// }
+	// })
+	let edit = false;
 	
 	let user = req.user.clean();
+	owner = owner.clean();
+	if (user._id === owner._id){
+		edit = true;
+	}
 	console.log(user)
-	console.log(req.user.posts)
+	console.log(posts)
 	
 	
-	res.status(200).render("profile", ({user, posts, events, edit}))
+	res.status(200).render("profile", ({user, posts, owner, edit}))
 	
 })
 
