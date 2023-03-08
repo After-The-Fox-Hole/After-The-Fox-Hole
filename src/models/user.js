@@ -126,7 +126,7 @@ const userSchema = new mongoose.Schema({
 userSchema.virtual("posts", {
 	ref: "Post",
 	localField: "_id",
-	foreignField: "owner"
+	foreignField: "owner.id"
 })
 
 userSchema.virtual("event", {

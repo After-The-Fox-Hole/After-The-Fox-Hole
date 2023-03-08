@@ -15,7 +15,18 @@ const postSchema = new mongoose.Schema({
 		required: true,
 	},
 	tags:[],
-	owner: { type: [mongoose.Schema.Types.ObjectId], refPath: 'model_type' },
+	owner: {
+		id:{
+			required:true,
+			type: [mongoose.Schema.Types.ObjectId],
+			refPath: 'model_type'
+		},
+		name:{
+			type:String,
+			required: true
+		}
+		
+	},
 	model_type: {  type: String, enum: ['user','org' ], required: true },
 	timeCreated: {type: Date, default: Date.now },
 	votes:{
@@ -50,6 +61,14 @@ postSchema.pre('save', async function(next){
 	
 	next()
 })
+
+
+postSchema.methods.toJSON = function (){
+	const user = this;
+	return user.toObject();
+}
+
+
 
 const Post = mongoose.model('Post', postSchema)
 
