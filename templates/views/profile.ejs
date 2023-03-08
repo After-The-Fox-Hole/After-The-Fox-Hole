@@ -21,21 +21,25 @@
     <div class="row align-items-start">
         <div class="col-6 col-sm-3">
             <div class="card" style="width: 15rem;">
-                <a href="<%=owner.avatar%>"></a>
+                <img class="card-img-top" src="<%= owner.avatar%>" alt="">
                 <br>
                 <div class="card-body">
-                    <h6 class="card-title"><%=owner.info.displayName%></h6>
+                    <h6 class="card-title"><%=owner.displayName%></h6>
                     <h2 class="card-title"><%=owner.info.name.first + " " + owner.info.name.last%></h2>
                     <hr><br>
-                    <p class="card-text" id="edit">
-                        Location:<%=owner.info.location.text%><br>
-                        Branch of Service:<%=owner.info.service.branch%><br>
-                        Status:<%=owner.info.service.status%><br>
-                        Current Job:<%=owner.info.service.currentJob%>
-                    </p>
+                    <div class="card-text" id="edit">
+                        <div>Location:<span class="editLocation"><%=owner.info.location.text%></span></div>
+                        <div> Branch of Service:<span class="editBranch"><%=owner.info.service.branch%></span></div>
+                            <div>Status:<span class="editStatic"><%=owner.info.service.status%></span></div>
+                                <div> Current Job:<span class="editJob"><%=owner.info.currentJob%></span></div>
+                    </div>
                     <br>
-                    <button type="submit" id="edit-button">Edit Profile</button>
-                    <button type="submit" id="end-editing">Save Profile</button>
+                    <% if (edit){ %>
+                        <button type="submit" id="edit-button">Edit Profile</button>
+                        <button type="submit" id="end-editing" class="visually-hidden">Save Profile</button>
+                    <%} else{%>
+                        <button type="submit" id="fireTeam-button">Add to FireTeam</button>
+                    <%}%>
                 </div>
             </div>
         </div>

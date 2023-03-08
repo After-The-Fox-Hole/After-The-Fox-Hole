@@ -14,13 +14,13 @@ const Event = require("../models/event");
 
 router.get('/homepage',auth,async (req,res)=>{
 
-	
+	console.log("homepage fired")
 	let user = req.user
 	user = user.clean();
 	let tags = await Tags.find();
 	///// add tags
 	
-	res.status(200).render("homepage", user, tags)
+	res.status(200).render("homepage", ({user, tags}))
 	
 })
 

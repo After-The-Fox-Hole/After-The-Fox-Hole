@@ -6,6 +6,7 @@ const uniRouter = require('./routers/universal');
 const cookieParser = require('cookie-parser');
 const path = require("path");
 const postRouter = require('./routers/posts');
+const tagsRouter = require('./routers/tags');
 const profileRouter = require('./routers/profile');
 const eventRouter = require('./routers/events');
 const bodyParser = require('body-parser');
@@ -28,6 +29,7 @@ app.use(postRouter);
 app.use(profileRouter);
 app.use(eventRouter);
 app.use(homepageRouter);
+app.use(tagsRouter);
 
 
 
