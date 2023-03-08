@@ -1,13 +1,8 @@
-body{
-    background-color: black;
-}
-
 .container{
     display: grid;
     grid-template-columns: 300px 300px 300px 200px;
     grid-gap: 25px;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     height: 100vh;
-    background-color: gray;
 }
