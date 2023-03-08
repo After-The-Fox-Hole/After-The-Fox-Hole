@@ -45,7 +45,7 @@ router.get('/posts', auth, async (req,res)=>{
 		if(post.owner === user._id){
 			edit=true
 		}
-		let comments = await Post.populate("master");
+		let comments = await Comment.find({master:post._id})
 		
 		
 		
@@ -80,9 +80,7 @@ router.get('/posts', auth, async (req,res)=>{
 			return arr
 		}
 		
-		
-		result = loopTwo(result,dummy)
-		
+		result = loopTwo(result,comments)
 		
 		const commentLoop = (arr, html, count)=>{
 			arr = arr.sort(function(x,y){
