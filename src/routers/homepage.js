@@ -1,6 +1,7 @@
 const express = require('express')
 const User = require("../models/user");
 const Post = require("../models/posts")
+const Tags = require("../models/tags")
 const router = new express.Router;
 const auth = require('../middleware/auth');
 const app = require("../app");
@@ -16,7 +17,9 @@ router.get('/homepage',auth,async (req,res)=>{
 	
 	let user = req.user
 	user = user.clean();
+	let tags = await Tags.find();
 	///// add tags
+	
 	res.status(200).render("homepage", user)
 	
 })
