@@ -35,10 +35,10 @@
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#fireteam" data-toggle="tab" id="fireTab">Fireteam</a>
+                    <a class="nav-link active feedControl" href="#fireteam" data-toggle="tab" id="fireTab">Fireteam</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#scouting" data-toggle="tab" id="scoutTab">Scouting</a>
+                    <a class="nav-link feedControl" href="#all" data-toggle="tab" id="scoutTab">Scouting</a>
                 </li>
             </ul>
         </div>
@@ -46,7 +46,7 @@
             <!-- Filter Selector -->
             <div class="form-group">
                 <label for="type">Type Filter:</label>
-                <select class="form-control" id="type" name="type">
+                <select class="form-control feedControl" id="type" name="type">
                     <option value="post">Posts</option>
                     <option value="event">Events</option>
                     <option value="all">Both</option>
@@ -54,7 +54,7 @@
             </div>
             <div class="form-group">
                 <label for="sort">Sorting:</label>
-                <select class="form-control" id="sort" name="sort">
+                <select class="form-control feedControl" id="sort" name="sort">
                     <option value="newFirst">Newest First</option>
                     <option value="newActivity">Most Recent Activity</option>
                     <option value="mostComments">Most Popular</option>
@@ -64,23 +64,26 @@
             <!-- Searchable Multi-Select Field -->
             <div class="form-group">
                 <label for="tags">Tags:</label>
-                <select class="form-control" multiple="multiple" id="tags">
-                    <% if (typeFilter.value === "all"){
-                        for(var i=0; i<tags.length; i++) { %>
-                            <option value="<%= tags[i] %>"><%= tags[i] %></option>
+                <select class="form-control feedControl" multiple="multiple" id="tags">
+                    <% let postTags = tags.filter(function(tag) { return tag.type === "post"; }); %>
+                    <% let eventTags = tags.filter(function(tag) { return tag.type === "event"; }); %>
+                    <% let bothTags = tags.filter(function(tag) { return (tag.type === "post" && tag.type === "event"); }); %>
+                    <% if (type.value === "all"){
+                        for(var i=0; i<bothTags.length; i++) { %>
+                            <option value="<%= bothTags[i] %>"><%= bothTags[i] %></option>
                         <% } %>
                     <% } %>
-                    <% if (typeFilter.value === "post"){
-                        for(var i=0; i<tags.length; i++) {
+                    <% if (type.value === "post"){
+                        for(var i=0; i<postTags.length; i++) {
                         if (tags[i].type === "post"){  %>
-                            <option value="<%= tags[i] %>"><%= tags[i] %></option>
+                            <option value="<%= postTags[i] %>"><%= postTags[i] %></option>
                         <% } %>
                         <% } %>
                     <% } %>
-                        <% if (typeFilter.value === "event"){
-                        for(var i=0; i<tags.length; i++) {
+                        <% if (type.value === "event"){
+                        for(var i=0; i<eventTags.length; i++) {
                         if (tags[i].type === "event"){  %>
-                            <option value="<%= tags[i] %>"><%= tags[i] %></option>
+                            <option value="<%= eventTags[i] %>"><%= eventTags[i] %></option>
                         <% } %>
                         <% } %>
                         <% } %>
@@ -88,10 +91,10 @@
             </div>
             <!-- Post and Event Feed -->
             <div class="tab-content">
-                <div class="tab-pane fade show active" id="fireteamCards" >
+                <div class="tab-pane fade show active feedTab" id="fireteam">
 
                 </div>
-                <div class="tab-pane fade contentCards" id="scoutingCards">
+                <div class="tab-pane fade contentCards feedTab" id="all">
 
                 </div>
             </div>
