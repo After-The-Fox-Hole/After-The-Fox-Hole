@@ -23,11 +23,11 @@
             <div class="card" style="width: 15rem;">
                 <a href="<%=owner.avatar%>"></a>
                 <br>
-                <div class="card-body" id="edit">
+                <div class="card-body">
                     <h6 class="card-title"><%=owner.info.displayName%></h6>
                     <h2 class="card-title"><%=owner.info.name.first + " " + owner.info.name.last%></h2>
                     <hr><br>
-                    <p class="card-text">
+                    <p class="card-text" id="edit">
                         Location:<%=owner.info.location.text%><br>
                         Branch of Service:<%=owner.info.service.branch%><br>
                         Status:<%=owner.info.service.status%><br>
@@ -36,12 +36,11 @@
                     <br>
                     <button type="submit" id="edit-button">Edit Profile</button>
                     <button type="submit" id="end-editing">Save Profile</button>
-
                 </div>
             </div>
         </div>
     <!--Recent post-->
-        <div class="col-6 col-sm-3"">
+        <div class="col-6 col-sm-3">
             <h3>Recent Post</h3>
             <% posts.forEach(function (post){%>
             <div class="card" style="width: 15rem;">
@@ -54,7 +53,7 @@
             <%});%>
         </div>
     <!--Fireteam-->
-        <div class="col-6 col-sm-3"">
+        <div class="col-6 col-sm-3">
             <h3>Fireteam</h3>
             <div class="card" style="width: 15rem;">
                 <div class="card-body">
@@ -64,7 +63,7 @@
             </div>
         </div>
     <!--Interest-->
-        <div class="col-6 col-sm-3"">
+        <div class="col-6 col-sm-3">
             <h3>Interests</h3>
             <div class="card" style="width: 15rem;">
                 <div class="card-body">
