@@ -2,6 +2,35 @@
 
 
 
+ function updateTags(){
+     let postTags = tags.filter(function(tag) { return tag.type === "post"; });
+     let eventTags = tags.filter(function(tag) { return tag.type === "event"; });
+     let bothTags = tags.filter(function(tag) { return (tag.type === "post" && tag.type === "event"); });
+     let typeVal = document.getElementById("type").value;
+     let tagsSelector = document.getElementById("tags");
+     tagsSelector.innerHTML = ""
+     if (typeVal === "all"){
+         for(let i=0; i<bothTags.length; i++) {
+             tagsSelector.innerHTML += '<option value=${bothTags[i]}>${bothTags[i]}</option>'
+         }
+     }
+     if (typeVal === "post"){
+         for(let i=0; i<postTags.length; i++) {
+                 tagsSelector.innerHTML += '<option value=${postTags[i]} >${postTags[i]}</option>'
+             }
+         }
+     if (typeVal === "event"){
+         for(let i=0; i<eventTags.length; i++) {
+             tagsSelector.innerHTML += '<option value=${eventTags[i]}>${eventTags[i]}</option>'
+         }
+     }
+ }
+
+
+
+
+
+
 function displayCards(cards) {
     let whichTab = document.querySelector(".nav-tabs .active").getAttribute("href").substring(1);
     let contentCards = document.getElementById(whichTab);
@@ -18,11 +47,6 @@ function displayCards(cards) {
     });
 };
 
-
-//listener for type filter
-
-
-
 let feedResults = document.querySelectorAll(".feedControl");
 feedResults.forEach(function(feed) {
     feed.addEventListener("change", function() {
@@ -37,10 +61,12 @@ feedResults.forEach(function(feed) {
             .then(data => {
                 console.log(data);
                 displayCards(data);
+                //updateTags(data);
             })
             .catch(error => {
                 console.error(error);
             });
+        console.log(data);
         console.log("Input field changed");
     });
 });

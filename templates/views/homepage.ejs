@@ -65,28 +65,7 @@
             <div class="form-group">
                 <label for="tags">Tags:</label>
                 <select class="form-control feedControl" multiple="multiple" id="tags">
-                    <% let postTags = tags.filter(function(tag) { return tag.type === "post"; }); %>
-                    <% let eventTags = tags.filter(function(tag) { return tag.type === "event"; }); %>
-                    <% let bothTags = tags.filter(function(tag) { return (tag.type === "post" && tag.type === "event"); }); %>
-                    <% if (type.value === "all"){
-                        for(var i=0; i<bothTags.length; i++) { %>
-                            <option value="<%= bothTags[i] %>"><%= bothTags[i] %></option>
-                        <% } %>
-                    <% } %>
-                    <% if (type.value === "post"){
-                        for(var i=0; i<postTags.length; i++) {
-                        if (tags[i].type === "post"){  %>
-                            <option value="<%= postTags[i] %>"><%= postTags[i] %></option>
-                        <% } %>
-                        <% } %>
-                    <% } %>
-                        <% if (type.value === "event"){
-                        for(var i=0; i<eventTags.length; i++) {
-                        if (tags[i].type === "event"){  %>
-                            <option value="<%= eventTags[i] %>"><%= eventTags[i] %></option>
-                        <% } %>
-                        <% } %>
-                        <% } %>
+
                 </select>
             </div>
             <!-- Post and Event Feed -->
