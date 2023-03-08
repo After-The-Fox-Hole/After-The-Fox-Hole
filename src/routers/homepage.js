@@ -1,5 +1,6 @@
 const express = require('express')
 const User = require("../models/user");
+const Post = require("../models/posts")
 const router = new express.Router;
 const auth = require('../middleware/auth');
 const app = require("../app");
@@ -15,22 +16,41 @@ router.get('/homepage',auth,async (req,res)=>{
 	
 	let user = req.user
 	user = user.clean();
-	res.status(200).render("homepage", user, tags)
+	///// add tags
+	res.status(200).render("homepage", user)
 	
 })
 
 router.get('/homepage/info', auth, async (req, res) =>{
 	let obj = {}
-	let type = req.query.type;
-	let tag = req.query.tag;
-	let sort = req.query.sort;
-	let tab = req.query.tab;
+	let type = req.query.typeP;
+	let tag = req.query.tagP;
+	let sort = req.query.sortP;
+	let tab = req.query.tabP;
+	let text = req.query.textP;
 	
+	///// owner of post need to be first and last , need query by id to get real owner
+	let posts = await Post.find();
 	
+	let name;
+	if(posts.length > 1 ){
+		for(let x of posts){
+			name = await User.findOne({_id:x.owner})
+			name = name.info.name.first + " " + name.info.name.last
+		
+			x.name = name
+			console.log(x)
+		}
+	}
+	else{
+		name = await User.findOne({_id:posts.owner})
+		name = name.info.name.first + " " + name.info.name.last
+		posts.name = name
+	}
 	
+
 	
-	
-	res.status(200).send()
+	res.status(200).send(posts)
 })
 
 

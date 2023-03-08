@@ -1,5 +1,7 @@
 
 
+
+
 function displayCards(cards) {
     let whichTab = document.querySelector(".nav-tabs .active").getAttribute("href").substring(1);
     let contentCards = document.getElementById(whichTab);
@@ -18,13 +20,19 @@ function displayCards(cards) {
 
 
 //listener for type filter
-let feedResults = document.getElementsByClassName(".feedControl");
-feedResults.addEventListener("change", function() {
-    let selectedType = document.getElementById("type").value;
-    let selectedSort = document.getElementById("sort").value;
-    let selectedTab = document.querySelector(".nav-tabs .active").getAttribute("href");
 
-        fetch(`/homepage/info?type=${selectedType}&tab=${selectedTab}&sort=${selectedSort}`)
+
+
+let feedResults = document.querySelectorAll(".feedControl");
+feedResults.forEach(function(feed) {
+    feed.addEventListener("change", function() {
+        let searchText;
+        let selectedTags;
+        let selectedType = document.getElementById("type").value;
+        let selectedSort = document.getElementById("sort").value;
+        let selectedTab = document.querySelector(".nav-tabs .active").getAttribute("href");
+
+        fetch(`/homepage/info?typeP=${selectedType}&tabP=${selectedTab}&sortP=${selectedSort}&textP=${searchText}&tagsP=${selectedTags}`)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -33,8 +41,9 @@ feedResults.addEventListener("change", function() {
             .catch(error => {
                 console.error(error);
             });
-
+        console.log("Input field changed");
     });
+});
 
 
 //building the fetch
