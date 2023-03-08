@@ -9,10 +9,10 @@ function displayCards(cards) {
     cards.forEach(function(cd) {
         contentCards.innerHTML += `<div class="card" style="width: 18rem;">
 			<div class="card-body">
-				<h5 class="card-title">${cd.title}</h5>
-				<h6 class="card-subtitle mb-2 text-muted">${cd.owner}</h6>
-				<p class="card-text">${cd.content}</p>
-				<p class="card-text">${cd.timeCreated}</p>
+				<h5 class="card-title">${cd._doc.title}</h5>
+				<h6 class="card-subtitle mb-2 text-muted">${cd.name}</h6>
+				<p class="card-text">${cd._doc.content}</p>
+				<p class="card-text">${cd._doc.timeCreated}</p>
 			</div>
 		</div>`;
     });

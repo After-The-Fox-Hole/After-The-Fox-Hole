@@ -51,6 +51,14 @@ postSchema.pre('save', async function(next){
 	next()
 })
 
+
+postSchema.methods.toJSON = function (){
+	const user = this;
+	return user.toObject();
+}
+
+
+
 const Post = mongoose.model('Post', postSchema)
 
 module.exports = Post;

@@ -22,7 +22,8 @@ router.get('/homepage',auth,async (req,res)=>{
 })
 
 router.get('/homepage/info', auth, async (req, res) =>{
-	let obj = {}
+	let obj={}
+	let results =[];
 	let type = req.query.typeP;
 	let tag = req.query.tagP;
 	let sort = req.query.sortP;
@@ -32,14 +33,19 @@ router.get('/homepage/info', auth, async (req, res) =>{
 	///// owner of post need to be first and last , need query by id to get real owner
 	let posts = await Post.find();
 	
+	
 	let name;
 	if(posts.length > 1 ){
 		for(let x of posts){
 			name = await User.findOne({_id:x.owner})
 			name = name.info.name.first + " " + name.info.name.last
-		
 			x.name = name
-			console.log(x)
+			
+			obj = {
+				...x,
+				name:name
+			}
+			results.push(obj)
 		}
 	}
 	else{
@@ -47,10 +53,8 @@ router.get('/homepage/info', auth, async (req, res) =>{
 		name = name.info.name.first + " " + name.info.name.last
 		posts.name = name
 	}
-	
-
-	
-	res.status(200).send(posts)
+	console.log(results)
+	res.status(200).send(results)
 })
 
 
