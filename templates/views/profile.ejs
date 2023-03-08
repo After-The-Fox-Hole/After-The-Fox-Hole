@@ -9,43 +9,57 @@
 </head>
 
 <body>
-<div class="grid text-center container">
+<!--Profile information-->
+<div class="grid text-center container" id="edit">
     <div class="g-col-6 g-col-md-4">
         <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
+            <a href="<%avatar%>"></a>
             <div class="card-body">
-                <h6 class="card-title">displayname</h6>
-                <h2 class="card-title">First and last name</h2>
-                <p class="card-text"></p>
-                <a href="#" class="btn btn-primary">Edit Profile</a>
-                <a href="#" class="btn btn-primary">Delete Profile</a>
+                <h6 class="card-title"><%=info.displayName%></h6>
+                <h2 class="card-title"><%=info.name.first + " " + info.name.last%></h2>
+                <p class="card-text">
+                    Location:<%=info.location.text%>
+                    Branch of Service:<%=info.service.branch%>
+                    Status:<%=info.service.status%>
+                    Current Job:<%=info.service.currentJob%>
+                </p>
+                <button type="submit" id="edit-button">Edit Profile</button>
+                <button type="submit" id="end-editing">Save Profile</button>
+                <button>Delete Profile</button>
             </div>
         </div>
     </div>
+<!--Recent post-->
     <div class="g-col-6 g-col-md-4">
         <h3>Recent Post</h3>
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h6 class="card-title">Card title</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <h5 class="card-title"><%post.title%></h5>
+                <h6 class="card-subtitle mb-2 text-muted"><%post.owner%></h6>
+                <p class="card-text"><%post.content%></p>
+                <p class="card-text"><%post.timeCreated%></p>
             </div>
         </div>
     </div>
+<!--Fireteam-->
     <div class="g-col-6 g-col-md-4">
         <h3>Fireteam</h3>
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h6 class="card-title">Card title</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <h6 class="card-title">Following</h6>
+                <%following.forEach(function(friend){ %>
+                    <li><%= friend %></li> <% }); %>
             </div>
         </div>
     </div>
+<!--Interest-->
     <div class="g-col-6 g-col-md-4">
         <h3>Interests</h3>
         <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h6 class="card-title">Card title</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <h6 class="card-title">Interest tags</h6>
+                <%tags.forEach(function(tag){ %>
+                    <li><%= tag %></li> <% }); %>
             </div>
         </div>
     </div>
