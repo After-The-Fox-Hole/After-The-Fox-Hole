@@ -26,16 +26,7 @@ const attendingSchema = new mongoose.Schema({
 		
 	});
 
-const escape = (str) => validator.escape(str);
 
-attendingSchema.pre('save', async function(next){
-	const attending = this;
-	attending.title = escape(attending.title);
-	attending.content = escape(attending.content);
-	attending.location.text = escape(attending.location.text);
-	
-	next()
-})
 
 const Attending = mongoose.model('Attending', attendingSchema)
 

@@ -1,5 +1,6 @@
 const express = require('express')
 const User = require("../models/user");
+const Followers = require("../models/following");
 const router = new express.Router;
 const auth = require('../middleware/auth');
 const app = require("../app");
@@ -31,8 +32,8 @@ router.get("/profile", auth, async (req,res)=>{
 	if (user._id === owner._id){
 		edit = true;
 	}
-	console.log(user)
-	console.log(posts)
+	owner.followers =  await Followers.find({owner:owner._id})
+	
 	
 	
 	res.status(200).render("profile", ({user, posts, owner, edit}))
