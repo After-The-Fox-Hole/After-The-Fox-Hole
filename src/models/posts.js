@@ -32,7 +32,7 @@ const postSchema = new mongoose.Schema({
 postSchema.virtual("comment", {
 	ref: "Comment",
 	localField: "_id",
-	foreignField: "attach"
+	foreignField: "master"
 })
 
 postSchema.virtual("reports", {
