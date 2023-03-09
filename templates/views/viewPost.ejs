@@ -19,7 +19,7 @@
                         <h5 class="card-title" id="postTitle"><%=post.title%></h5>
                     </a>
                     <a href="">
-                        <h6 class="card-subtitle mb-2 text-muted" id="postCreator"><%=owner.name%></h6>
+                        <h6 class="card-subtitle mb-2 text-muted" id="postCreator"><%=post.owner.name%></h6>
                     </a>
                     <p class="card-text" id="postContent"><%=post.content%></p>
                     <p class="card-text" id="postCreated"><%=post.timeCreated%></p>
@@ -42,9 +42,7 @@
     <br>
 </div>
 <div class="row">
-    <div id="commentsThread">
-
-    </div>
+    <%=comments%>
 </div>
 
 
