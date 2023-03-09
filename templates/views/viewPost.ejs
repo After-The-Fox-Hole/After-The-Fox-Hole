@@ -6,11 +6,17 @@
 <body>
 <%- include('../partials/header'), ({user})%>
 
-<div class="row"></div>
-    <div class="card mb-3" style="max-width: 75vw;">
-        <div class="row g-0">
-            <div class="col-md-4 position-relative">
-                <img src="<%=post.avatar%>" class="img-fluid rounded-circle position-absolute top-0 start-0" style="width: 50px; height: 50px;" alt="...">
+<div class="container"></div>
+    <div class="card " style="">
+        <div class="row justify-content-center">
+            <div class="col-md-3"></div>
+            <div class="col-md-1">
+                <div class="align-items-center">
+                    <img src="<%=post.avatar%>" class="img-fluid rounded-circle" style="width: 50px; height: 50px;" alt="...">
+                    <a href="">
+                        <h6 class="card-subtitle mb-2 text-muted" id="postCreator"><%=post.owner.name%></h6>
+                    </a>
+                </div>
             </div>
             <div class="col-md-8">
                 <div class="card-body">
@@ -18,9 +24,7 @@
                     <a href="">
                         <h5 class="card-title" id="postTitle"><%=post.title%></h5>
                     </a>
-                    <a href="">
-                        <h6 class="card-subtitle mb-2 text-muted" id="postCreator"><%=post.owner.name%></h6>
-                    </a>
+
                     <p class="card-text" id="postContent"><%=post.content%></p>
                     <p class="card-text" id="postCreated"><%=post.timeCreated%></p>
                 </div>
