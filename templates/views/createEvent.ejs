@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Create Event</title>
+    <meta charset="UTF-8">
 
 
 </head>
@@ -11,19 +12,34 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h1>Create Post</h1>
+            <h1>Create Event</h1>
             <form action="" method="POST">
                 <div class="form-group">
-                    <label for="title">Title<span class="required">*</span></label>
+                    <label for="title">Event Title<span class="required">*</span></label>
                     <input type="text" class="form-control" id="title" name="title">
                 </div>
                 <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea rows="5" class="form-control" id="description" name="description"></textarea>
+                    <label for="content">Event Description</label>
+                    <textarea rows="5" class="form-control" id="content" name="content"></textarea>
+                    <br>
+                <div>
+                    <label for="date">Event Time and Date</label>
+                    <input class="form-control" type="datetime-local" id="date" placeholder="Select Date and Time">
                 </div>
-                <div class="form-group">
-                    <label for="tags">Tags</label>
+                    <br>
                 </div>
+                <div class="form-group col">
+
+                    <label for="tagsList">Tags:</label>
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                        Tags
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="tagsList">
+
+                    </ul>
+                </div>
+
                 <div class="form-group">
                     <p><span class="required">*</span> - required fields</p>
                 </div>
