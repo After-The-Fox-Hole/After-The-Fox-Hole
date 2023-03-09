@@ -1,5 +1,6 @@
 
 
+//grabbing the appropriate tags for what is being displayed on the page and populating the tag selector field
 document.addEventListener("DOMContentLoaded", function(event) {
     updateTags()
 });
@@ -9,37 +10,50 @@ document.addEventListener("DOMContentLoaded", function(event) {
     try{
        tags = await fetch(`/tags`)
         tags = await tags.json();
-        
+
     }
     catch (e) {
         console.error(e);
     }
-    
+
      let postTags = tags.filter(function(tag) { return tag.type === "post"; });
      let eventTags = tags.filter(function(tag) { return tag.type === "event"; });
-     let bothTags = tags.filter(function(tag) { return (tag.type === "post" && tag.type === "event"); });
-     console.log(postTags)
+     let bothTags = tags.filter(function(tag) { return (tag.type === "post" || tag.type === "event"); });
+     console.log(eventTags)
      let typeVal = document.getElementById("type").value;
-     let tagsSelector = document.getElementById("tags");
+     let tagsSelector = document.getElementById("tagsList");
      tagsSelector.innerHTML = ""
-     if (typeVal === "all"){
-         for(let i=0; i<bothTags.length; i++) {
-             tagsSelector.innerHTML += `<option value=${bothTags[i].content}>${bothTags[i].content}</option>`
-         }
+     if (typeVal === "both"){
+         bothTags.forEach(function(btag){
+             let input = document.createElement("input");
+             input.type = "checkbox";
+             input.value = btag.content;
+             input.appendChild(document.createTextNode(btag.content));
+             tagsSelector.append(input);
+         })
      }
      if (typeVal === "post"){
-         for(let i=0; i<postTags.length; i++) {
-                 tagsSelector.innerHTML += `<option value=${postTags[i].content} >${postTags[i].content}</option>`
-             }
+         postTags.forEach(function(ptag){
+             let input = document.createElement("input");
+             input.type = "checkbox";
+             input.value = ptag.content;
+             input.appendChild(document.createTextNode(ptag.content));
+             tagsSelector.append(input);
+         })
          }
      if (typeVal === "event"){
-         for(let i=0; i<eventTags.length; i++) {
-             tagsSelector.innerHTML += `<option value=${eventTags[i].content}>${eventTags[i].content}</option>`
-         }
+         eventTags.forEach(function(etag){
+             let input = document.createElement("input");
+             input.type = "checkbox";
+             input.value = etag.content;
+             input.appendChild(document.createTextNode(etag.content));
+             tagsSelector.append(input);
+         })
      }
+
  }
 
-
+//function to build the cards in the tabs
 function displayCards(cards) {
     let whichTab = document.querySelector(".nav-tabs .active").getAttribute("href").substring(1);
     let contentCards = document.getElementById(whichTab);
@@ -60,44 +74,23 @@ function displayCards(cards) {
     });
 };
 
-// let feedResults = document.querySelectorAll(".feedControl");
-// feedResults.forEach(function(feed) {
-//     feed.addEventListener("change", function() {
-//         let searchText;
-//         let selectedTags;
-//         let selectedType = document.getElementById("type").value;
-//         let selectedSort = document.getElementById("sort").value;
-//         let selectedTab = document.querySelector(".nav-tabs .active").getAttribute("href");
-//
-//         fetch(`/homepage/info?typeP=${selectedType}&tabP=${selectedTab}&sortP=${selectedSort}&textP=${searchText}&tagsP=${selectedTags}`)
-//             .then(response => response.json())
-//             .then(data => {
-//                 console.log(data);
-//                 displayCards(data);
-//                 //updateTags(data);
-//             })
-//             .catch(error => {
-//                 console.error(error);
-//             });
-//
-//         console.log("Input field changed");
-//     });
-// });
-
 // Define Function to Handle Feed and Search Events
 function handleFeedAndSearch() {
     let searchText = document.getElementById("search").value;
-    let tagsSelect = document.getElementById("tags");
     let selectedTags = [];
-    for (let option of tagsSelect.selectedOptions) {
-        selectedTags.push(option.value);
+    let checkboxes = document.getElementById("tagsList");
+    console.log(checkboxes);
+    for (let i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].checked) {
+            selectedTags.push(checkboxes[i].value);
+        }
     }
     let selectedType = document.getElementById("type").value;
     let selectedSort = document.getElementById("sort").value;
     let selectedTab = document.querySelector(".nav-tabs .active").getAttribute("href");
 
     console.log(selectedTags)
-    console.log(searchText)
+
 
     fetch(`/homepage/info?typeP=${selectedType}&tabP=${selectedTab}&sortP=${selectedSort}&textP=${searchText}&tagsP=${selectedTags}`)
         .then(response => response.json())
@@ -114,8 +107,14 @@ function handleFeedAndSearch() {
 // Add Event Listener to Feed Controls
 let feedResults = document.querySelectorAll(".feedControl");
 feedResults.forEach(function(feed) {
-    feed.addEventListener("change", handleFeedAndSearch);
+    feed.addEventListener("change", async function(){
+        handleFeedAndSearch();
+        feedResults = document.querySelectorAll(".feedControl");
+    });
 });
+
+let taglistener = document.getElementById("type")
+taglistener.addEventListener("change", updateTags);
 
 // Add Event Listener to Search Button
 document.getElementById("search-btn").addEventListener("click", handleFeedAndSearch);
@@ -124,18 +123,3 @@ document.addEventListener("keypress", function(e){
         handleFeedAndSearch();
     }
 })
-
-//building the fetch
-
-// fetch(`/homepage?type=${selectedType}&tab=${selectedTab}`)
-//     .then(response => response.json())
-//     .then(data => {
-//         // Process the data returned from the server
-//         console.log(data);
-//         // Call the displayCards function to display the posts
-//         displayFireteamCards(data);
-//     })
-//     .catch(error => {
-//         console.error(error);
-//         // Handle the error as needed
-//     });
