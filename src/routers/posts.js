@@ -112,6 +112,7 @@ router.get('/posts', auth, async (req,res)=>{
 		cHtml = commentLoop(result, cHtml, 0);
 		/// need owner
 		res.status(200).render('viewPost', ({user,post, edit, cHtml}))
+		return
 	}
 	res.status(400).send("No post found");
 })
