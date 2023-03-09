@@ -30,13 +30,13 @@
                     <div class="card-text" id="edit">
                         <div>Location:<span class="editLocation"><%=owner.info.location.text%></span></div>
                         <div> Branch of Service:<span class="editBranch"><%=owner.info.service.branch%></span></div>
-                            <div>Status:<span class="editStatic"><%=owner.info.service.status%></span></div>
+                            <div>Status:<span class="editStatus"><%=owner.info.service.status%></span></div>
                                 <div> Current Job:<span class="editJob"><%=owner.info.currentJob%></span></div>
                     </div>
                     <br>
                     <% if (edit){ %>
-                        <button type="submit" id="edit-button">Edit Profile</button>
-                        <button type="submit" id="end-editing" class="visually-hidden">Save Profile</button>
+                        <button type="submit" id="edit-button"><a href="/editProfile?id=<%owner._id%>">Edit Profile</a></button>
+<!--                        <button type="submit" id="end-editing" class="visually-hidden">Save Profile</button>-->
                     <%} else{%>
                         <button type="submit" id="fireTeam-button">Add to FireTeam</button>
                     <%}%>
