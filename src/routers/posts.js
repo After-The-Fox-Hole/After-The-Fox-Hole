@@ -27,6 +27,7 @@ router.post('/posts',auth,async (req,res)=>{
 })
 
 router.get('/posts', auth, async (req,res)=>{
+	
 	let post;
 	if(req.query.id){
 		const id = req.query.id;
@@ -37,10 +38,12 @@ router.get('/posts', auth, async (req,res)=>{
 		res.status(400).send("No post found");
 		return;
 	}
+		
 		let user = req.user.clean();
+		let ownerAvatar = await User.findOne({_id: post.owner.id})
+		ownerAvatar = ownerAvatar.avatar
 		post = post.toObject();
-		post._id = post._id.valueOf();
-		post.owner = post.owner[0].valueOf();
+		post.avatar = ownerAvatar
 		let edit=false;
 		if(post.owner === user._id){
 			edit=true
@@ -51,8 +54,9 @@ router.get('/posts', auth, async (req,res)=>{
 		
 		const loopOne =(arr)=>{
 			let a = []
+			
 			for (let x of arr){
-				if (!x.attach){
+				if (x.attach.length === 0){
 					a.push(x);
 				}
 			}
@@ -60,7 +64,6 @@ router.get('/posts', auth, async (req,res)=>{
 		}
 		
 		let result = loopOne(comments)
-		
 		const loopTwo = (arr,arrM) =>{
 			for (let x of arrM) {
 				for (let y of arr) {
@@ -114,6 +117,10 @@ router.get('/posts', auth, async (req,res)=>{
 	res.status(400).send("No post found");
 })
 
-
+router.get("/posts/create", auth, async (req, res)=>{
+	let user = req.user
+	user = user.clean();
+	res.status(200).render("createPost", ({user}));
+})
 
 module.exports = router;
