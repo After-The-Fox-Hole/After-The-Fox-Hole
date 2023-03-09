@@ -6,23 +6,31 @@ const router = new express.Router;
 const auth = require('../middleware/auth');
 const app = require("../app");
 const Event = require("../models/event");
+const Following = require("../models/following");
 
 
 
 
 ///////make a event
 
-router.get('/homepage',auth,async (req,res)=>{
-
-	console.log("homepage fired")
+router.get("/homepage/fireteam", auth, async (req, res)=>{
 	let user = req.user
+	let following = await Following.find({owner:user._id})
+	let posts = [];
+	for (let fUsers of following){
+		let x = await Post.findOne({'owner.id':fUsers.following.id})
+		posts.push(x);
+	}
+	res.status(200).send(posts);
+});
+
+router.get('/homepage',auth,async (req,res)=>{
+	let user = req.user
+	
 	user = user.clean();
-	let tags = await Tags.find();
-	///// add tags
+	res.status(200).render("homepage", (user))
 	
-	res.status(200).render("homepage", ({user, tags}))
-	
-})
+});
 
 router.get('/homepage/info', auth, async (req, res) =>{
 	let obj={}
