@@ -32,6 +32,7 @@ router.get("/profile", auth, async (req,res)=>{
 	if (user._id === owner._id){
 		edit = true;
 	}
+	user.events = req.events;
 	owner.followers =  await Followers.find({owner:owner._id})
 	
 	

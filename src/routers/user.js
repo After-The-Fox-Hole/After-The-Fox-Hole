@@ -45,7 +45,11 @@ router.post('/users',async (req,res)=>{
 			})
 	}
 	catch (e) {
-		throw new Error("Error finding location")
+		let error={
+			error:"Location could not be found"
+		}
+		res.status(200).render("registerUser", ({error}));
+		return;
 	}
 	try{
 		user = new User(user);
@@ -63,7 +67,7 @@ router.post('/users',async (req,res)=>{
 
 //////// log out
 
-router.post('/users/logout', auth, async (req, res)=>{
+router.get('/users/logout', auth, async (req, res)=>{
 	try{
 		req.user.tokens = req.user.tokens.filter((token)=>{
 			return token.token !== req.token

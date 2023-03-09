@@ -6,7 +6,10 @@ const auth = require("../middleware/auth");
 const router = new express.Router;
 
 router.post('/login', async (req, res)=>{
-	
+	let attempt = {
+		email: req.body.email,
+		
+	}
 	let token;
 	let user;
 		if (req.body.type === "user") {
@@ -14,7 +17,9 @@ router.post('/login', async (req, res)=>{
 				user = await User.findByCredentials(req.body.email, req.body.password);
 			}
 			catch (e) {
-				res.status(400).send(e.message)
+				attempt.error = "Could not find email and password match"
+				
+				res.status(200).render("login", ({attempt}))
 				return;
 			}
 			token = await user.generateAuthToken();
@@ -29,7 +34,8 @@ router.post('/login', async (req, res)=>{
 			}
 			token = await user.generateAuthToken();
 		} else {
-			res.status(400).send("No type selected");
+			res.status(400)
+			console.log("no type selected")
 			return
 		}
 		
@@ -47,7 +53,7 @@ router.post('/logout', auth, async (req, res)=>{
 			return token.token !== req.token
 		})
 		await req.user.save();
-		res.status(200).send();
+		res.status(200).render("login")
 	}
 	catch (e){
 		res.status(500).send();

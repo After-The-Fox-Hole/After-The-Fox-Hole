@@ -1,6 +1,8 @@
 	const jwt = require('jsonwebtoken')
 	const User = require('../models/user')
 	const Org = require('../models/org')
+	const Attending = require("../models/attending");
+	const Events = require("../models/event");
 
 	const auth = async (req, res, next)=>{
 		try {
@@ -16,7 +18,19 @@
 				throw Error();
 			}
 			req.token = token;
-			req.user = user;
+			
+			let upcoming =await Attending.find({'owner.id': user._id})
+			let events = [];
+			for (let e of upcoming){
+				let y;
+				y = await Events.findOne({_id:e.event._id})
+				events.push(y)
+			}
+			
+			
+			req.events = events
+			req.user = user
+			
 			next();
 		}
 		catch (e){
