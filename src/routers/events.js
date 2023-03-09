@@ -48,5 +48,16 @@ router.get("/events/create", auth, async (req, res)=>{
 	
 	})
 
+router.get('/events/view', auth,async (req,res)=>{
+	let id = req.query.id
+	let event = await Event.findOne({_id:id})
+	let user = req.user
+	user = user.clean();
+	res.status(200).render("viewEvent", ({user, event}))
+	
+	//// comments for events and handling and owner
+	
+})
+
 
 module.exports = router;
