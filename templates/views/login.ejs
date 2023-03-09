@@ -13,7 +13,12 @@
     <title>After the Foxhole</title>
 </head>
 <body>
+<% if (typeof user === 'undefined'){%>
 <%- include('../partials/header')%>
+<%}else{%>
+<%- include('../partials/header'), ({user})%>
+    <%}%>
+
 <!-- Section: Design Block -->
 <section class="">
     <!-- Jumbotron -->
@@ -40,10 +45,17 @@
 
                                 <h2>Sign Up for After the Foxhole</h2>
 
+                                <% if (typeof  attempt !== 'undefined'){%>
+                                <div class="m-3 bg-warning rounded-pill"><%=attempt.error%></div>
+                                <%}%>
+
                                 <!-- Email input -->
                                 <div class="form-outline mb-4">
                                     <input type="hidden" name="type" value="user"/>
-                                    <input type="email" id="email" name="email" class="form-control" />
+                                    <input type="email" id="email" name="email"
+                                            <% if (typeof  attempt !== 'undefined'){%>
+                                            value="<%=attempt.email%>"
+                                           <%}%>class="form-control" />
                                     <label class="form-label" for="email">Email address</label>
                                 </div>
 

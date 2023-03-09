@@ -11,7 +11,10 @@ app.listen(port, ()=>{
 })
 
 app.get('', (request, response) => {
-	response.render('login')
+	let attempt = {
+		status: "first"
+	}
+	response.render('login', ({attempt}))
 });
 
 
