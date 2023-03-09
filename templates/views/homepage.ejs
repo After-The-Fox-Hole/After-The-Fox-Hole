@@ -44,29 +44,36 @@
         </div>
         <div class="card-body">
             <!-- Filter Selector -->
-            <div class="form-group">
-                <label for="type">Type Filter:</label>
-                <select class="form-control feedControl" id="type" name="type">
-                    <option value="post">Posts</option>
-                    <option value="event">Events</option>
-                    <option value="all">Both</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="sort">Sorting:</label>
-                <select class="form-control feedControl" id="sort" name="sort">
-                    <option value="newFirst">Newest First</option>
-                    <option value="newActivity">Most Recent Activity</option>
-                    <option value="mostComments">Most Popular</option>
-                    <option value="mostUpvotes">Most Upvotes</option>
-                </select>
-            </div>
-            <!-- Searchable Multi-Select Field -->
-            <div class="form-group">
-                <label for="tags">Tags:</label>
-                <select class="form-control feedControl" multiple="multiple" id="tags">
+            <div class="row">
+                <div class="form-group col">
+                    <label for="type">Type Filter:</label>
+                    <select class="form-control feedControl" id="type" name="type">
+                        <option value="post">Posts</option>
+                        <option value="event">Events</option>
+                        <option value="all">Both</option>
+                    </select>
+                </div>
+                <div class="form-group col">
+                    <label for="sort">Sorting:</label>
+                    <select class="form-control feedControl" id="sort" name="sort">
+                        <option value="newFirst">Newest First</option>
+                        <option value="newActivity">Most Recent Activity</option>
+                        <option value="mostComments">Most Popular</option>
+                        <option value="mostUpvotes">Most Upvotes</option>
+                    </select>
+                </div>
+                <!-- Searchable Multi-Select Field -->
+                <div class="form-group col">
+                    <label for="tags">Tags:</label>
+                    <select class="form-control form-select feedControl" multiple="multiple" id="tags">
 
-                </select>
+                    </select>
+                </div>
+                <div class="form-group col">
+                    <label for="search">Search:</label>
+                    <input type="text" class="form-control" id="search" name="search" placeholder="Enter search term...">
+                    <button id="search-btn" class="btn btn-primary">Search</button>
+                </div>
             </div>
             <!-- Post and Event Feed -->
             <div class="tab-content">

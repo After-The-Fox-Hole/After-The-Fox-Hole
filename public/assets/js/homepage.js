@@ -40,19 +40,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
  }
 
 
-
-
-
-
 function displayCards(cards) {
     let whichTab = document.querySelector(".nav-tabs .active").getAttribute("href").substring(1);
     let contentCards = document.getElementById(whichTab);
     contentCards.innerHTML = "";
     cards.forEach(function(cd) {
-        contentCards.innerHTML += `<div class="card" style="width: 18rem;">
+        contentCards.innerHTML += `<div class="card" style="">
 			<div class="card-body">
-				<h5 class="card-title">${cd.title}</h5>
-				<h6 class="card-subtitle mb-2 text-muted">${cd.owner.name}</h6>
+			    <a href="">
+			        <h5 class="card-title">${cd.title}</h5>
+                </a>
+                <a href="">
+                    <h6 class="card-subtitle mb-2 text-muted">${cd.owner.name}</h6>
+                </a>
 				<p class="card-text">${cd.content}</p>
 				<p class="card-text">${cd.timeCreated}</p>
 			</div>
@@ -60,29 +60,65 @@ function displayCards(cards) {
     });
 };
 
+// let feedResults = document.querySelectorAll(".feedControl");
+// feedResults.forEach(function(feed) {
+//     feed.addEventListener("change", function() {
+//         let searchText;
+//         let selectedTags;
+//         let selectedType = document.getElementById("type").value;
+//         let selectedSort = document.getElementById("sort").value;
+//         let selectedTab = document.querySelector(".nav-tabs .active").getAttribute("href");
+//
+//         fetch(`/homepage/info?typeP=${selectedType}&tabP=${selectedTab}&sortP=${selectedSort}&textP=${searchText}&tagsP=${selectedTags}`)
+//             .then(response => response.json())
+//             .then(data => {
+//                 console.log(data);
+//                 displayCards(data);
+//                 //updateTags(data);
+//             })
+//             .catch(error => {
+//                 console.error(error);
+//             });
+//
+//         console.log("Input field changed");
+//     });
+// });
+
+// Define Function to Handle Feed and Search Events
+function handleFeedAndSearch() {
+    let searchText = document.getElementById("search").value;
+    let tagsSelect = document.getElementById("tags");
+    let selectedTags = [];
+    for (let option of tagsSelect.selectedOptions) {
+        selectedTags.push(option.value);
+    }
+    let selectedType = document.getElementById("type").value;
+    let selectedSort = document.getElementById("sort").value;
+    let selectedTab = document.querySelector(".nav-tabs .active").getAttribute("href");
+
+    console.log(selectedTags)
+    console.log(searchText)
+
+    fetch(`/homepage/info?typeP=${selectedType}&tabP=${selectedTab}&sortP=${selectedSort}&textP=${searchText}&tagsP=${selectedTags}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            displayCards(data);
+            //updateTags(data);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+}
+
+// Add Event Listener to Feed Controls
 let feedResults = document.querySelectorAll(".feedControl");
 feedResults.forEach(function(feed) {
-    feed.addEventListener("change", function() {
-        let searchText;
-        let selectedTags;
-        let selectedType = document.getElementById("type").value;
-        let selectedSort = document.getElementById("sort").value;
-        let selectedTab = document.querySelector(".nav-tabs .active").getAttribute("href");
-
-        fetch(`/homepage/info?typeP=${selectedType}&tabP=${selectedTab}&sortP=${selectedSort}&textP=${searchText}&tagsP=${selectedTags}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                displayCards(data);
-                //updateTags(data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        
-        console.log("Input field changed");
-    });
+    feed.addEventListener("change", handleFeedAndSearch);
 });
+
+// Add Event Listener to Search Button
+document.getElementById("search-btn").addEventListener("click", handleFeedAndSearch);
 
 
 //building the fetch
