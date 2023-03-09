@@ -119,7 +119,11 @@ feedResults.forEach(function(feed) {
 
 // Add Event Listener to Search Button
 document.getElementById("search-btn").addEventListener("click", handleFeedAndSearch);
-
+document.addEventListener("keypress", function(e){
+    if (e.key === "Enter"){
+        handleFeedAndSearch();
+    }
+})
 
 //building the fetch
 

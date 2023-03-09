@@ -41,4 +41,15 @@ router.get("/profile", auth, async (req,res)=>{
 	
 })
 
+router.get("/profile/edit", auth, async (req, res)=>{
+	
+	let user = req.user;
+	
+	res.status(200).render("editProfile", ({user}))
+})
+
+router.post("/profile/edit", auth, async (req,res) =>{
+
+})
+
 module.exports = router;
