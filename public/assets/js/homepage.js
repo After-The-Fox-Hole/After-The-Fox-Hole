@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         .then(response => response.json())
         .then(data => {
             displayCards(data);
+            console.log(data)
         })
 });
 
@@ -82,7 +83,7 @@ function displayCards(cards) {
     cards.forEach(function(cd) {
         contentCards.innerHTML += `<div class="card" style="">
 			<div class="card-body">
-			    <a href="">
+			    <a href="/posts?id=${cd._id}">
 			        <h5 class="card-title">${cd.title}</h5>
                 </a>
                 <a href="">
@@ -91,7 +92,8 @@ function displayCards(cards) {
 				<p class="card-text">${cd.content}</p>
 				<p class="card-text">${cd.timeCreated}</p>
 			</div>
-		</div>`;
+		</div>`
+        console.log(cd._id);
     });
 };
 
