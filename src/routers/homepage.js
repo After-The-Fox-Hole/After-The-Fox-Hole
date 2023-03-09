@@ -25,11 +25,12 @@ router.get("/homepage/fireteam", auth, async (req, res)=>{
 });
 
 router.get('/homepage',auth,async (req,res)=>{
+	
+	
 	let user = req.user
-	
 	user = user.clean();
-	res.status(200).render("homepage", (user))
 	
+	res.status(200).render("homepage", ({user}))
 });
 
 router.get('/homepage/info', auth, async (req, res) =>{
