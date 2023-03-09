@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Post</title>
+</head>
+<body>
+<%- include('../partials/header'), ({user})%>
+
+<div class="row"></div>
+    <div class="card mb-3" style="max-width: 75vw;">
+        <div class="row g-0">
+            <div class="col-md-4 position-relative">
+                <img src="<%=owner.avatar%>" class="img-fluid rounded-circle position-absolute top-0 start-0" style="width: 50px; height: 50px;" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <div> </div>
+                    <a href="">
+                        <h5 class="card-title" id="postTitle"><%=post.title%></h5>
+                    </a>
+                    <a href="">
+                        <h6 class="card-subtitle mb-2 text-muted" id="postCreator"><%=owner.name%></h6>
+                    </a>
+                    <p class="card-text" id="postContent"><%=post.content%></p>
+                    <p class="card-text" id="postCreated"><%=post.timeCreated%></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+<div class="row">
+    <form class="row g-3">
+        <div class="row">
+            <label for="addCommentText" class="form-label">Comment:</label>
+            <textarea class="form-control" id="addCommentText" rows="3"></textarea>
+        </div>
+        <div class="row">
+            <button type="submit" class="btn btn-primary mb-3" id="addCmtBtn">Add Comment</button>
+        </div>
+    </form>
+    <br>
+</div>
+<div class="row">
+    <div id="commentsThread">
+
+    </div>
+</div>
+
+
+<%- include('../partials/footer')%>
+</body>
+</html>

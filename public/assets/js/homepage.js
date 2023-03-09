@@ -1,8 +1,13 @@
 
-
 //grabbing the appropriate tags for what is being displayed on the page and populating the tag selector field
 document.addEventListener("DOMContentLoaded", function(event) {
     updateTags()
+
+    fetch(`/homepage/fireteam`)
+        .then(response => response.json())
+        .then(data => {
+            displayCards(data);
+        })
 });
 
  async function updateTags(){
@@ -19,35 +24,51 @@ document.addEventListener("DOMContentLoaded", function(event) {
      let postTags = tags.filter(function(tag) { return tag.type === "post"; });
      let eventTags = tags.filter(function(tag) { return tag.type === "event"; });
      let bothTags = tags.filter(function(tag) { return (tag.type === "post" || tag.type === "event"); });
-     console.log(eventTags)
      let typeVal = document.getElementById("type").value;
      let tagsSelector = document.getElementById("tagsList");
      tagsSelector.innerHTML = ""
      if (typeVal === "both"){
          bothTags.forEach(function(btag){
-             let input = document.createElement("input");
-             input.type = "checkbox";
-             input.value = btag.content;
-             input.appendChild(document.createTextNode(btag.content));
-             tagsSelector.append(input);
+             let li = document.createElement("li");
+             li.classList.add("dropdown-item", "form-control");
+             let label = document.createElement("label");
+             let checkbox = document.createElement("input");
+             checkbox.type = "checkbox";
+             checkbox.value = btag.content;
+             label.appendChild(checkbox);
+             label.appendChild(document.createTextNode(" "+ btag.content));
+             li.appendChild(label);
+             tagsSelector.appendChild(li);
          })
+
      }
      if (typeVal === "post"){
          postTags.forEach(function(ptag){
-             let input = document.createElement("input");
-             input.type = "checkbox";
-             input.value = ptag.content;
-             input.appendChild(document.createTextNode(ptag.content));
-             tagsSelector.append(input);
+             let li = document.createElement("li");
+             li.classList.add("dropdown-item");
+             let label = document.createElement("label");
+             let checkbox = document.createElement("input");
+             checkbox.type = "checkbox";
+             checkbox.value = ptag.content;
+             checkbox.classList.add("form-check-input");
+             label.appendChild(checkbox);
+             label.appendChild(document.createTextNode(ptag.content));
+             li.appendChild(label);
+             tagsSelector.appendChild(li);
          })
          }
      if (typeVal === "event"){
          eventTags.forEach(function(etag){
-             let input = document.createElement("input");
-             input.type = "checkbox";
-             input.value = etag.content;
-             input.appendChild(document.createTextNode(etag.content));
-             tagsSelector.append(input);
+             let li = document.createElement("li");
+             li.classList.add("dropdown-item");
+             let label = document.createElement("label");
+             let checkbox = document.createElement("input");
+             checkbox.type = "checkbox";
+             checkbox.value = etag.content;
+             label.appendChild(checkbox);
+             label.appendChild(document.createTextNode(etag.content));
+             li.appendChild(label);
+             tagsSelector.appendChild(li);
          })
      }
 
@@ -77,9 +98,9 @@ function displayCards(cards) {
 // Define Function to Handle Feed and Search Events
 function handleFeedAndSearch() {
     let searchText = document.getElementById("search").value;
+    let ul = document.querySelector('#tagsList');
+    let checkboxes = ul.querySelectorAll('input[type="checkbox"]');
     let selectedTags = [];
-    let checkboxes = document.getElementById("tagsList");
-    console.log(checkboxes);
     for (let i = 0; i < checkboxes.length; i++) {
         if (checkboxes[i].checked) {
             selectedTags.push(checkboxes[i].value);
@@ -95,7 +116,6 @@ function handleFeedAndSearch() {
     fetch(`/homepage/info?typeP=${selectedType}&tabP=${selectedTab}&sortP=${selectedSort}&textP=${searchText}&tagsP=${selectedTags}`)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
             displayCards(data);
             //updateTags(data);
         })
