@@ -4,6 +4,7 @@ const router = new express.Router;
 const auth = require('../middleware/auth');
 const app = require("../app");
 const {add} = require("nodemon/lib/rules");
+const sgMail = require("@sendgrid/mail");
 
 
 ///////sign up
@@ -99,5 +100,47 @@ router.delete('/users/me',auth, async (req, res)=>{
 	catch (e){
 		res.status(500).send(e)
 	}
+})
+
+
+router.post("/users/recovery", async (req, res)=>{
+	let email = req.body.email;
+	try{
+		let user = await User.findOne({'info.email':email})
+		if(user){
+			let chars = "0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			let passwordLength = 12;
+			let password = "";
+			
+			for (let i = 0; i <= passwordLength; i++) {
+				let randomNumber = Math.floor(Math.random() * chars.length);
+				password += chars.substring(randomNumber, randomNumber +1);
+			}
+			user.password = password;
+			
+			const sgMail = require('@sendgrid/mail')
+			sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+			const msg = {
+				to: `${email}`, // Change to your recipient
+				from: 'informational@afterthefoxhole.com', // Change to your verified sender
+				subject: 'After The Fox Hole RECOVERY',
+				text: `Your recovery password is:    ${password}`,
+				html: `<strong>Your recovery password is:    ${password}</strong>`,
+			}
+			sgMail
+				.send(msg)
+				.then(() => {
+					console.log('Email sent')
+				})
+				.catch((error) => {
+					console.error(error)
+				})
+		}
+		
+	}
+	catch (e) {
+	
+	}
+	res.status(200).redirect("/")
 })
 module.exports = router;
