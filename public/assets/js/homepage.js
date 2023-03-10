@@ -111,10 +111,20 @@ function handleFeedAndSearch() {
     let selectedSort = document.getElementById("sort").value;
     let selectedTab = document.querySelector(".nav-tabs .active").getAttribute("href");
 
-    console.log(selectedTags)
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            typeP: selectedType,
+            tabP: selectedTab,
+            sortP: selectedSort,
+            textP: searchText,
+            tagsP: selectedTags
+        })
+    };
 
 
-    fetch(`/homepage/info?typeP=${selectedType}&tabP=${selectedTab}&sortP=${selectedSort}&textP=${searchText}&tagsP=${selectedTags}`)
+    fetch('/homepage/info', requestOptions)
         .then(response => response.json())
         .then(data => {
             displayCards(data);
@@ -129,6 +139,14 @@ function handleFeedAndSearch() {
 let feedResults = document.querySelectorAll(".feedControl");
 feedResults.forEach(function(feed) {
     feed.addEventListener("change", async function(){
+        handleFeedAndSearch();
+        feedResults = document.querySelectorAll(".feedControl");
+    });
+});
+
+let tabFeedUpdate = document.querySelectorAll(".tabbing");
+tabFeedUpdate.forEach(function(tab) {
+    tab.addEventListener("click", async function(){
         handleFeedAndSearch();
         feedResults = document.querySelectorAll(".feedControl");
     });
