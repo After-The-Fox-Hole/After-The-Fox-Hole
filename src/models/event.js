@@ -51,7 +51,17 @@ const eventSchema = new mongoose.Schema({
 			type:String,
 			required:true
 			
-		}
+		},
+		latestComment:{
+			type:Date
+		},
+		commentCount:{
+			type:Number,
+			default: 0
+		} ,
+		votes:{
+			type:Number
+		},
 	},
 	{
 		timestamps:true,

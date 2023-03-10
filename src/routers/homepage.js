@@ -53,14 +53,48 @@ router.get('/homepage/info', auth, async (req, res) =>{
 	let obj={}
 	let results =[];
 	let type = req.query.typeP;
+	/// post/event/ string
 	let tag = req.query.tagP;
+	//// array of strings
 	let sort = req.query.sortP;
+	/// sort, string
 	let tab = req.query.tabP;
+	/// fireteam / alll
 	let text = req.query.textP;
+	//// string text search
 	
-	///// owner of post need to be first and last , need query by id to get real owner
-	let posts = await Post.find();
+	let result = []
+	let tags = true
+	let textOnly = true
+	let sorting = {
 	
+	}
+	if(sort === 'timeCreated'){
+		sorting.timeCreated= -1
+	}
+	if(sort === "latestComment"){
+		sorting.latestComment = -1
+	}
+	if (sort === "commentCount"){
+		sorting.commentCount = -1
+	}
+	
+	
+	
+	
+	
+	// await req.user.populate({
+	// 	path: 'tasks',
+	// 	match,
+	// 	options: {
+	// 		limit : parseInt(req.query.limit),
+	// 		skip: parseInt(req.query.skip),
+	// 		sort
+	// 	}
+	// })
+	
+	
+	res.send(req.user.tasks)
 	
 	
 	res.status(200).send(posts)

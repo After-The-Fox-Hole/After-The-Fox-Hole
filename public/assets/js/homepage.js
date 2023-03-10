@@ -23,25 +23,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
      let postTags = tags.filter(function(tag) { return tag.type === "post"; });
      let eventTags = tags.filter(function(tag) { return tag.type === "event"; });
-     let bothTags = tags.filter(function(tag) { return (tag.type === "post" || tag.type === "event"); });
      let typeVal = document.getElementById("type").value;
      let tagsSelector = document.getElementById("tagsList");
      tagsSelector.innerHTML = ""
-     if (typeVal === "both"){
-         bothTags.forEach(function(btag){
-             let li = document.createElement("li");
-             li.classList.add("dropdown-item", "form-control");
-             let label = document.createElement("label");
-             let checkbox = document.createElement("input");
-             checkbox.type = "checkbox";
-             checkbox.value = btag.content;
-             label.appendChild(checkbox);
-             label.appendChild(document.createTextNode(" "+ btag.content));
-             li.appendChild(label);
-             tagsSelector.appendChild(li);
-         })
-
-     }
      if (typeVal === "post"){
          postTags.forEach(function(ptag){
              let li = document.createElement("li");
