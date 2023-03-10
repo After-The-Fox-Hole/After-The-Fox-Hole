@@ -130,8 +130,9 @@ router.post("/users/recovery", async (req, res)=>{
 				to: `${email}`, // Change to your recipient
 				from: 'informational@afterthefoxhole.com', // Change to your verified sender
 				subject: 'After The Fox Hole RECOVERY',
-				text: `Your recovery password is:    ${password}`,
-				html: `<strong>Your recovery password is:    ${password}</strong>`,
+				text: `Your new password is:    ${password}   REMEMBER TO CHANGE YOUR PASSWORD IN EDIT PROFILE`,
+				html: `<div>Your NEW password is:   <strong>${password}</strong> </div>
+				<div>REMEMBER TO CHANGE YOUR PASSWORD IN EDIT PROFILE</div>`,
 			}
 			sgMail
 				.send(msg)
