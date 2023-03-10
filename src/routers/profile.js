@@ -5,6 +5,7 @@ const router = new express.Router;
 const auth = require('../middleware/auth');
 const app = require("../app");
 const Post = require("../models/posts");
+const Event = require("../models/event");
 const Avatar = require("../models/avatars");
 const {del} = require("express/lib/application");
 
@@ -19,7 +20,7 @@ router.get("/profile", auth, async (req,res)=>{
 	owner = await User.findOne({_id:owner})
 	
 	const posts = await Post.find({owner:owner._id})
-	
+	const events = await Event.find({owner:owner._id})
 	// const events = await req.user.populate({
 	// 	path: "posts"
 	// 	// match,
@@ -36,12 +37,13 @@ router.get("/profile", auth, async (req,res)=>{
 	if (user._id === owner._id){
 		edit = true;
 	}
-	
+	owner.events = events
+	owner.posts = posts
 	owner.followers =  await Followers.find({owner:owner._id})
 	
 	
 	
-	res.status(200).render("profile", ({user, posts, owner, edit}))
+	res.status(200).render("profile", ({user,owner, edit}))
 	
 })
 
