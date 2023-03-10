@@ -26,18 +26,18 @@ router.post('/events',auth,async (req,res)=>{
 	res.status(200).send(event);
 })
 
-// router.get('/events', auth, async (req,res)=>{
-// 	const id = req.query.id;
-// 	let event = await Event.findOne({_id:id});
-// 	let user = await req.user.clean();
-//
-//
-// 	let edit=false;
-// 	if(event.owner.id === user._id){
-// 		edit=true
-// 	}
-// 	res.status(200).render('viewEvent', ({user,event, edit}))
-// })
+router.get('/events', auth, async (req,res)=>{
+	const id = req.query.id;
+	let event = await Event.findOne({_id:id});
+	let user = await req.user.clean();
+
+
+	let edit=false;
+	if(event.owner.id === user._id){
+		edit=true
+	}
+	res.status(200).render('viewEvent', ({user,event, edit}))
+})
 
 router.get("/events/create", auth, async (req, res)=>{
 	

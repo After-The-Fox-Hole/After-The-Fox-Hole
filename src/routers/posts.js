@@ -12,8 +12,13 @@ const Comment = require("../models/comment")
 
 router.post('/posts',auth,async (req,res)=>{
 	const post = new Post({
-		...req.body,
-		owner: req.user._id,
+		title:req.body.title,
+		content:req.body.content,
+		owner:{
+				id:req.user._id,
+				name:req.user.displayName
+				},
+		model_type:"user"
 	});
 	try{
 		await post.save();
@@ -23,7 +28,7 @@ router.post('/posts',auth,async (req,res)=>{
 		res.status(300).send(e.message)
 		return
 	}
-	res.status(200).send(post);
+	res.status(200).redirect(`/posts?id=${post._id}`);
 })
 
 router.get('/posts', auth, async (req,res)=>{

@@ -80,10 +80,17 @@ function displayCards(cards) {
     let contentCards = document.getElementById(whichTab);
     contentCards.innerHTML = "";
     console.log(whichTab);
+    let contents = '';
     cards.forEach(function(cd) {
-        contentCards.innerHTML += `<div class="card" style="">
-			<div class="card-body">
-			    <a href="/posts?id=${cd._id}">
+        contents += `<div class="card" style="">
+			<div class="card-body"><a href="/`;
+        if(cd.date){
+            contents += "events"
+        }
+        else{
+            contents += "posts"
+        }
+        contents +=  `?id=${cd._id}">
 			        <h5 class="card-title">${cd.title}</h5>
                 </a>
                 <a href="">
@@ -92,8 +99,10 @@ function displayCards(cards) {
 				<p class="card-text">${cd.content}</p>
 				<p class="card-text">${cd.timeCreated}</p>
 			</div>
-		</div>`
-    });
+		</div>`;
+        contentCards.innerHTML = contents;
+    }
+            );
 };
 
 // Define Function to Handle Feed and Search Events

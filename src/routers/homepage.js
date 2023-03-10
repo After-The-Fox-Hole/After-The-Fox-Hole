@@ -16,12 +16,28 @@ const Following = require("../models/following");
 router.get("/homepage/fireteam", auth, async (req, res)=>{
 	let user = req.user
 	let following = await Following.find({owner:user._id})
-	let posts = [];
+	let result = [];
 	for (let fUsers of following){
 		let x = await Post.findOne({'owner.id':fUsers.following.id})
-		posts.push(x);
+		result.push(x);
 	}
-	res.status(200).send(posts);
+	
+	for (let fUsers of following){
+		let x = await Event.findOne({'owner.id':fUsers.following.id})
+		result.push(x);
+	}
+	
+	result = result.sort(function(a,b){
+		if (a.createDate > b.createDate){
+			return +1;
+		}
+		else{
+			return -1;
+		}
+		
+	})
+	
+	res.status(200).send(result);
 });
 
 router.get('/homepage',auth,async (req,res)=>{

@@ -18,9 +18,8 @@ router.get("/profile", auth, async (req,res)=>{
 	let owner = req.query.id;
 	
 	owner = await User.findOne({_id:owner})
-	
-	const posts = await Post.find({owner:owner._id})
-	const events = await Event.find({owner:owner._id})
+	const posts = await Post.find({'owner.id':owner._id})
+	const events = await Event.find({'owner.id':owner._id})
 	// const events = await req.user.populate({
 	// 	path: "posts"
 	// 	// match,
@@ -40,8 +39,6 @@ router.get("/profile", auth, async (req,res)=>{
 	owner.events = events
 	owner.posts = posts
 	owner.followers =  await Followers.find({owner:owner._id})
-	
-	
 	
 	res.status(200).render("profile", ({user,owner, edit}))
 	
