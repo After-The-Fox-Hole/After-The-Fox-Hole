@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Post</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+
+</head>
+<%- include('../partials/header'), ({user})%>
+
+<body>
+<div class="container min-vh-100 d-flex justify-content-center align-items-center col" >
+    <div class="col-md-6 col-md-offset-3">
+        <h1 class="d-flex justify-content-center">Edit Post</h1>
+        <form action="" method="POST">
+            <div class="form-group">
+                <label class="d-flex justify-content-center" for="title">Title</label>
+                <input type="text" class="form-control" id="title" name="title" value="<%post.title%>">
+            </div>
+            <div class="form-group">
+                <label class="d-flex justify-content-center" for="description">Description</label>
+                <textarea rows="5" class="form-control" id="description" name="content" value="<%post.content%>"></textarea>
+            </div>
+            <br>
+            <div class="form-group d-flex justify-content-center col">
+
+                <label for="tagsList">Tags:</label>
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    Tags
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="tagsList">
+
+                </ul>
+            </div>
+            <br>
+            <div class="form-group d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">
+                    Update
+                </button>
+                <a type="button" onclick="confirmUser()" href="#" class="btn btn-danger">
+                    Delete
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<%- include('../partials/footer')%>
+
+
+<script src="/assets/js/editPost.js"></script>
+</body>
+</html>
+
