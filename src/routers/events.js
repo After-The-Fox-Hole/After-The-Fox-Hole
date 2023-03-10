@@ -30,11 +30,10 @@ router.get('/events', auth, async (req,res)=>{
 	const id = req.query.id;
 	let event = await Event.findOne({_id:id});
 	let user = req.user.clean();
-	event = event.toObject();
-	event._id = event._id.valueOf();
-	event.owner = event.owner[0].valueOf();
+	
+	
 	let edit=false;
-	if(event.owner === user._id){
+	if(event.owner.id === user._id){
 		edit=true
 	}
 	res.status(200).render('viewEvent', ({user,event, edit}))
