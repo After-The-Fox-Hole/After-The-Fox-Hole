@@ -17,7 +17,7 @@
                         <h6 class="card-subtitle mb-2 ms-2 text-muted" id="postCreator"><%=post.owner.name%></h6>
                     </a>
                     <% if (edit){ %>
-                        <button type="submit" id="edit-button"><a href="">Edit Post</a></button>
+                        <button type="submit" id="edit-button"><a href="/posts/edit?id=<%=post.id%>">Edit Post</a></button>
                         <!--                                          insert path for post edit page-->
                     <%} else{%>
                     <%}%>

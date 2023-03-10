@@ -93,7 +93,7 @@ function displayCards(cards) {
         contents +=  `?id=${cd._id}">
 			        <h5 class="card-title">${cd.title}</h5>
                 </a>
-                <a href="">
+                <a href="/profile?id=${cd.owner.id}">
                     <h6 class="card-subtitle mb-2 text-muted">${cd.owner.name}</h6>
                 </a>
 				<p class="card-text">${cd.content}</p>
