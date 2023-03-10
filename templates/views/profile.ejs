@@ -44,7 +44,10 @@
             <% owner.posts.forEach(function (post){%>
             <div class="card post" style="width: 15rem;">
                 <div class="card-body">
-                    <h5 class="card-title post-title"><%=post.title%></h5>
+                    <a href="/posts?id=<%=post.id%>">
+                        <h5 class="card-title"><%=post.title%></h5>
+                    </a>
+<!--                    <h5 class="card-title post-title">=post.title</h5>-->
                     <p class="card-text post-content"><%=post.content%></p>
                     <p class="card-text post-time"><%=post.timeCreated%></p>
                 </div>
