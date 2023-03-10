@@ -6,7 +6,7 @@ const {Mongoose} = require("mongoose");
 
 const avatarsSchema = new mongoose.Schema({
 		image:{
-			type: Buffer,
+			type: String,
 		}
 	},
 	{
