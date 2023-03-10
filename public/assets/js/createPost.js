@@ -1,4 +1,3 @@
-
 async function showPostTags(){
     let tagsSelector = document.getElementById("tagsList");
     tagsSelector.innerHTML=""

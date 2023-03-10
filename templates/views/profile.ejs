@@ -12,8 +12,8 @@
 <%- include('../partials/header', ({user}))%>
 
 <!--Profile information-->
-<div class="container text-center">
-    <div class="row align-items-start">
+<div class="container-md">
+    <div class="d-flex align-content-center align-items-top text-center">
         <div class="col-6 col-sm-3">
             <div class="card" style="width: 15rem;">
                 <img class="card-img-top" src="<%= owner.avatar%>" alt="">
@@ -40,9 +40,9 @@
         </div>
     <!--Recent post-->
         <div class="col-6 col-sm-3">
-            <h3>Recent Post</h3>
+            <h3><u>Recent Post</u></h3>
             <% posts.forEach(function (post){%>
-            <div class="card" style="width: 15rem;">
+            <div class="card post" style="width: 15rem;">
                 <div class="card-body">
                     <h5 class="card-title post-title"><%=post.title%></h5>
                     <p class="card-text post-content"><%=post.content%></p>
@@ -53,20 +53,18 @@
         </div>
     <!--Fireteam-->
         <div class="col-6 col-sm-3">
-            <h3>Fireteam</h3>
-            <div class="card" style="width: 15rem;">
+            <h3><u>Fireteam</u></h3>
+            <div class="card border-0" style="width: 15rem;">
                 <div class="card-body">
-                    <h6 class="card-title following">Following</h6>
 
                 </div>
             </div>
         </div>
     <!--Interest-->
         <div class="col-6 col-sm-3">
-            <h3>Interests</h3>
-            <div class="card" style="width: 15rem;">
+            <h3><u>Interests</u></h3>
+            <div class="card border-0" style="width: 15rem;">
                 <div class="card-body">
-                    <h6 class="card-title interest-tags">Interest tags</h6>
                     <%owner.tags.forEach(function(tag){ %>
                         <li><%= tag %></li> <% }); %>
                 </div>
