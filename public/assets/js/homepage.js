@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         .then(response => response.json())
         .then(data => {
             displayCards(data);
-            console.log(data)
         })
 });
 
@@ -80,6 +79,7 @@ function displayCards(cards) {
     let whichTab = document.querySelector(".nav-tabs .active").getAttribute("href").substring(1);
     let contentCards = document.getElementById(whichTab);
     contentCards.innerHTML = "";
+    console.log(whichTab);
     cards.forEach(function(cd) {
         contentCards.innerHTML += `<div class="card" style="">
 			<div class="card-body">
@@ -93,7 +93,6 @@ function displayCards(cards) {
 				<p class="card-text">${cd.timeCreated}</p>
 			</div>
 		</div>`
-        console.log(cd._id);
     });
 };
 
