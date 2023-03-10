@@ -3,6 +3,8 @@ const validator = require('validator')
 const {Mongoose} = require("mongoose");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
+const Attending = require("./attending");
+const Events = require("./event");
 
 
 const userSchema = new mongoose.Schema({
@@ -209,10 +211,23 @@ userSchema.methods.toJSON = function (){
 	return userObj;
 }
 
-userSchema.methods.clean = function (){
+userSchema.methods.clean = async function(){
 	const user = this;
 	let userObj = user.toObject();
 	userObj._id = userObj._id.valueOf();
+	
+	
+	let upcoming =await Attending.find({'owner.id': user._id})
+	
+	let attending = [];
+	for (let e of upcoming){
+		let y;
+		y = await Events.findOne({_id:e.event._id})
+		attending.push(y)
+	}
+	
+	
+	userObj.attending = attending
 	
 	delete userObj.status;
 	delete userObj.password;

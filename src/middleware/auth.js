@@ -20,16 +20,7 @@
 			}
 			req.token = token;
 			
-			let upcoming =await Attending.find({'owner.id': user._id})
-			let events = [];
-			for (let e of upcoming){
-				let y;
-				y = await Events.findOne({_id:e.event._id})
-				events.push(y)
-			}
 			
-			
-			req.events = events
 			req.user = user
 			
 			next();

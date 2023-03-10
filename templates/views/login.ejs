@@ -64,23 +64,38 @@
                                     Login
                                     <!--href="homepage.ejs"-->
                                 </button>
-
-                                <!-- Register buttons -->
-<!--                                <div class="text-center">-->
-<!--                                    <p>or sign up with:</p>-->
-<!--                                    <button type="button" class="btn btn-link btn-floating mx-1">-->
-<!--                                        <i class="fab fa-facebook-f"></i>-->
-<!--                                    </button>-->
-
-<!--                                    <button type="button" class="btn btn-link btn-floating mx-1">-->
-<!--                                        <i class="fab fa-google"></i>-->
-<!--                                    </button>-->
-
-<!--                                    <button type="button" class="btn btn-link btn-floating mx-1">-->
-<!--                                        <i class="fab fa-apple"></i>-->
-<!--                                    </button>-->
-<!--                                </div>-->
                             </form>
+
+                                <!-- Button trigger modal -->
+                                <div>
+                                    <a role="button" class="link" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        Lost Password
+                                    </a>
+                                </div>
+
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Reset Password</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="/users/recovery" method="post">
+                                                    <label for="emailField">Email: </label>
+                                                    <input type="email" name="email" id="emailField">
+                                                    <button value="Submit" type="submit" class="btn btn-primary">Send Recovery</button>
+                                                </form>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </div>

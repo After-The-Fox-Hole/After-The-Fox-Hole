@@ -39,7 +39,7 @@ router.get('/posts', auth, async (req,res)=>{
 		return;
 	}
 		
-		let user = req.user.clean();
+		let user = await req.user.clean();
 		let ownerAvatar = await User.findOne({_id: post.owner.id})
 		ownerAvatar = ownerAvatar.avatar
 		post = post.toObject();
@@ -125,7 +125,7 @@ router.get('/posts', auth, async (req,res)=>{
 
 router.get("/posts/create", auth, async (req, res)=>{
 	let user = req.user
-	user = user.clean();
+	user = await user.clean();
 	res.status(200).render("createPost", ({user}));
 })
 
