@@ -96,7 +96,13 @@ router.get('/posts', auth, async (req,res)=>{
 				return +1;
 			})
 			for (let x of arr){
-				html = html + `<div style="padding-left: ${count}em">${x.content}</div>`
+				html = html + `<div class="border p-2 my-1" style="padding-left: ${count}em">
+									<div>username is here</div>
+									<div class="mb-2">${x.content}</div>
+									<div class="d-flex justify-content-end">
+									<button class="btn-sm">Add Comment</button>
+									</div>
+								</div>`
 				if(x.nested){
 					if(count < 6){
 						html = commentLoop(x.nested, html, count+1)

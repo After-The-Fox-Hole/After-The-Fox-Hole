@@ -6,19 +6,24 @@
 <body>
 <%- include('../partials/header'), ({user})%>
 
-<div class="container"></div>
-    <div class="card " style="">
-        <div class="row justify-content-center">
-            <div class="col-md-3"></div>
-            <div class="col-md-1">
-                <div class="align-items-center">
-                    <img src="<%=post.avatar%>" class="img-fluid rounded-circle" style="width: 50px; height: 50px;" alt="...">
+<div>
+    <div class="card mx-3 mt-2 border-0" style="">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-2 border">
+                <div class="text-center">
+                    <img src="<%=post.avatar%>" class="img-fluid rounded-circle mb-3 mt-4" style="width: 50px; height: 50px;" alt="...">
                     <a href="">
-                        <h6 class="card-subtitle mb-2 text-muted" id="postCreator"><%=post.owner.name%></h6>
+                        <h6 class="card-subtitle mb-2 ms-2 text-muted" id="postCreator"><%=post.owner.name%></h6>
                     </a>
+                    <% if (edit){ %>
+                        <button type="submit" id="edit-button"><a href="">Edit Post</a></button>
+                        <!--                                          insert path for post edit page-->
+                    <%} else{%>
+                    <%}%>
                 </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-5 border">
                 <div class="card-body">
                     <div> </div>
                     <a href="">
@@ -29,26 +34,37 @@
                     <p class="card-text" id="postCreated"><%=post.timeCreated%></p>
                 </div>
             </div>
+            <div class="col-md-1 text-center border">
+                <a href="">
+                    <div>
+                        <span class="material-symbols-outlined mt-5">expand_less</span>
+                        <p>Upvote</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-2">
+
+            </div>
         </div>
     </div>
     <br>
 </div>
-<div class="row">
-    <form class="row g-3">
-        <div class="row">
+<div class="mx-auto my-2 w-50">
+    <form>
+        <div>
             <label for="addCommentText" class="form-label">Comment:</label>
             <textarea class="form-control" id="addCommentText" rows="3"></textarea>
         </div>
-        <div class="row">
-            <button type="submit" class="btn btn-primary mb-3" id="addCmtBtn">Add Comment</button>
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-primary my-1" id="addCmtBtn">Add Comment</button>
         </div>
     </form>
     <br>
 </div>
-<div class="row">
+<div class="mx-auto my-2 w-50">
     <%-cHtml%>
 </div>
-
+<!--<div style="padding-left: ${count}em">${x.content}</div>-->
 
 <%- include('../partials/footer')%>
 </body>
