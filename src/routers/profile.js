@@ -5,6 +5,8 @@ const router = new express.Router;
 const auth = require('../middleware/auth');
 const app = require("../app");
 const Post = require("../models/posts");
+const Avatar = require("../models/avatars");
+const {del} = require("express/lib/application");
 
 
 
@@ -49,7 +51,92 @@ router.get("/profile/edit", auth, async (req, res)=>{
 })
 
 router.post("/profile/edit", auth, async (req,res) =>{
-
+	let user = req.user
+	let attempt = {
+		location: req.body.location,
+		
+	}
+	let options = {
+		info: {
+			service: {
+				branch: req.body.branch,
+				status: req.body.status
+			},
+			location: {
+				text: req.body.location
+			},
+		},
+			currentJob:req.body.currentJob
+	}
+	
+	let original = await User.findById(user.id)
+	if (options.info.location.text !== req.user.info.location.text){
+		try{
+			await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.GOOGLE_MAP_API}`)
+				.then(response => response.json())
+				.then(result => {
+					original.info.location.type= 'Point';
+					original.info.location.coordinates = [result.results[0].geometry.location.lng, result.results[0].geometry.location.lat];
+				})
+		}
+		catch (e) {
+			attempt.error = "Could not find location"
+			user = req.user
+			res.status(200).render("editProfile", ({user, attempt}))
+			return;
+		}
+	}
+	
+	if(options.currentJob !== req.user.currentJob){
+		original.currentJob = options.currentJob
+	}
+	
+	if(options.info.service.status !== req.user.info.service.status){
+		original.info.service.status= options.info.service.status
+	}
+	
+	if (options.info.service.branch !== req.user.info.service.branch){
+		original.info.service.branch = options.info.service.branch
+	}
+	
+	try{
+		await original.save();
+	}
+	catch (e) {
+		attempt.error = "Could not save profile"
+		let user = req.user
+		res.status(200).render("editProfile", ({user, attempt}))
+		return;
+	}
+	
+	
+	res.status(200).redirect(`/profile?id=${user._id}`)
+	
+	
 })
+
+router.get("/profile/avatars", auth, async (req, res)=>{
+	let pics =await Avatar.find()
+	
+	res.status(200).send(pics)
+})
+
+router.get("/profile/avatar/change", auth, async (req, res)=>{
+	let user = req.user;
+	let choice = req.query.pic
+	
+	
+	try{
+		user = await User.findOneAndUpdate({_id:user._id},{avatar:choice}, {new:true})
+	}
+	catch (e) {
+	
+	}
+	
+	res.status(200).render("editProfile", ({user}))
+	
+})
+
+
 
 module.exports = router;

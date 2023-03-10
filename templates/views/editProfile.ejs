@@ -12,6 +12,33 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <h1>Edit Profile</h1>
+                <div>
+                    <img src="<%=user.avatar%>">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Change Profile Picture
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Choose a picture</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" id="pictureModalInsert">
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% if (typeof  attempt !== 'undefined'){%>
+            <h2 class="m-3 bg-warning rounded-pill"><%=attempt.error%></h2>
+            <%}%>
             <form action="/profile/edit" method="POST">
                 <div class="form-group">
                     <label for="address">Location (Can Be City, State, or Address)</label>
@@ -20,27 +47,47 @@
                 <div class="form-group">
                     <label for="branchOfService">Branch of Service</label>
                     <select class="form-control" id="branchOfService" name="branch" required>
-                        <option value="<%=user.info.service.branch%>" selected disabled>Choose your branch of service</option>
-                        <option value="Army">Army</option>
-                        <option value="Navy">Navy</option>
-                        <option value="Air Force">Air Force</option>
-                        <option value="Marines">Marines</option>
-                        <option value="Coast Guard">Coast Guard</option>
-                        <option value="Army-NG">Army-NG</option>
-                        <option value="Air-NG">Air-NG</option>
+                        <option disabled>Choose your branch of service</option>
+                        <option value="Army"<% if(user.info.service.branch === "Army"){
+                        %> selected
+                                <% } %>>Army</option>
+                        <option value="Navy" <% if(user.info.service.branch === "Navy"){
+                        %> selected
+                                <% } %>>Navy</option>
+                        <option value="Air Force" <% if(user.info.service.branch === "Air Force"){
+							%> selected
+                        <% } %>>Air Force</option>
+                        <option value="Marines"<% if(user.info.service.branch === "Marines"){
+                        %> selected
+                                <% } %>>Marines</option>
+                        <option value="Coast Guard"<% if(user.info.service.branch === "Coast Guard"){
+                        %> selected
+                                <% } %>>Coast Guard</option>
+                        <option value="Army-NG"<% if(user.info.service.branch === "Army-NG"){
+                        %> selected
+                                <% } %>>Army-NG</option>
+                        <option value="Air-NG"<% if(user.info.service.branch === "Air-NG"){
+                        %> selected
+                                <% } %>>Air-NG </option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="status">Status</label>
                     <div>
                         <label class="radio-inline">
-                            <input type="radio" name="status" value="Active" required> Active Duty
+                            <input type="radio" name="status" value="Active" required <% if(user.info.service.status === "Active"){
+                            %> checked
+                                    <% } %>> Active Duty
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="status" value="Veteran" required> Veteran/Retired
+                            <input type="radio" name="status" value="Veteran" required <% if(user.info.service.status === "Veteran"){
+                            %> checked
+                                    <% } %>> Veteran/Retired
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="status" value="Reserve" required> Reserve
+                            <input type="radio" name="status" value="Reserve" required <% if(user.info.service.status === "Reserve"){
+                            %> checked
+                                    <% } %>> Reserve
                         </label>
                     </div>
                 </div>
@@ -57,4 +104,6 @@
 
 <%- include('../partials/footer')%>
 </body>
+
+<script src="/assets/js/editProfile.js"></script>
 </html>

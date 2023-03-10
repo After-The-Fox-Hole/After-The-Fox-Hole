@@ -15,7 +15,8 @@
 				user = await Org.findOne({ _id:decoded._id, 'tokens.token':token })
 			}
 			if(!user){
-				throw Error();
+				res.status(200).render('index');
+				return
 			}
 			req.token = token;
 			
