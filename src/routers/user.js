@@ -10,7 +10,7 @@ const sgMail = require("@sendgrid/mail");
 ///////sign up
 
 router.post('/users',async (req,res)=>{
-	console.log(req.body)
+	
 	
 	let address = req.body.location
 	let user = {
@@ -56,11 +56,16 @@ router.post('/users',async (req,res)=>{
 		user = new User(user);
 		await user.save();
 		const token = await user.generateAuthToken()
+		
 		res.cookie("access_token", token, {httpOnly: true});
-		res.status(200).redirect("/profile");
+		res.status(200).redirect(`/profile?id=${user._id}`);
 	}
 	catch (e){
-		res.status(400).send(e);
+		let error={
+			error:"Email already exsists"
+		}
+		res.status(200).render("registerUser", ({error}));
+		return;
 	}
 })
 
@@ -117,6 +122,7 @@ router.post("/users/recovery", async (req, res)=>{
 				password += chars.substring(randomNumber, randomNumber +1);
 			}
 			user.password = password;
+			await user.save();
 			
 			const sgMail = require('@sendgrid/mail')
 			sgMail.setApiKey(process.env.SENDGRID_API_KEY)

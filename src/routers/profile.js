@@ -15,7 +15,9 @@ router.get("/profile", auth, async (req,res)=>{
 	const sort = {};
 	
 	let owner = req.query.id;
+	
 	owner = await User.findOne({_id:owner})
+	
 	const posts = await Post.find({owner:owner._id})
 	
 	// const events = await req.user.populate({
