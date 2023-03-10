@@ -38,6 +38,7 @@ router.get('/posts', auth, async (req,res)=>{
 		const id = req.query.id;
 	try{
 		post = await Post.findOne({_id:id});
+		
 	}
 	catch (e) {
 		res.status(400).send("No post found");
@@ -45,12 +46,12 @@ router.get('/posts', auth, async (req,res)=>{
 	}
 		
 		let user = await req.user.clean();
-		let ownerAvatar = await User.findOne({_id: post.owner.id})
-		ownerAvatar = ownerAvatar.avatar
+		let owner = await User.findOne({_id: post.owner.id})
+		let ownerAvatar = owner.avatar
 		post = post.toObject();
 		post.avatar = ownerAvatar
 		let edit=false;
-		if(post.owner === user._id){
+		if(owner._id.valueOf() === user._id){
 			edit=true
 		}
 		let comments = await Comment.find({master:post._id})
