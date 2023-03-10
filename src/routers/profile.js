@@ -29,12 +29,12 @@ router.get("/profile", auth, async (req,res)=>{
 	// })
 	let edit = false;
 	
-	let user = req.user.clean();
-	owner = owner.clean();
+	let user = await req.user.clean();
+	owner = await owner.clean();
 	if (user._id === owner._id){
 		edit = true;
 	}
-	user.events = req.events;
+	
 	owner.followers =  await Followers.find({owner:owner._id})
 	
 	
@@ -46,6 +46,9 @@ router.get("/profile", auth, async (req,res)=>{
 router.get("/profile/edit", auth, async (req, res)=>{
 	
 	let user = req.user;
+	user = await user.clean();
+	
+	
 	
 	res.status(200).render("editProfile", ({user}))
 })
@@ -82,6 +85,7 @@ router.post("/profile/edit", auth, async (req,res) =>{
 		catch (e) {
 			attempt.error = "Could not find location"
 			user = req.user
+			user = await user.clean()
 			res.status(200).render("editProfile", ({user, attempt}))
 			return;
 		}
@@ -105,6 +109,7 @@ router.post("/profile/edit", auth, async (req,res) =>{
 	catch (e) {
 		attempt.error = "Could not save profile"
 		let user = req.user
+		user = await user.clean();
 		res.status(200).render("editProfile", ({user, attempt}))
 		return;
 	}
@@ -132,11 +137,27 @@ router.get("/profile/avatar/change", auth, async (req, res)=>{
 	catch (e) {
 	
 	}
+	user = await user.clean();
 	
 	res.status(200).render("editProfile", ({user}))
 	
 })
 
+router.post("/profile/edit/password", auth, async (req, res)=>{
+	
+	let user = req.user
+	user.password = req.body.password
+	try{
+		await user.save();
+	}
+	catch (e) {
+		
+		let result = {Error:"could not save password"}
+		res.status(200).send(result)
+		return
+	}
+	res.status(200).redirect(`/profile/edit`)
+})
 
 
 module.exports = router;

@@ -28,7 +28,7 @@ router.get('/homepage',auth,async (req,res)=>{
 	
 	
 	let user = req.user
-	user = user.clean();
+	user = await user.clean();
 	
 	res.status(200).render("homepage", ({user}))
 });
