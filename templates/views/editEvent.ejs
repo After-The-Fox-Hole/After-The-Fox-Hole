@@ -12,20 +12,23 @@
 <div class="container min-vh-100 d-flex justify-content-center align-items-top col">
     <div class="col-md-8 col-md-offset-2">
         <h1 class="d-flex justify-content-center">Edit Event</h1>
-        <form action="" method="POST">
+        <form action="/events/update" method="POST">
             <div class="form-group">
                 <label class="d-flex justify-content-center" for="title">Event Title</label>
-                <input type="text" class="form-control" id="title" name="title" value="<%events.title%>">
+                <input type="text" class="form-control" id="title" name="title" value="<%=event.title%>">
             </div>
             <div class="form-group">
                 <label class="d-flex justify-content-center" for="content">Event Description</label>
-                <textarea rows="5" class="form-control" id="content" name="content" value="<%events.title%>"></textarea>
+                <textarea rows="5" class="form-control" id="content" name="content" ><%=event.content%></textarea>
                 <br>
                 <div>
                     <label class="d-flex justify-content-center" for="date">Event Time and Date</label>
-                    <input class="form-control" type="datetime-local" id="date" placeholder="Select Date and Time" value="<%events.timeCreated%>">
+                    <input name="date" class="form-control" type="datetime-local" id="date" placeholder="Select Date and Time" value="<%=event.date%>">
                 </div>
                 <br>
+            </div>
+            <div>
+                <label for="location">Location</label><input type="text" name="location.text">
             </div>
             <div class="form-group d-flex justify-content-center col">
 
@@ -52,7 +55,14 @@
 
 
 <%- include('../partials/footer')%>
-
+<script>
+	function confirmUser(){
+		let ask = confirm("Are you sure you want to delete?");
+		if(ask === true){
+			window.location="/events/delete?id=<%=user._id%>"
+		}
+	}
+</script>
 <script src="/assets/js/createEvent.js"></script>
 </body>
 </html>

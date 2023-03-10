@@ -48,8 +48,9 @@ const eventSchema = new mongoose.Schema({
 		},
 		timeCreated: {type: Date, default: Date.now },
 		date:{
-			type:Date,
+			type:String,
 			required:true
+			
 		}
 	},
 	{

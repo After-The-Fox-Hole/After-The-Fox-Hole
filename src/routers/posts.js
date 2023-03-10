@@ -5,6 +5,7 @@ const auth = require('../middleware/auth');
 const app = require("../app");
 const Post = require("../models/posts");
 const Comment = require("../models/comment")
+const {response} = require("express");
 
 
 
@@ -133,6 +134,15 @@ router.get("/posts/create", auth, async (req, res)=>{
 	let user = req.user
 	user = await user.clean();
 	res.status(200).render("createPost", ({user}));
+})
+
+router.get('/posts/edit', auth, async (req, res)=>{
+	
+	let post = await Post.findById(req.query.id)
+	console.log(post)
+	let user = req.user;
+	user = await user.clean();
+	res.status(200).render("editPost", ({user, post}))
 })
 
 module.exports = router;

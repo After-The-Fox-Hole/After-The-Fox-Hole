@@ -17,7 +17,7 @@
                         <h6 class="card-subtitle mb-2 ms-2 text-muted" id="eventCreator"><%=event.owner.name%></h6>
                     </a>
                     <% if (edit){ %>
-                        <button type="submit" id="edit-button"><a href="/events/edit?id=<%=event.id%>">Edit Event</a></button>
+                        <button type="submit" id="edit-button"><a href="/events/edit?id=<%=event._id%>">Edit Event</a></button>
                         <!--                                          insert path for post edit page-->
                     <%} else{%>
                     <%}%>

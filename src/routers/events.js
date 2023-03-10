@@ -58,5 +58,19 @@ router.get('/events/view', auth,async (req,res)=>{
 	
 })
 
+router.get("/events/edit", auth,async(req, res)=>{
+	const id = req.query.id;
+	let event = await Event.findOne({_id:id});
+	let user = await req.user.clean();
+	let owner = await User.findOne({_id: event.owner.id})
+	
+	let edit=false;
+	if(owner.id.valueOf() === user._id){
+		edit=true
+	}
+	
+	res.status(200).render('editEvent', ({user,event, edit}))
+} )
+
 
 module.exports = router;
