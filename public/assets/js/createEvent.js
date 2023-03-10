@@ -1,4 +1,5 @@
 async function updateTags() {
+    let tagsSelector = document.getElementById("tagsList")
     let tags;
     try {
         tags = await fetch(`/tags`)
