@@ -27,6 +27,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
      let tagsSelector = document.getElementById("tagsList");
      tagsSelector.innerHTML = ""
      if (typeVal === "post"){
+         let sortOptions = document.getElementById("sort");
+         let options = sortOptions.getElementsByTagName("option");
+         let lastOption = options[options.length - 1];
+         if (lastOption.value === "date") {
+             sortOptions.removeChild(lastOption);
+         }
          postTags.forEach(function(ptag){
              let li = document.createElement("li");
              li.classList.add("dropdown-item");
@@ -42,6 +48,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
          })
          }
      if (typeVal === "event"){
+         let sortOptions = document.getElementById("sort");
+         sortOptions.innerHTML += "<option value=\"date\">Upcoming Events</option>"
          eventTags.forEach(function(etag){
              let li = document.createElement("li");
              li.classList.add("dropdown-item");
