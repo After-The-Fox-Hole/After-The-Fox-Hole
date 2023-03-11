@@ -49,7 +49,7 @@ router.post('/users',async (req,res)=>{
 		let error={
 			error:"Location could not be found"
 		}
-		res.status(200).render("registerUser", ({error}));
+		res.status(200).render("registerUser", ({user,error}));
 		return;
 	}
 	try{

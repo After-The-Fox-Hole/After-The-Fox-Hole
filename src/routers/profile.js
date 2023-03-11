@@ -20,15 +20,6 @@ router.get("/profile", auth, async (req,res)=>{
 	owner = await User.findOne({_id:owner})
 	const posts = await Post.find({'owner.id':owner._id})
 	const events = await Event.find({'owner.id':owner._id})
-	// const events = await req.user.populate({
-	// 	path: "posts"
-	// 	// match,
-	// 	// options: {
-	// 	// 	limit : parseInt(req.query.limit),
-	// 	// 	skip: parseInt(req.query.skip),
-	// 	// 	// sort
-	// 	// }
-	// })
 	let edit = false;
 	
 	let user = await req.user.clean();

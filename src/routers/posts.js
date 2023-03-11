@@ -4,12 +4,26 @@ const router = new express.Router;
 const auth = require('../middleware/auth');
 const app = require("../app");
 const Post = require("../models/posts");
+const Tags = require("../models/tags");
 const Comment = require("../models/comment")
 const {response} = require("express");
 
 
 
 ///////make a post
+
+router.post("/posts/update", auth, async (req, res)=>{
+	let options={};
+		options.title = req.body.title
+		options.content = req.body.content
+		options.tags = req.body.tags
+	
+	await Post.findOneAndUpdate({_id:req.body.id}, options)
+	
+	res.status(200).redirect(`/posts?id=${post._id}`)
+	
+	
+})
 
 router.post('/posts',auth,async (req,res)=>{
 	const post = new Post({
@@ -139,10 +153,12 @@ router.get("/posts/create", auth, async (req, res)=>{
 router.get('/posts/edit', auth, async (req, res)=>{
 	
 	let post = await Post.findById(req.query.id)
-	console.log(post)
 	let user = req.user;
 	user = await user.clean();
-	res.status(200).render("editPost", ({user, post}))
+	let tags = await Tags.find({type:"post"})
+	res.status(200).render("editPost", ({user, post, tags}))
 })
+
+
 
 module.exports = router;

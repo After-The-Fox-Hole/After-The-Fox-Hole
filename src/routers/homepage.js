@@ -11,7 +11,7 @@ const Following = require("../models/following");
 
 
 
-///////make a event
+
 
 router.get("/homepage/fireteam", auth, async (req, res)=>{
 	let user = req.user
@@ -49,55 +49,63 @@ router.get('/homepage',auth,async (req,res)=>{
 	res.status(200).render("homepage", ({user}))
 });
 
-router.get('/homepage/info', auth, async (req, res) =>{
-	let obj={}
+router.post('/homepage/info', auth, async (req, res) =>{
 	let results =[];
-	let type = req.query.typeP;
+	let type = req.body.typeP;
 	/// post/event/ string
-	let tag = req.query.tagP;
+	let tag = req.body.tagsP;
 	//// array of strings
-	let sort = req.query.sortP;
+	let sort = req.body.sortP;
 	/// sort, string
-	let tab = req.query.tabP;
+	let tab = req.body.tabP;
 	/// fireteam / alll
-	let text = req.query.textP;
+	let text = req.body.textP;
 	//// string text search
-	
-	let result = []
-	let tags = true
-	let textOnly = true
-	let sorting = {
-	
+	let collection;
+	let sorting={};
+	 sorting[sort] = -1;
+	let filter=[{
+		title: {
+			$regex: '.*' + text + '.*',
+			$options: "i"
+		}
+	}]
+	for (let t of tag){
+		let x = {};
+		x=	{
+			tags:t
+		}
+		filter.push(x)
 	}
-	if(sort === 'timeCreated'){
-		sorting.timeCreated= -1
+	
+		if (type === "event") {
+			collection = Event;
+		}
+		if(type === "post"){
+			collection = Post;
+		}
+		if (tab === "#all"){
+			
+			results= await collection.find({$and:filter}).sort(sorting)
+			
 	}
-	if(sort === "latestComment"){
-		sorting.latestComment = -1
+	else{
+		let followers = await Following.find({owner:req.user.id})
+		let following = [];
+		for(let f of followers){
+			
+			let x = {"owner.id":f.following.id}
+			
+			following.push(x)
+		}
+		
+		// let test = await collection.find({"owner.id":"640b98c4fe4c6cced79131b2"})
+			
+			// let test = await collection.find({$or:following})
+			 results = await collection.find({$and:[{$or:following}, {$and:filter}]}).sort(sorting)
 	}
-	if (sort === "commentCount"){
-		sorting.commentCount = -1
-	}
 	
-	
-	
-	
-	
-	// await req.user.populate({
-	// 	path: 'tasks',
-	// 	match,
-	// 	options: {
-	// 		limit : parseInt(req.query.limit),
-	// 		skip: parseInt(req.query.skip),
-	// 		sort
-	// 	}
-	// })
-	
-	
-	res.send(req.user.tasks)
-	
-	
-	res.status(200).send(posts)
+	res.status(200).send(results)
 })
 
 
