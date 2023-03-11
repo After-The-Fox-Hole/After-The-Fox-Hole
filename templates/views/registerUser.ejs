@@ -18,58 +18,116 @@
             <form action="/users" method="POST">
                 <div class="form-group">
                     <label for="first">First Name</label>
-                    <input type="text" class="form-control" id="first" name="firstN" required>
+                    <input type="text" class="form-control" id="first" name="firstN" required
+                        value="<% if (typeof  user !== 'undefined'){%><%=user.info.name.first%><%}%>">
                 </div>
                 <div class="form-group">
                     <label for="last">Last Name</label>
-                    <input type="text" class="form-control" id="last" name="last" required>
+                    <input type="text" class="form-control" id="last" name="last" required value="<% if (typeof  user !== 'undefined'){%><%=user.info.name.last%><%}%>">
                 </div>
                 <div class="form-group">
                     <label for="email">Email Address</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
+                    <input type="email" class="form-control" id="email" name="email" required value="<% if (typeof  user !== 'undefined'){%><%=user.info.email%><%}%>">
                 </div>
                 <div class="form-group">
                     <label for="displayName">Display Name</label>
-                    <input type="text" class="form-control" id="displayName" name="displayName" required>
+                    <input type="text" class="form-control" id="displayName" name="displayName" required value="<% if (typeof  user !== 'undefined'){%><%=user.displayName%><%}%>">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
+                    <input type="password" class="form-control" id="password" name="password" required value="<% if (typeof  user !== 'undefined'){%><%=user.password%><%}%>">
                 </div>
                 <div class="form-group">
                     <label for="address">Location (Can Be City, State, or Address)</label>
-                    <input type="text" class="form-control" id="address" name="location" required>
+                    <input type="text" class="form-control" id="address" name="location" required value="<% if (typeof  user !== 'undefined'){%><%=user.info.location.text%><%}%>">
                 </div>
                 <div class="form-group">
                     <label for="branchOfService">Branch of Service</label>
                     <select class="form-control" id="branchOfService" name="branch" required>
-                        <option value="" selected disabled>Choose your branch of service</option>
-                        <option value="Army">Army</option>
-                        <option value="Navy">Navy</option>
-                        <option value="Air Force">Air Force</option>
-                        <option value="Marines">Marines</option>
-                        <option value="Coast Guard">Coast Guard</option>
-                        <option value="Army-NG">Army-NG</option>
-                        <option value="Air-NG">Air-NG</option>
+                        <option value=""
+                        <% if (typeof  user === 'undefined'){%>
+                        selected
+                        <%}%>
+                                disabled>Choose your branch of service</option>
+                        <option value="Army"
+                        <% if (typeof  user !== 'undefined'){%>
+                            <% if (  user.info.service.branch === 'Army'){%>
+                            selected
+                            <%}%>
+                        <%}%>
+                        >Army</option>
+                        <option value="Navy"
+                        <% if (typeof  user !== 'undefined'){%>
+                            <% if (  user.info.service.branch === 'Navy'){%>
+                                selected
+                                    <%}%>
+                                <%}%>>Navy</option>
+                        <option value="Air Force"
+                        <% if (typeof  user !== 'undefined'){%>
+                            <% if (  user.info.service.branch === 'Air Force'){%>
+                                selected
+                                    <%}%>
+                                <%}%>>Air Force</option>
+                        <option value="Marines"
+                        <% if (typeof  user !== 'undefined'){%>
+                            <% if (  user.info.service.branch === 'Marines'){%>
+                                selected
+                                    <%}%>
+                                <%}%>>Marines</option>
+                        <option value="Coast Guard"
+                        <% if (typeof  user !== 'undefined'){%>
+                            <% if (  user.info.service.branch === 'Coast Guard'){%>
+                                selected
+                                    <%}%>
+                                <%}%>>Coast Guard</option>
+                        <option value="Army-NG"
+                        <% if (typeof  user !== 'undefined'){%>
+                            <% if (  user.info.service.branch === 'Army-NG'){%>
+                                selected
+                                    <%}%>
+                                <%}%>>Army-NG</option>
+                        <option value="Air-NG"
+                        <% if (typeof  user !== 'undefined'){%>
+                            <% if (  user.info.service.branch === 'Air-NG'){%>
+                                selected
+                                    <%}%>
+                                <%}%>>Air-NG</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="status">Status</label>
                     <div>
                         <label class="radio-inline">
-                            <input type="radio" name="status" value="Active" required> Active Duty
+                            <input type="radio" name="status" value="Active" required
+                            <% if (typeof  user !== 'undefined'){%>
+                                <% if (  user.info.service.status === 'Active'){%>
+                                   checked
+                                        <%}%>
+                                    <%}%>
+                            > Active Duty
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="status" value="Veteran" required> Veteran/Retired
+                            <input type="radio" name="status" value="Veteran" required
+                            <% if (typeof  user !== 'undefined'){%>
+                                <% if (  user.info.service.status === 'Veteran/Retired'){%>
+                                   checked
+                                        <%}%>
+                                    <%}%>> Veteran/Retired
                         </label>
                         <label class="radio-inline">
-                        <input type="radio" name="status" value="Reserve" required> Reserve
+                        <input type="radio" name="status" value="Reserve" required
+                        <% if (typeof  user !== 'undefined'){%>
+                            <% if (  user.info.service.status === 'Reserve'){%>
+                               checked
+                                    <%}%>
+                                <%}%>> Reserve
                         </label>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="currentJob">Current Job (CIV/MILITARY) (optional)</label>
-                    <input type="text" class="form-control" id="currentJob" name="currentJob">
+                    <input type="text" class="form-control" id="currentJob" name="currentJob"
+                    value="<% if (typeof user !== 'undefined'){%><%=user.info.currentJob%><%}%>">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
