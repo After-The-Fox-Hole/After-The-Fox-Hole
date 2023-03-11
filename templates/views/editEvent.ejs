@@ -13,6 +13,7 @@
     <div class="col-md-8 col-md-offset-2">
         <h1 class="d-flex justify-content-center">Edit Event</h1>
         <form action="/events/update" method="POST">
+            <input class="visually-hidden" name="id" value="<%=event.id%>">
             <div class="form-group">
                 <label class="d-flex justify-content-center" for="title">Event Title</label>
                 <input type="text" class="form-control" id="title" name="title" value="<%=event.title%>">
@@ -28,18 +29,25 @@
                 <br>
             </div>
             <div>
-                <label for="location">Location</label><input type="text" name="location.text">
+                <label for="location">Location</label><input type="text" name="location.text" value="<%=event.location.text%>">
             </div>
             <div class="form-group d-flex justify-content-center col">
 
                 <label for="tagsList">Tags:</label>
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-bs-toggle="dropdown" aria-expanded="false">
+                        data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                     Tags
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="tagsList">
 
-                </ul>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="tagsList">
+                    <% tags.forEach(function (tag){%>
+                        <label class="dropdown-item"><input type="checkbox" name="tags"
+                            <% if(event.tags.includes(tag.content)){%>
+                                                            checked
+                                    <%}%>
+                                                            value="<%=tag.content%>"><%=tag.content%></label>
+                    <%})%>
+                </div>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">
@@ -63,6 +71,6 @@
 		}
 	}
 </script>
-<script src="/assets/js/createEvent.js"></script>
+<!--<script src="/assets/js/createEvent.js"></script>-->
 </body>
 </html>

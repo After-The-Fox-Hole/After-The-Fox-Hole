@@ -4,6 +4,7 @@ const router = new express.Router;
 const auth = require('../middleware/auth');
 const app = require("../app");
 const Event = require("../models/event");
+const Tags = require("../models/tags");
 
 
 
@@ -62,15 +63,15 @@ router.get("/events/edit", auth,async(req, res)=>{
 	const id = req.query.id;
 	let event = await Event.findOne({_id:id});
 	let user = await req.user.clean();
-	let owner = await User.findOne({_id: event.owner.id})
+	let tags = await Tags.find({type:"event"})
 	
-	let edit=false;
-	if(owner.id.valueOf() === user._id){
-		edit=true
-	}
 	
-	res.status(200).render('editEvent', ({user,event, edit}))
+	res.status(200).render('editEvent', ({user,event, tags}))
 } )
 
+router.post("events/update", auth, async (req, res)=>{
+	console.log(req.body)
+	
+})
 
 module.exports = router;
