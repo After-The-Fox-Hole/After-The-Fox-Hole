@@ -13,17 +13,15 @@ const {response} = require("express");
 ///////make a post
 
 router.post("/posts/update", auth, async (req, res)=>{
-	let post = await Post.findById(req.body.id)
-	let options;
-	if(post.title !== req.body.title){
+	let options={};
 		options.title = req.body.title
-	}
-	if (post.content !== req.body.content){
 		options.content = req.body.content
-	}
-	if(post.tags !== req.body.tags)
-	console.log(post)
-	console.log(req.body)
+		options.tags = req.body.tags
+	
+	await Post.findOneAndUpdate({_id:req.body.id}, options)
+	
+	res.status(200).redirect(`/posts?id=${post._id}`)
+	
 	
 })
 

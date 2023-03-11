@@ -5,6 +5,7 @@ const auth = require('../middleware/auth');
 const app = require("../app");
 const Event = require("../models/event");
 const Tags = require("../models/tags");
+const Post = require("../models/posts");
 
 
 
@@ -69,8 +70,36 @@ router.get("/events/edit", auth,async(req, res)=>{
 	res.status(200).render('editEvent', ({user,event, tags}))
 } )
 
-router.post("events/update", auth, async (req, res)=>{
-	console.log(req.body)
+router.post("/events/update", auth, async (req, res)=>{
+	let event = await Event.findById(req.body.id)
+	let tags = await Tags.find({type:"event"})
+	let attempt = {text:req.body.location};
+	let options={};
+		options.location={}
+		options.location.text = req.body.location
+		options.title = req.body.title
+		options.content = req.body.content
+		options.tags = req.body.tags
+	
+	try{
+		await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.body.location}&key=${process.env.GOOGLE_MAP_API}`)
+			.then(response => response.json())
+			.then(result => {
+				options.location.type= 'Point';
+				options.location.coordinates = [result.results[0].geometry.location.lng, result.results[0].geometry.location.lat];
+			})
+	}
+	catch (e) {
+		attempt.error = "Could not find location"
+		let user = req.user
+		user = await user.clean()
+		res.status(200).render("editEvent", ({event,user, attempt, tags}))
+		return;
+	}
+	
+	 await Event.findOneAndUpdate({_id:req.body.id}, options, {new: true})
+	res.status(200).redirect(`/events?id=${event._id}`)
+	
 	
 })
 
