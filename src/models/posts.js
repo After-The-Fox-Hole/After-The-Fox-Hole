@@ -30,13 +30,8 @@ const postSchema = new mongoose.Schema({
 	model_type: {  type: String, enum: ['user','org' ], required: true },
 	timeCreated: {type: Date, default: Date.now },
 	votes:{
-		quantity:{
-			type:Number
-		},
-		votes:{
-			type:Number
-		},
-		
+		type: Number,
+		default: 0
 	},
 	latestComment:{
 		type:Date

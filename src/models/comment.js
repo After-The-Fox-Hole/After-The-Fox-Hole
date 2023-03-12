@@ -31,10 +31,10 @@ const commentSchema = new mongoose.Schema({
 			enum: ['user','org'],
 			required: true
 		},
-		attach: [{
+		attach: {
 			type: [mongoose.Schema.Types.ObjectId],
 			refPath: 'comment'
-		}],
+		},
 		master:{
 			required:true,
 			type: [mongoose.Schema.Types.ObjectId],
@@ -45,6 +45,7 @@ const commentSchema = new mongoose.Schema({
 			enum: ['post','event'],
 			required: true
 		},
+		timeCreated: {type: Date},
 	},
 	{
 		timestamps:true,

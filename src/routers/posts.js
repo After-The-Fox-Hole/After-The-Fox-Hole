@@ -49,7 +49,7 @@ router.post('/posts',auth,async (req,res)=>{
 })
 
 router.get('/posts', auth, async (req,res)=>{
-	
+	let scroll = req.query.scroll;
 	let post;
 	if(req.query.id){
 		const id = req.query.id;
@@ -87,20 +87,22 @@ router.get('/posts', auth, async (req,res)=>{
 		}
 		
 		let result = loopOne(comments)
+		
 		const loopTwo = (arr,arrM) =>{
 			for (let x of arrM) {
 				for (let y of arr) {
-					if (x.attach === y.id) {
-						if (!y.nested) {
-							y.nested = [x]
-						} else {
-							if(!y.nested.includes(x)){
-								y.nested.push(x)
+					if(x.attach.length>0) {
+						if (x.attach[0].valueOf() === y._id.valueOf()) {
+							if (!y.nested) {
+								y.nested = [x]
+							} else {
+								if (!y.nested.includes(x)) {
+									y.nested.push(x)
+								}
 							}
+							y.nested = loopTwo(y.nested, comments)
 						}
-						y.nested = loopTwo(y.nested, comments)
 					}
-					
 				}
 			}
 			return arr
@@ -109,26 +111,46 @@ router.get('/posts', auth, async (req,res)=>{
 		result = loopTwo(result,comments)
 		
 		const commentLoop = (arr, html, count)=>{
+			
 			arr = arr.sort(function(x,y){
 				if (x.votes > y.votes){
 					return -1;
 				}
-				else if (x.timeCreated < y.timeCreated){
+				if (x.votes < y.votes){
+					return +1;
+				}
+				if (x.timeCreated > y.timeCreated){
 					return -1;
 				}
-				return +1;
+				if (x.timeCreated < y.timeCreated){
+					return +1;
+				}
+				
+				
+				
+				
 			})
 			for (let x of arr){
-				html = html + `<div class="border p-2 my-1" style="padding-left: ${count}em">
-									<div>username is here</div>
+				html = html + `<div class="border my-1 p-2" style="margin-left: ${count}em">
+									<div>${x.owner.name}</div>
 									<div class="mb-2">${x.content}</div>
 									<div class="d-flex justify-content-end">
-									<button class="btn-sm">Add Comment</button>
+									<form action="/comments/add" method="post">
+										<input class="visually-hidden" name="master" value="${post._id}">
+										<input class="visually-hidden" name="attach" value="${x._id}">
+										<input class="visually-hidden" name="type" value="post">
+										<input class="visually-hidden scrollField" name="scroll" value="">
+										<textarea class="visually-hidden makeComment" name="content" type="text"></textarea>
+										<button class="visually-hidden makeComment reset" type="submit">Submit</button>
+										<button class="visually-hidden makeComment" type="button">Cancel</button>
+									</form>
+									
+									<button class="btn-sm openComment">reply</button>
 									</div>
 								</div>`
 				if(x.nested){
-					if(count < 6){
-						html = commentLoop(x.nested, html, count+1)
+					if(count < 17){
+						html = commentLoop(x.nested, html, count+4)
 					}
 					else{
 						html = commentLoop(x.nested, html, count)
@@ -139,8 +161,12 @@ router.get('/posts', auth, async (req,res)=>{
 		}
 		let cHtml = "";
 		cHtml = commentLoop(result, cHtml, 0);
-		/// need owner
-		res.status(200).render('viewPost', ({user,post, edit, cHtml}))
+		if (!scroll){
+			scroll = 0;
+		}
+		
+		
+		res.status(200).render('viewPost', ({user,post, edit, cHtml, scroll}))
 		return
 	}
 	res.status(200).redirect('/profile')

@@ -7,6 +7,7 @@ const Event = require("../models/event");
 const Tags = require("../models/tags");
 const Vote=require("../models/votes");
 const Post =require("../models/posts");
+const Comment =require("../models/comment");
 
 
 
@@ -16,10 +17,10 @@ router.post('/vote',auth,async (req,res)=>{
 	///post/ event
 	let user = req.user;
 	let attach = req.body.attach;
-	//// if it's a comment
+	//// if it's a comment id
 	let master = req.body.master;
 	/// query for the master load, event/post
-	let value = req.body.value;
+	let voted = req.body.voted;
 	
 	let collection;
 	
@@ -36,15 +37,16 @@ router.post('/vote',auth,async (req,res)=>{
 	vote = await new Vote(vote);
 	await vote.save();
 	
-	let target;
 	if (type === "event"){
 		collection = Event;
 	}
 	else{
 		collection = Post;
 	}
-	await collection.findByIdAndUpdate({master},{$inc:{'votes.quantity':1}, 'votes.value':value})
-	
+	await collection.findByIdAndUpdate({master},{$inc:{votes:voted}})
+	if (attach){
+		Comment.findByIdAndUpdate({attach},{$inc:{votes:voted}} )
+	}
 	
 	res.status(200).send();
 })

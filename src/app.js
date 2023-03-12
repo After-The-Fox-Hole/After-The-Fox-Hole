@@ -12,6 +12,7 @@ const eventRouter = require('./routers/events');
 const bodyParser = require('body-parser');
 const homepageRouter = require('./routers/homepage');
 const votesRouter = require('./routers/votes');
+const commentsRouter = require('./routers/comments');
 
 
 const publicDirectory = path.join(__dirname, '../public')
@@ -32,6 +33,7 @@ app.use(eventRouter);
 app.use(homepageRouter);
 app.use(tagsRouter);
 app.use(votesRouter)
+app.use(commentsRouter)
 
 
 
