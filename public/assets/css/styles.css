@@ -1,1 +1,110 @@
+#testBody {
+    background-color: #3E4F88;
+    font-family: 'Teko', sans-serif;
+}
 
+h5.card-subtitle {
+    color: #71737a;
+}
+
+a.tabbing{
+    font-size: 48px;
+}
+
+label.filterSort{
+    font-size: 24px;
+}
+
+a.universalHead{
+    font-size: 20px;
+}
+
+.theseAreCards {
+    background-color: #E4E4DF;
+}
+
+p.cardContentEach {
+    font-size: 26px;
+}
+
+.navBarStyle {
+    background-color: #A9ADBC;
+    font-family: 'Teko', sans-serif;
+}
+
+.navBtnStyle {
+    color: white;
+    margin-right: 0.5rem;
+    background-color: #94aae0;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 1px solid;
+    border-color: #0d6efd;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+    color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.navBtnStyle:hover {
+    color: #fff;
+    background-color: black;
+    border-color: black;
+}
+
+.page-item .disabled {
+    background-color: #E4E4DF;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #E4E4DF;
+}
+
+.buttonStyle {
+    background-color: #94aae0;
+}
+
+/* unvisited link */
+a:link {
+    color: #5c7ab4;
+}
+
+/* selected link */
+a:hover {
+    color: blue;
+}
+
+#testCard {
+    background-color: #A9ADBC;
+    height: calc(76vh);
+    overflow-y: scroll;
+}
+
+#tabCards {
+    height: calc(58vh);
+    overflow-y: scroll;
+}
+
+#myEvents {
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+@media (max-width: 575.98px) { /* mobile screens */
+    #testCard {
+        height: 100vh;
+        overflow-y: scroll;
+    }
+    #tabCards {
+        height: calc(50vh);
+        overflow-y: scroll;
+    }
+}
+
+.pagBtns {
+    display: none;
+}

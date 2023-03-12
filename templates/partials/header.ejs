@@ -1,4 +1,4 @@
-<header>
+<header >
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=IBM+Plex+Serif&family=Inter&display=swap" rel="stylesheet">
@@ -7,40 +7,75 @@
     <script src="https://kit.fontawesome.com/915ab9eecb.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,0,200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,0,200" />
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/homepage"><i class="fa-brands fa-wolf-pack-battalion"></i>After the Foxhole</a>
-        <div class="navbar" id="navbarNav">
-            <ul class="navbar-nav">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/styles.css"/>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary p-0 ">
+        <div class="container-fluid navBarStyle">
+            <a class="navbar-brand navBtnStyle my-3 universalHead" href="/homepage"><i class="fa-brands fa-wolf-pack-battalion"></i>After the Foxhole</a>
+            <button class="navbar-toggler navBtnStyle" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                    <% if (typeof  user === 'undefined'){%>
-                <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/register">Register</a>
-                </li>
-                    <% }else{%>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/posts/create">Create a Post</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/events/create">Create an Event</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Upcoming Events
-                            </a>
-                            <ul class="dropdown-menu">
-                                <%= user.attending%>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/profile?id=<%=user._id%>">Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/users/logout">Logout</a>
-                        </li>
-                            <%}%>
-            </ul>
+            <div class="offcanvas offcanvas-end navBarStyle" tabindex="-1" id="navbarNav" aria-labelledby="navbarNavLabel">
+                <div class="offcanvas-header">
+                    <h1 class="offcanvas-title" id="navbarNavLabel">What would you like to do?</h1>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav ms-auto">
+                        <% if (typeof user === 'undefined') { %>
+                            <li class="nav-item">
+                                <a class="nav-link active universalHead my-2" aria-current="page" href="/register">Register</a>
+                            </li>
+                        <% } else { %>
+                            <li class="nav-item">
+                                <a class="nav-link navBtnStyle universalHead my-2" aria-current="page" href="/posts/create" role="button">Create a Post</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link navBtnStyle universalHead my-2" aria-current="page" href="/events/create" role="button">Create an Event</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle navBtnStyle universalHead my-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Upcoming Events
+                                </a>
+                                <ul class="dropdown-menu" id="myEvents">
+                                    <% user.attending.forEach(function (attending){%>
+                                       <% let date = new Date(attending.date);%>
+                                       <% let options = {
+                                            year: 'numeric',
+                                            month: 'short',
+                                            day: 'numeric',
+                                        };
+                                        %>
+                                        <% let cardCreated = date.toLocaleString('en-US', options);
+                                       %>
+                                    <div class="card post" style="width: 15rem;">
+                                        <div class="card-body">
+                                            <a href="/events?id=<%=attending._id%>">
+                                                <h5 class="card-title"><%=attending.title%></h5>
+                                            </a>
+                                            <p class="card-text event-content"><%=attending.content%></p>
+                                            <p class="card-text event-time"><%=cardCreated%></p>
+                                        </div>
+                                    </div>
+                                    <%});%>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link navBtnStyle universalHead my-2" aria-current="page" href="/profile?id=<%=user._id%>" role="button">Profile</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link navBtnStyle universalHead my-2" aria-current="page" href="/users/logout" role="button">Logout</a>
+                            </li>
+
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
+
         </div>
-    </div>
-</nav>
+    </nav>
+
 </header>

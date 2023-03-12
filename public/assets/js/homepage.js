@@ -1,13 +1,8 @@
 
-//grabbing the appropriate tags for what is being displayed on the page and populating the tag selector field
+//setting everything for initial page load with default options for filter/sort
 document.addEventListener("DOMContentLoaded", function(event) {
-    updateTags()
-
-    fetch(`/homepage/fireteam`)
-        .then(response => response.json())
-        .then(data => {
-            displayCards(data);
-        })
+    updateTags();
+    handleFeedAndSearch();
 });
 
  async function updateTags(){
@@ -71,30 +66,61 @@ function displayCards(cards) {
     let whichTab = document.querySelector(".nav-tabs .active").getAttribute("href").substring(1);
     let contentCards = document.getElementById(whichTab);
     contentCards.innerHTML = "";
-    console.log(whichTab);
     let contents = '';
     cards.forEach(function(cd) {
-        contents += `<div class="card" style="">
-			<div class="card-body"><a href="/`;
-        if(cd.date){
-            contents += "events"
-        }
-        else{
-            contents += "posts"
-        }
-        contents +=  `?id=${cd._id}">
-			        <h5 class="card-title">${cd.title}</h5>
+            let date = new Date(cd.timeCreated);
+            let options = {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                // hour: 'numeric',
+                // minute: 'numeric',
+                // hour12: true,
+                // timeZone: timeZ,
+                // timeZoneName: 'short'
+            };
+            let cardCreated = date.toLocaleString('en-US', options);
+        contents += `
+        <div class="card mb-2 theseAreCards" >
+			<div class="card-body">
+			    <div class="row">
+			        <div class="col-md-6 mt-2">
+                        <a href="/`;
+                            if(cd.date){
+                                contents += "events"
+                            }
+                            else{
+                                contents += "posts"
+                            }
+                            contents +=  `?id=${cd._id}">
+                            <h2 class="card-title">${cd.title}</h2>
+                        </a>
+                    </div>
+                    <div class="col-md-6 mt-2">
+                        <span>Tags: </span>`;
+                        for (let i = 0; i < cd.tags.length; i++) {
+                                contents += `<span class="badge rounded-pill buttonStyle">${cd.tags[i]}</span> `;
+                            };
+                    contents += `</div>
+                </div>
+                <a href="/profile?id=${cd.owner.id}" >
+                    <h5 class="card-subtitle">${cd.owner.name}</h5>
                 </a>
-                <a href="/profile?id=${cd.owner.id}">
-                    <h6 class="card-subtitle mb-2 text-muted">${cd.owner.name}</h6>
-                </a>
-				<p class="card-text">${cd.content}</p>
-				<p class="card-text">${cd.timeCreated}</p>
+				<p class="card-text cardContentEach my-2">${cd.content}</p>
+				<p class="card-text my-2">${cardCreated}</p>
 			</div>
 		</div>`;
         contentCards.innerHTML = contents;
     }
             );
+    const divA = document.querySelector('#tabCards');
+    const divB = document.querySelector('.pagBtns');
+
+    if (divA.scrollHeight > divA.clientHeight) {
+        divB.style.display = 'block';
+    } else {
+        divB.style.display = 'none';
+    }
 };
 
 // Define Function to Handle Feed and Search Events
@@ -163,3 +189,21 @@ document.addEventListener("keypress", function(e){
         handleFeedAndSearch();
     }
 })
+
+// Function to handle pagination
+function pagination(results){
+    let paginationArea = document.getElementById("paginationUl")
+    let numPages;
+    if (results%10 > 0){
+        numPages = results/10;
+    } else {
+        numPages = results/10 + 1;
+    }
+    while(numPages > 0){
+        let pageNum = 1
+        paginationArea.innerHTML += `<li className="page-item"><a className="page-link" href="#">${pageNum}</a></li>`
+        pageNum ++;
+        numPages --;
+    }
+}
+
