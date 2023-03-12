@@ -7,6 +7,7 @@ const Post = require("../models/posts");
 const Tags = require("../models/tags");
 const Comment = require("../models/comment")
 const {response} = require("express");
+const format = require("date-format");
 
 
 
@@ -33,7 +34,8 @@ router.post('/posts',auth,async (req,res)=>{
 				id:req.user._id,
 				name:req.user.displayName
 				},
-		model_type:"user"
+		model_type:"user",
+		timeCreated: format('yyyy-MM-ddThh:mm', new Date())
 	});
 	try{
 		await post.save();
