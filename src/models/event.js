@@ -60,8 +60,14 @@ const eventSchema = new mongoose.Schema({
 			default: 0
 		} ,
 		votes:{
-			type:Number
-		},
+			quantity:{
+				type:Number
+			},
+			value:{
+				type:Number
+			},
+			
+		}
 	},
 	{
 		timestamps:true,

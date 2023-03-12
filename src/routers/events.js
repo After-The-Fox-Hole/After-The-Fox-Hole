@@ -6,7 +6,7 @@ const app = require("../app");
 const Event = require("../models/event");
 const Tags = require("../models/tags");
 const Post = require("../models/posts");
-
+const format = require('date-format');
 
 
 
@@ -27,7 +27,7 @@ router.post('/events',auth,async (req,res)=>{
 	}
 	options.model_type = "user"
 	options.date = req.body.date
-	
+	options.timeCreated = format('yyyy-MM-ddThh:mm', new Date());
 	
 	try{
 		await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.body.location}&key=${process.env.GOOGLE_MAP_API}`)

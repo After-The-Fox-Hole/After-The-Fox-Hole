@@ -10,12 +10,16 @@ const votesSchema = new mongoose.Schema({
 		required: true,
 		ref: 'user'
 	},
+	value:{
+		type:Number,
+		enum: [-1, 1],
+		required:true
+	},
 	attach: {
 		type: mongoose.Schema.Types.ObjectId,
 		required: false,
-		ref: 'model_Type'
+		ref: 'comment'
 	},
-	model_Type:{  type: String, enum: ['comment'], required: false },
 	master: {
 		type: mongoose.Schema.Types.ObjectId,
 		required: true,
