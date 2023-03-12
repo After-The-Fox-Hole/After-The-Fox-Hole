@@ -13,7 +13,7 @@ const Posts = require("../models/posts")
 
 router.post('/comments/add',auth,async (req,res)=>{
 
-	console.log(req.body.scroll)
+	
 	let master = req.body.master;
 	let user = req.user;
 	let attach = req.body.attach;
