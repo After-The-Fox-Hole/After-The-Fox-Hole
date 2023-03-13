@@ -76,7 +76,7 @@ router.post("/profile/edit", auth, async (req,res) =>{
 	let original = await User.findById(user.id)
 	if (options.info.location.text !== req.user.info.location.text){
 		try{
-			await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.GOOGLE_MAP_API}`)
+			await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.body.location}&key=${process.env.GOOGLE_MAP_API}`)
 				.then(response => response.json())
 				.then(result => {
 					original.info.location.type= 'Point';

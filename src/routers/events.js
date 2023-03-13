@@ -120,15 +120,15 @@ router.get('/events', auth, async (req,res)=>{
 
 router.get("/events/create", auth, async (req, res)=>{
 	let event = null;
-	if (req.query.id){
-		event = await Event.findById(req.query.id)
-	}
+	// if (req.query.id){
+	// 	event = await Event.findById(req.query.id)
+	// }
 	let tags = await Tags.find({type:"event"})
 	let user = req.user
 	user = await user.clean();
 
 	
-	res.status(200).render("createEvent", ({user, tags}));
+	res.status(200).render("createEvent", ({user, tags, event}));
 	
 	})
 
@@ -141,7 +141,7 @@ router.get("/events/edit", auth,async(req, res)=>{
 	let tags = await Tags.find({type:"event"})
 	
 	
-	res.status(200).render('editEvent', ({user,event, tags}))
+	res.status(200).render('createEvent', ({user,event, tags}))
 } )
 
 
@@ -150,11 +150,13 @@ router.post("/events/update", auth, async (req, res)=>{
 	let tags = await Tags.find({type:"event"})
 	let attempt = {text:req.body.location};
 	let options={};
+		options._id = event._id
 		options.location={}
 		options.location.text = req.body.location
 		options.title = req.body.title
 		options.content = req.body.content
 		options.tags = req.body.tags
+		options.date = req.body.date
 	
 	try{
 		await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.body.location}&key=${process.env.GOOGLE_MAP_API}`)
@@ -165,10 +167,11 @@ router.post("/events/update", auth, async (req, res)=>{
 			})
 	}
 	catch (e) {
+		event = options;
 		attempt.error = "Could not find location"
 		let user = req.user
 		user = await user.clean()
-		res.status(200).render("editEvent", ({event,user, attempt, tags}))
+		res.status(200).render("createEvent", ({event,user, attempt, tags}))
 		return;
 	}
 	

@@ -36,6 +36,7 @@ router.post('/posts',auth,async (req,res)=>{
 				id:req.user._id,
 				name:req.user.displayName
 				},
+		tags:req.body.tags,
 		model_type:"user",
 		timeCreated: format('yyyy-MM-ddThh:mm', new Date())
 	});

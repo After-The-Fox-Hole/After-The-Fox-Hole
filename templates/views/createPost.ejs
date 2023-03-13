@@ -40,7 +40,7 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="tagsList">
                             <% tags.forEach(function (tag){%>
                                 <label class="dropdown-item"><input type="checkbox" name="tags"
-                                    <% if(post.tags.includes(tag.content)){%>
+                                    <% if(post && post.tags.includes(tag.content)){%>
                                                                     checked
                                             <%}%>
                                                                     value="<%=tag.content%>"><%=tag.content%></label>

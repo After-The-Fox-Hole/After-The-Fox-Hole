@@ -11,7 +11,7 @@
 <body>
 <div class="container min-vh-100 d-flex justify-content-center align-items-top col">
     <div class="col-md-8 col-md-offset-2">
-        <% if (event._id){%>
+        <% if (event !== null && event._id){%>
         <h1 class="d-flex justify-content-center">Edit Event</h1>
         <% } else {%>
         <h1 class="d-flex justify-content-center">Create Event</h1>
@@ -20,28 +20,28 @@
         <div class="col text-muted lead text-center m-auto bg-warning border rounded-pill"><%=attempt.error%></div>
         <%}%>
 
-                <form <% if (!event._id){%>action="/events" <%} else {%> action="/events/update"  <%}%> method="POST">
+                <form <% if (event === null || !event._id){%>action="/events" <%} else {%> action="/events/update"  <%}%> method="POST">
 
             <div class="form-group">
                 <label class="d-flex justify-content-center" for="title">Event Title</label>
-                <input type="text" class="form-control" id="title" name="title" value="<% if (typeof  attempt !== 'undefined' || event._id){%><%=event.title%><%}%>">
+                <input type="text" class="form-control" id="title" name="title" value="<% if (typeof  attempt !== 'undefined' || event){%><%=event.title%><%}%>">
 
             </div>
             <div class="form-group" >
-                <% if (event._id){%>
+                <% if (event !== null && event._id){%>
                 <input class="visually-hidden" name="id" value="<%=event._id%>">
                 <%}%>
                 <label class="d-flex justify-content-center" for="content">Event Description</label>
-                <textarea rows="5" class="form-control" id="content" name="content" ><% if (typeof  attempt !== 'undefined' || event._id){%><%=event.content%><%}%></textarea>
+                <textarea rows="5" class="form-control" id="content" name="content" ><% if (typeof  attempt !== 'undefined' || event){%><%=event.content%><%}%></textarea>
                 <br>
                 <div>
                     <label class="d-flex justify-content-center" for="date">Event Time and Date</label>
-                    <input name="date" class="form-control" type="datetime-local" id="date" placeholder="Select Date and Time" value="<% if (typeof  attempt !== 'undefined' || event._id){%><%=event.date%><%}%>">
+                    <input required name="date" class="form-control" type="datetime-local" id="date" placeholder="Select Date and Time" value="<% if (typeof  attempt !== 'undefined' || event){%><%=event.date%><%}%>">
                 </div>
                 <br>
             </div>
             <div>
-                <label for="location">Location</label><input type="text" name="location" value="<% if (typeof  attempt !== 'undefined' || event._id){%><%=event.location.text%><%}%>">
+                <label for="location">Location</label><input type="text" name="location" value="<% if (typeof  attempt !== 'undefined' || event){%><%=event.location.text%><%}%>">
             </div>
             <div class="form-group d-flex justify-content-center col">
 
@@ -54,7 +54,7 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="tagsList">
                     <% tags.forEach(function (tag){%>
                         <label class="dropdown-item"><input type="checkbox" name="tags"
-                            <% if (typeof  attempt !== 'undefined' || event._id){%>
+                            <% if (typeof  attempt !== 'undefined' || event){%>
                             <% if(event.tags.includes(tag.content)){%>
                                                             checked
                                     <%}%><%}%>
@@ -63,7 +63,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <% if (!event._id){%>
+                <% if (event === null || !event._id){%>
                 <button type="submit" class="btn btn-primary">
                     Create
                 </button>
@@ -85,7 +85,7 @@
 
 
 <%- include('../partials/footer')%>
-<% if(event._id){%>
+<% if(event){%>
 <script>
     function confirmUser(){
         let ask = confirm("Are you sure you want to delete?");
