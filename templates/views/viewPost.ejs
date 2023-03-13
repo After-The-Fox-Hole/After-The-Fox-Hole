@@ -22,6 +22,7 @@
                     <%} else{%>
                     <%}%>
                 </div>
+
             </div>
             <div class="col-md-5 border">
                 <div class="card-body">
@@ -34,13 +35,15 @@
                     <p class="card-text" id="postCreated"><%=post.timeCreated%></p>
                 </div>
             </div>
-            <div class="col-md-1 text-center border">
-                <a href="">
-                    <div>
-                        <span class="material-symbols-outlined mt-5">expand_less</span>
-                        <p>Upvote</p>
-                    </div>
-                </a>
+            <div class="col-md-1 text-center border <% if(vote){%> voted<%}%>">
+                <form action="/vote" method="post">
+                    <input class="visually-hidden" name="master" value="<%= post._id %>">
+                    <input class="visually-hidden" name="attach" value="">
+                    <input class="visually-hidden" name="type" value="post">
+                    <input class="visually-hidden scrollField" name="scroll" value="">
+                    <button type="submit">VOTE</button>
+                    <input class="visually-hidden" name="value" value="<% if (vote){ %>-1<%} else{%>+1<%}%>">
+                    </form>
             </div>
             <div class="col-md-2">
 

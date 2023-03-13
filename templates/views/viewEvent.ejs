@@ -15,8 +15,7 @@
 
                     <a href="">
                         <h6 class="card-subtitle mb-2 ms-2 text-muted" id="eventCreator"><%=event.owner.name%></h6>
-                    </a>
-                    <% if (edit){ %>
+                    </a><% if (edit){ %>
                         <button type="submit" id="edit-button"><a href="/events/edit?id=<%=event._id%>">Edit Event</a></button>
                         <!--                                          insert path for post edit page-->
                     <%} else{%>
@@ -41,6 +40,17 @@
                         <p>Attending</p>
                     </div>
                 </a>
+                    <div class="col-md-1 text-center border <% if(vote){%>voted<%}%>">
+                        <form action="/vote" method="post">
+                            <input class="visually-hidden" name="master" value="<%= event._id %>">
+                            <input class="visually-hidden" name="attach" value="">
+                            <input class="visually-hidden" name="type" value="event">
+                            <input class="visually-hidden scrollField" name="scroll" value="">
+                            <button type="submit">VOTE</button>
+                            <input class="visually-hidden" name="value" value="<% if (vote){ %>-1<%} else{%>+1<%}%>">
+                        </form>
+                    </div>
+
             </div>
             <div class="col-md-2">
 

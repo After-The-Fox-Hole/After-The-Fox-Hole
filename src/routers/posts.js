@@ -53,7 +53,9 @@ router.get('/posts', auth, async (req,res)=>{
 	let votes = await Votes.find({$and:[{owner:req.user._id}, {master:req.query.id}]})
 	if(votes){
 		votes = votes.map(function(v){
-			return v.attach.valueOf()
+			if(v.attach){
+				return v.attach.valueOf()
+			}
 		})
 	}
 	let scroll = req.query.scroll;
@@ -93,7 +95,17 @@ router.get('/posts', auth, async (req,res)=>{
 		if (!scroll){
 			scroll = 0;
 		}
-		res.status(200).render('viewPost', ({user,post, edit, cHtml, scroll}))
+		
+		let vote= await Votes.findOne({$and:[{owner:user._id},{master:post._id}, {attach:null}]})
+		
+		if (!vote){
+			vote = false;
+		}
+		else{
+			vote = true;
+		}
+		
+		res.status(200).render('viewPost', ({user,post, edit, cHtml, scroll, vote}))
 		return
 	}
 	res.status(200).redirect('/profile')

@@ -18,7 +18,8 @@ const votesSchema = new mongoose.Schema({
 	attach: {
 		type: mongoose.Schema.Types.ObjectId,
 		required: false,
-		ref: 'comment'
+		ref: 'comment',
+		default: null
 	},
 	master: {
 		type: mongoose.Schema.Types.ObjectId,
