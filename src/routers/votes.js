@@ -20,7 +20,7 @@ router.post('/vote',auth,async (req,res)=>{
 	let value = req.body.value
 
 
-	let path = null;
+	
 
 	let vote = {
 		owner: user,
@@ -37,12 +37,12 @@ router.post('/vote',auth,async (req,res)=>{
 		await vote.save();
 
 		if (type === "event"){
-			path = Event;
+			await Event.findByIdAndUpdate(master,{$inc:{votes:value}})
 		}
 		else{
-			path = Post;
+			await Post.findByIdAndUpdate(master,{$inc:{votes:value}})
 		}
-		await path.findByIdAndUpdate(master,{$inc:{votes:value}})
+		
 		if (attach){
 			await Comment.findByIdAndUpdate(attach,{$inc:{votes:value}} )
 		}
