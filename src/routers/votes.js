@@ -19,6 +19,7 @@ router.post('/vote',auth,async (req,res)=>{
 	/// query for the master load, event/post
 	let value = req.body.value
 
+	let scroll = req.body.scroll
 
 	
 
@@ -33,11 +34,14 @@ router.post('/vote',auth,async (req,res)=>{
 	}
 
 	try{
-		vote = await new Vote(vote);
-		await vote.save();
-
+		
+		if (value !== "-1"){
+			vote = await new Vote(vote);
+			await vote.save();
+		}
 		if (type === "event"){
 			await Event.findByIdAndUpdate(master,{$inc:{votes:value}})
+			
 		}
 		else{
 			await Post.findByIdAndUpdate(master,{$inc:{votes:value}})
@@ -46,13 +50,32 @@ router.post('/vote',auth,async (req,res)=>{
 		if (attach){
 			await Comment.findByIdAndUpdate(attach,{$inc:{votes:value}} )
 		}
+		if(value === "-1" && attach){
+			if(attach){
+				await Vote.deleteOne({$and:[{owner:user}, {attach:attach}]})
+			}
+			else{
+				await Vote.deleteOne({$and:[{owner:user}, {master:master}]})
+			}
+		}
+		
 	}
 	catch (e) {
 		console.log(e)
 	}
-
-
-	res.status(200).send();
+	
+	if (!scroll){
+		scroll = 0;
+	}
+	if (type === "post"){
+		res.status(200).redirect(`/posts?id=${master}&scroll=${scroll}`)
+		
+	}
+	else{
+		res.status(200).redirect(`/events?id=${master}&scroll=${scroll}`)
+	}
+	
+	
 })
 
 

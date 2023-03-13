@@ -60,6 +60,7 @@ functions.commentLoop = async (comments, votes, master, masterText) =>{
 			})
 			for (let x of arr){
 				let votedL = false;
+				console.log(votes.includes(x._id.valueOf()))
 				if(votes.includes(x._id.valueOf())){
 					votedL = true;
 				}
@@ -76,6 +77,7 @@ functions.commentLoop = async (comments, votes, master, masterText) =>{
 										<input class="visually-hidden" name="master" value="${master._id}">
 										<input class="visually-hidden" name="attach" value="${x._id}">
 										<input class="visually-hidden" name="type" value="${masterText}">
+										<input class="visually-hidden scrollField" name="scroll" value="">
 										<button type="submit">VOTE</button>
 										<input class="visually-hidden" name="value" value="`;
 				if(votedL){
