@@ -6,7 +6,7 @@
     <title>After the Foxhole</title>
 
 </head>
-<body>
+<body id="testBody">
 <% if (typeof user === 'undefined'){%>
 <%- include('../partials/header')%>
 <%}else{%>
@@ -33,7 +33,7 @@
 
                 <div class="col-lg-6 mb-5 mb-lg-0">
                     <div class="card">
-                        <div class="card-body py-5 px-md-5">
+                        <div class="card-body py-5 px-md-5 text-center" id="testCard">
                             <form  action="/login" method="post">
                                 <h6>Ready to join the community?</h6>
 
@@ -60,7 +60,7 @@
                                 </div>
 
                                 <!-- Submit button -->
-                                <button  value="Submit" type="submit"  class="btn btn-primary btn-block mb-4" >
+                                <button  value="Submit" type="submit" class="btn btn-primary btn-block mb-4 buttonStyle" >
                                     Login
                                     <!--href="homepage.ejs"-->
                                 </button>
@@ -86,12 +86,12 @@
                                                 <form action="/users/recovery" method="post">
                                                     <label for="emailField">Email: </label>
                                                     <input type="email" name="email" id="emailField">
-                                                    <button value="Submit" type="submit" class="btn btn-primary">Send Recovery</button>
+                                                    <button value="Submit" type="submit" class="btn btn-primary buttonStyle">Send Recovery</button>
                                                 </form>
 
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-secondary buttonStyle" data-bs-dismiss="modal">Close</button>
                                             </div>
                                         </div>
                                     </div>
