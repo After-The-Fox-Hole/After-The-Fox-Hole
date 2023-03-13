@@ -7,6 +7,7 @@ const Event = require("../models/event");
 const Tags = require("../models/tags");
 const Post = require("../models/posts");
 const format = require('date-format');
+const Comment = require("../models/comment");
 
 
 
@@ -55,27 +56,155 @@ router.post('/events',auth,async (req,res)=>{
 	
 })
 
+// router.get('/events', auth, async (req,res)=>{
+//
+// 	const id = req.query.id;
+// 	let event = await Event.findOne({_id:id});
+// 	let user = await req.user.clean();
+// 	let owner;
+// 	try{
+// 		 owner = await User.findOne({_id: event.owner.id})
+// 	}
+// 	catch (e) {
+// 		res.status(200).redirect(`/profile?id=${req.user.id}`)
+// 		return
+// 	}
+//
+// 	let edit=false;
+// 	if(owner.id.valueOf() === user._id){
+// 		edit=true
+// 	}
+//
+// 	res.status(200).render('viewEvent', ({user,event, edit}))
+// })
+
+
 router.get('/events', auth, async (req,res)=>{
 	
-	const id = req.query.id;
-	let event = await Event.findOne({_id:id});
-	let user = await req.user.clean();
-	let owner;
-	try{
-		 owner = await User.findOne({_id: event.owner.id})
-	}
-	catch (e) {
-		res.status(200).redirect(`/profile?id=${req.user.id}`)
+	let scroll = req.query.scroll;
+	let event;
+	if(req.query.id){
+		const id = req.query.id;
+		try{
+			event = await Event.findOne({_id:id});
+			
+		}
+		catch (e) {
+			console.log(e)
+			res.status(400).send("No post found");
+			return;
+		}
+		
+		let user = await req.user.clean();
+		let owner = await User.findOne({_id: event.owner.id})
+		let ownerAvatar = owner.avatar
+		event = event.toObject();
+		event.avatar = ownerAvatar
+		let edit=false;
+		if(owner._id.valueOf() === user._id){
+			edit=true
+		}
+		let comments = await Comment.find({master:event._id})
+		
+		
+		
+		const loopOne =(arr)=>{
+			let a = []
+			
+			for (let x of arr){
+				if (x.attach.length === 0){
+					a.push(x);
+				}
+			}
+			return a
+		}
+		
+		let result = loopOne(comments)
+		
+		const loopTwo = (arr,arrM) =>{
+			for (let x of arrM) {
+				for (let y of arr) {
+					if(x.attach.length>0) {
+						if (x.attach[0].valueOf() === y._id.valueOf()) {
+							if (!y.nested) {
+								y.nested = [x]
+							} else {
+								if (!y.nested.includes(x)) {
+									y.nested.push(x)
+								}
+							}
+							y.nested = loopTwo(y.nested, comments)
+						}
+					}
+				}
+			}
+			return arr
+		}
+		
+		result = loopTwo(result,comments)
+		
+		const commentLoop = (arr, html, count)=>{
+			
+			arr = arr.sort(function(x,y){
+				if (x.votes > y.votes){
+					return -1;
+				}
+				if (x.votes < y.votes){
+					return +1;
+				}
+				if (x.timeCreated > y.timeCreated){
+					return -1;
+				}
+				if (x.timeCreated < y.timeCreated){
+					return +1;
+				}
+				
+				
+				
+				
+			})
+			for (let x of arr){
+				html = html + `<div class="border my-1 p-2" style="margin-left: ${count}em">
+									<div>${x.owner.name}</div>
+									<div class="mb-2">${x.content}</div>
+									<div class="d-flex justify-content-end">
+									<form action="/comments/add" method="post">
+										<input class="visually-hidden" name="master" value="${event._id}">
+										<input class="visually-hidden" name="attach" value="${x._id}">
+										<input class="visually-hidden" name="type" value="event">
+										<input class="visually-hidden scrollField" name="scroll" value="">
+										<textarea class="visually-hidden makeComment" name="content" ></textarea>
+										<button class="visually-hidden makeComment reset" type="submit">Submit</button>
+										<button class="visually-hidden makeComment" type="button">Cancel</button>
+									</form>
+									
+									<button class="btn-sm openComment">reply</button>
+									</div>
+								</div>`
+				if(x.nested){
+					if(count < 17){
+						html = commentLoop(x.nested, html, count+4)
+					}
+					else{
+						html = commentLoop(x.nested, html, count)
+					}
+				}
+			}
+			return html
+		}
+		let cHtml = "";
+		cHtml = commentLoop(result, cHtml, 0);
+		if (!scroll){
+			scroll = 0;
+		}
+		
+		res.status(200).render('viewEvent', ({user,event, edit, cHtml, scroll}))
+		// res.status(200).render('viewPost', ({user,post, edit, cHtml, scroll}))
 		return
 	}
-	
-	let edit=false;
-	if(owner.id.valueOf() === user._id){
-		edit=true
-	}
-	
-	res.status(200).render('viewEvent', ({user,event, edit}))
+	res.status(200).redirect('/profile')
 })
+
 
 router.get("/events/create", auth, async (req, res)=>{
 	let tags = await Tags.find({type:"event"})

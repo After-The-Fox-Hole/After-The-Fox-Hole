@@ -42,6 +42,7 @@ router.post('/comments/add',auth,async (req,res)=>{
 	}
 	if (type === "event"){
 		collection = Event;
+		type = "events"
 	}
 
 	try{
@@ -55,7 +56,7 @@ router.post('/comments/add',auth,async (req,res)=>{
 	}
 
 	
-	res.status(200).redirect(`/posts?id=${master}&scroll=${req.body.scroll}`);
+	res.status(200).redirect(`/${type}?id=${master}&scroll=${req.body.scroll}`);
 	
 
 })

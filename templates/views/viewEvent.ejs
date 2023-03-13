@@ -50,22 +50,43 @@
     <br>
 </div>
 <div class="mx-auto my-2 w-50">
-    <form>
+    <form action="/comments/add" method="post">
         <div>
             <label for="addCommentText" class="form-label">Comment:</label>
-            <textarea class="form-control" id="addCommentText" rows="3"></textarea>
+            <textarea class="form-control" id="addCommentText" rows="3" name="content"></textarea>
         </div>
         <div class="d-flex justify-content-end">
+            <input class="visually-hidden" name="master" value="<%=event._id%>">
+            <input class="visually-hidden" name="type" value="event">
+            <input class="visually-hidden" id="scroll" name="scroll" value='0'>
             <button type="submit" class="btn btn-primary my-1" id="addCmtBtn">Add Comment</button>
         </div>
     </form>
     <br>
 </div>
-<!--<div class="mx-auto my-2 w-50">-->
-<!--    <-cHtml>-->
-<!--</div>-->
-<!--<div style="padding-left: ${count}em">${x.content}</div>-->
+<div class="mx-auto my-2 w-50">
+    <%-cHtml%>
+</div>
+
 
 <%- include('../partials/footer')%>
+<script>
+	$(document).ready(function(){
+		let scrollPosition = 0;
+		$(".openComment").click(function(){
+			let parent = $(this).parent().children("form")
+			let openComment= parent.children(".makeComment")
+			openComment.each(function (){
+				$(this).removeClass("visually-hidden")
+			})
+		})
+		window.scrollTo(0, <%=scroll%>)
+		window.addEventListener('scroll', function () {
+			scrollPosition = window.scrollY;
+			$(".scrollField").attr("value", scrollPosition)
+		});
+	})
+</script>
+
 </body>
 </html>
