@@ -129,16 +129,13 @@ router.get('/events', auth, async (req,res)=>{
 
 
 router.get("/events/create", auth, async (req, res)=>{
-	let event = null;
-	if(req.query.id){
-		let id = req.query.id
-		event = await Event.findOne({_id:id})
-	}
 	let tags = await Tags.find({type:"event"})
-	let user = await req.user.clean();
-	res.status(200).render("createEvent", ({user, tags, event}));
-	
-	})
+	let user = req.user
+	user = await user.clean();
+
+	res.status(200).render("createEvent", ({user, tags}));
+
+})
 
 router.get('/events/view', auth,async (req,res)=>{
 	let id = req.query.id

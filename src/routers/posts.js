@@ -100,15 +100,9 @@ router.get('/posts', auth, async (req,res)=>{
 })
 
 router.get("/posts/create", auth, async (req, res)=>{
-	let post = null;
-	let tags = null;
-	if (req.query.id){
-		post = await Post.findById(req.query.id)
-		let tags = await Tags.find({type:"post"})
-	}
 	let user = req.user
 	user = await user.clean();
-	res.status(200).render("createPost", ({user, post, tags}));
+	res.status(200).render("createPost", ({user}));
 })
 
 router.get('/posts/edit', auth, async (req, res)=>{

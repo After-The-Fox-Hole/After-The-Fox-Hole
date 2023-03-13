@@ -27,28 +27,45 @@
                 </div>
                 <div class="form-group">
                     <label class="d-flex justify-content-center" for="description">Description</label>
-                    <textarea rows="5" class="form-control" id="description" name="content"></textarea>
+                    <textarea rows="5" class="form-control" id="description" name="content"><%if (post) {%><%=post.content%><%}%></textarea>
                 </div>
                 <br>
-                <div class="form-group d-flex justify-content-center col">
+                    <div class="form-group d-flex justify-content-center col">
 
-                    <label for="tagsList">Tags:</label>
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                        Tags
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="tagsList">
-
-                    </ul>
-                </div>
+                        <label for="tagsList">Tags:</label>
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                            Tags
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="tagsList">
+                            <% if (post) {%>
+                            <% tags.forEach(function (tag){%>
+                                <label class="dropdown-item"><input type="checkbox" name="tags"
+                                    <% if(post.tags.includes(tag.content)){%>
+                                                                    checked
+                                            <%}%>
+                                                                    value="<%=tag.content%>"><%=tag.content%></label>
+                            <%})%>
+                            <%}%>
+                        </div>
+                    </div>
                <br>
                 <div class="form-group d-flex justify-content-center">
+                    <% if (!post){%>
                     <button type="submit" class="btn btn-primary">
                         Create
                     </button>
-                    <a type="button" href="/profile?id=<%=user._id%>" class="btn btn-danger">
+                    <a  href="/profile?id=<%=user._id%>" class="btn btn-danger">
                         Cancel
                     </a>
+                    <%} else {%>
+                        <button type="submit" class="btn btn-primary">
+                            Update
+                        </button>
+                        <a type="button" href="#" onclick="confirmUser()" class="btn btn-danger">
+                            Delete
+                        </a>
+                    <%}%>
                 </div>
             </form>
         </div>
@@ -56,7 +73,16 @@
 
 
 <%- include('../partials/footer')%>
-
+<% if(post){%>
+<script>
+    function confirmUser(){
+        let ask = confirm("Are you sure you want to delete?");
+        if(ask === true){
+            window.location="/posts/delete?id=<%=post._id%>"
+        }
+    }
+</script>
+<%}%>
 
 <script src="/assets/js/createPost.js"></script>
 </body>
