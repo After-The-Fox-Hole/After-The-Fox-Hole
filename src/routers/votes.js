@@ -20,33 +20,39 @@ router.post('/vote',auth,async (req,res)=>{
 	//// if it's a comment id
 	let master = req.body.master;
 	/// query for the master load, event/post
-	let voted = req.body.voted;
+	let value = req.body.value
+	
 	
 	let collection;
 	
 	let vote = {
 		owner: user,
 		master:master,
-		model_typeR:type,
+		model_TypeR:type,
 		value:value
 	}
 	if(attach){
 		vote.attach = attach
 	}
+	try{
+		vote = await new Vote(vote);
+		await vote.save();
+		
+		if (type === "event"){
+			collection = Event;
+		}
+		else{
+			collection = Post;
+		}
+		await collection.findByIdAndUpdate(master,{$inc:{votes:value}})
+		if (attach){
+			await Comment.findByIdAndUpdate(attach,{$inc:{votes:value}} )
+		}
+	}
+	catch (e) {
+		console.log(e)
+	}
 	
-	vote = await new Vote(vote);
-	await vote.save();
-	
-	if (type === "event"){
-		collection = Event;
-	}
-	else{
-		collection = Post;
-	}
-	await collection.findByIdAndUpdate({master},{$inc:{votes:voted}})
-	if (attach){
-		Comment.findByIdAndUpdate({attach},{$inc:{votes:voted}} )
-	}
 	
 	res.status(200).send();
 })

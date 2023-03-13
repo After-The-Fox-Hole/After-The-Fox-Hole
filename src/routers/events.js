@@ -8,6 +8,7 @@ const Tags = require("../models/tags");
 const Post = require("../models/posts");
 const format = require('date-format');
 const Comment = require("../models/comment");
+const Votes = require("../models/votes");
 
 
 
@@ -80,7 +81,12 @@ router.post('/events',auth,async (req,res)=>{
 
 
 router.get('/events', auth, async (req,res)=>{
-	
+	let votes = await Votes.find({$and:[{owner:req.user._id}, {master:req.query.id}]})
+	if(votes){
+		votes = votes.map(function(v){
+			return v.attach.valueOf()
+		})
+	}
 	let scroll = req.query.scroll;
 	let event;
 	if(req.query.id){
@@ -164,10 +170,34 @@ router.get('/events', auth, async (req,res)=>{
 				
 			})
 			for (let x of arr){
+				let votedL = false;
+				if(votes.includes(x._id.valueOf())){
+					votedL = true;
+				}
 				html = html + `<div class="border my-1 p-2" style="margin-left: ${count}em">
 									<div>${x.owner.name}</div>
 									<div class="mb-2">${x.content}</div>
 									<div class="d-flex justify-content-end">
+									<div class="`;
+									if(votedL){
+										html = html + "voted"
+									}
+									html = html + `">
+														<form action="/vote" method="post">
+															<input class="visually-hidden" name="master" value="${event._id}">
+															<input class="visually-hidden" name="attach" value="${x._id}">
+															<input class="visually-hidden" name="type" value="event">
+															<button type="submit">VOTE</button>
+															<input class="visually-hidden" name="value" value="`;
+										if(votedL){
+											html = html + "-1"
+										}
+										else{
+											html = html + "+1"
+										}
+										html = html + `">
+															</form>
+															</div>
 									<form action="/comments/add" method="post">
 										<input class="visually-hidden" name="master" value="${event._id}">
 										<input class="visually-hidden" name="attach" value="${x._id}">
