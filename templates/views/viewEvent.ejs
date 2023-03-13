@@ -72,6 +72,7 @@
 <%- include('../partials/footer')%>
 <script>
 	$(document).ready(function(){
+		let jump = "<%=scroll%>"
 		let scrollPosition = 0;
 		$(".openComment").click(function(){
 			let parent = $(this).parent().children("form")
@@ -80,7 +81,12 @@
 				$(this).removeClass("visually-hidden")
 			})
 		})
-		window.scrollTo(0, <%=scroll%>)
+		window.scrollTo({
+			top: parseInt(jump),
+            left: 0,
+			behavior: 'instant'
+		})
+
 		window.addEventListener('scroll', function () {
 			scrollPosition = window.scrollY;
 			$(".scrollField").attr("value", scrollPosition)
