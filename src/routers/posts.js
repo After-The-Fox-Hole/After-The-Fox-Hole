@@ -2,11 +2,11 @@ const express = require('express')
 const User = require("../models/user");
 const router = new express.Router;
 const auth = require('../middleware/auth');
-const app = require("../app");
+
 const Post = require("../models/posts");
 const Tags = require("../models/tags");
 const Comment = require("../models/comment")
-const {response} = require("express");
+
 const format = require("date-format");
 const Votes = require("../models/votes");
 const Helper = require("../JS/functions")

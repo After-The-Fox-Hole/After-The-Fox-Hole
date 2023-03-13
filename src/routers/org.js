@@ -2,7 +2,7 @@ const express = require('express')
 const Org = require("../models/org");
 const router = new express.Router;
 const auth = require('../middleware/auth');
-const app = require("../app");
+
 
 
 ///////sign up

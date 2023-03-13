@@ -1,10 +1,7 @@
 const express = require('express')
-const User = require("../models/user");
 const router = new express.Router;
 const auth = require('../middleware/auth');
-const app = require("../app");
 const Event = require("../models/event");
-const Tags = require("../models/tags")
 const Comments = require("../models/comment")
 const Posts = require("../models/posts")
 
@@ -19,7 +16,7 @@ router.post('/comments/add',auth,async (req,res)=>{
 	let attach = req.body.attach;
 	let content = req.body.content;
 	let type = req.body.type
-	let collection;
+	let collection="";
 
 	
 	

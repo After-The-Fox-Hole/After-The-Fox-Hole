@@ -2,10 +2,10 @@ const express = require('express')
 const User = require("../models/user");
 const router = new express.Router;
 const auth = require('../middleware/auth');
-const app = require("../app");
+
 const Event = require("../models/event");
 const Tags = require("../models/tags");
-const Post = require("../models/posts");
+
 const format = require('date-format');
 const Comment = require("../models/comment");
 const Votes = require("../models/votes");
@@ -89,7 +89,7 @@ router.get('/events', auth, async (req,res)=>{
 		})
 	}
 	let scroll = req.query.scroll;
-	let event;
+	let event = null;
 	if(req.query.id){
 		const id = req.query.id;
 		try{

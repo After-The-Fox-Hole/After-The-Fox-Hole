@@ -2,9 +2,7 @@ const express = require('express')
 const User = require("../models/user");
 const router = new express.Router;
 const auth = require('../middleware/auth');
-const app = require("../app");
-const {add} = require("nodemon/lib/rules");
-const sgMail = require("@sendgrid/mail");
+
 
 
 ///////sign up
