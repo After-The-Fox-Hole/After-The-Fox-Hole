@@ -10,6 +10,7 @@ const format = require('date-format');
 const Comment = require("../models/comment");
 const Votes = require("../models/votes");
 const Helper = require("../JS/functions");
+const Post = require("../models/posts");
 
 
 
@@ -107,34 +108,28 @@ router.get('/events', auth, async (req,res)=>{
 
 
 router.get("/events/create", auth, async (req, res)=>{
+	let event = null;
+	if (req.query.id){
+		event = await Event.findById(req.query.id)
+	}
 	let tags = await Tags.find({type:"event"})
 	let user = req.user
 	user = await user.clean();
 
-	res.status(200).render("createEvent", ({user, tags}));
+	res.status(200).render("createEvent", ({user, tags, event}));
 
 })
 
-// router.get('/events/view', auth,async (req,res)=>{
-// 	let id = req.query.id
-// 	let event = await Event.findOne({_id:id})
-// 	let user = req.user
-// 	user = await user.clean();
-// 	res.status(200).render("viewEvent", ({user, event}))
-//
-// 	//// comments for events and handling and owner
-//
-// })
 
-router.get("/events/edit", auth,async(req, res)=>{
-	const id = req.query.id;
-	let event = await Event.findOne({_id:id});
-	let user = await req.user.clean();
-	let tags = await Tags.find({type:"event"})
-	
-	
-	res.status(200).render('editEvent', ({user,event, tags}))
-} )
+// router.get("/events/edit", auth,async(req, res)=>{
+// 	const id = req.query.id;
+// 	let event = await Event.findOne({_id:id});
+// 	let user = await req.user.clean();
+// 	let tags = await Tags.find({type:"event"})
+//
+//
+// 	res.status(200).render('editEvent', ({user,event, tags}))
+// } )
 
 router.post("/events/update", auth, async (req, res)=>{
 	let event = await Event.findById(req.body.id)
