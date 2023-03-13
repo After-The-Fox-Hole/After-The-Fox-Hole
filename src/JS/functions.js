@@ -63,9 +63,19 @@ functions.commentLoop = async (comments, votes, master, masterText) =>{
 				if(votes.includes(x._id.valueOf())){
 					votedL = true;
 				}
-				html = html + `<div class="border my-1 p-2" style="margin-left: ${count}em">
-									<div>${x.owner.name}</div>
-									<div class="mb-2">${x.content}</div>
+				html = html + `<div class="border my-1 p-2 theseAreCards" style="margin-left: ${count}em">
+									<div>
+										<a href="/profile?id=${x.owner.id}">
+											<p class="commentContent">${x.owner.name}</p>
+										</a>
+									</div>
+									<div class="commentContent mb-2">${x.content}</div>
+									<div>
+									<form action="/comments/add" method="post">
+									<div class="visually-hidden makeComment">
+											<textarea class=" " name="content" rows="3" type="text"></textarea>
+										</div>
+									</form>
 									<div class="d-flex justify-content-end">
 									<div class="`;
 				if(votedL){
@@ -77,7 +87,7 @@ functions.commentLoop = async (comments, votes, master, masterText) =>{
 										<input class="visually-hidden" name="attach" value="${x._id}">
 										<input class="visually-hidden" name="type" value="${masterText}">
 										<input class="visually-hidden scrollField" name="scroll" value="">
-										<button type="submit">VOTE</button>
+										<button class="hideOnComment navBtnStyle" type="submit">VOTE</button>
 										<input class="visually-hidden" name="value" value="`;
 				if(votedL){
 					html = html + "-1"
@@ -93,12 +103,14 @@ functions.commentLoop = async (comments, votes, master, masterText) =>{
 										<input class="visually-hidden" name="attach" value="${x._id}">
 										<input class="visually-hidden" name="type" value="${masterText}">
 										<input class="visually-hidden scrollField" name="scroll" value="">
-										<textarea class="visually-hidden makeComment" name="content" type="text"></textarea>
-										<button class="visually-hidden makeComment reset" type="submit">Submit</button>
-										<button class="visually-hidden makeComment" type="button">Cancel</button>
+										
+										
+										<button class="visually-hidden makeComment reset navBtnStyle" type="submit">Submit</button>
+										<button class="visually-hidden makeComment closeComment navBtnStyle" type="button">Cancel</button>
 									</form>
 									
-									<button class="btn-sm openComment">reply</button>
+									<button class="btn-sm openComment hideOnComment navBtnStyle">reply</button>
+									</div>
 									</div>
 								</div>`
 				if(x.nested){
