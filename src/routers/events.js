@@ -10,6 +10,7 @@ const format = require('date-format');
 const Comment = require("../models/comment");
 const Votes = require("../models/votes");
 const Helper = require("../JS/functions");
+const Post = require("../models/posts");
 
 
 
@@ -118,9 +119,14 @@ router.get('/events', auth, async (req,res)=>{
 
 
 router.get("/events/create", auth, async (req, res)=>{
+	let event = null;
+	if (req.query.id){
+		event = await Event.findById(req.query.id)
+	}
 	let tags = await Tags.find({type:"event"})
 	let user = req.user
 	user = await user.clean();
+
 	
 	res.status(200).render("createEvent", ({user, tags}));
 	
@@ -137,6 +143,7 @@ router.get("/events/edit", auth,async(req, res)=>{
 	
 	res.status(200).render('editEvent', ({user,event, tags}))
 } )
+
 
 router.post("/events/update", auth, async (req, res)=>{
 	let event = await Event.findById(req.body.id)

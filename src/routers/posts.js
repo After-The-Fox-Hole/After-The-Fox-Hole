@@ -20,9 +20,10 @@ router.post("/posts/update", auth, async (req, res)=>{
 		options.content = req.body.content
 		options.tags = req.body.tags
 	
+	
 	await Post.findOneAndUpdate({_id:req.body.id}, options)
 	
-	res.status(200).redirect(`/posts?id=${post._id}`)
+	res.status(200).redirect(`/posts?id=${req.body.id}`)
 	
 	
 })
@@ -112,9 +113,14 @@ router.get('/posts', auth, async (req,res)=>{
 })
 
 router.get("/posts/create", auth, async (req, res)=>{
+	let post = null;
+	if (req.query.id){
+		post = Post.findById(req.query.id)
+	}
+	let tags = await Tags.find({type:"post"})
 	let user = req.user
 	user = await user.clean();
-	res.status(200).render("createPost", ({user}));
+	res.status(200).render("createPost", ({user, tags, post}));
 })
 
 router.get('/posts/edit', auth, async (req, res)=>{
@@ -123,7 +129,7 @@ router.get('/posts/edit', auth, async (req, res)=>{
 	let user = req.user;
 	user = await user.clean();
 	let tags = await Tags.find({type:"post"})
-	res.status(200).render("editPost", ({user, post, tags}))
+	res.status(200).render("createPost", ({user, post, tags}))
 })
 
 

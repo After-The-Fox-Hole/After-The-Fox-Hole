@@ -11,36 +11,59 @@
 <body>
 <div class="container min-vh-100 d-flex justify-content-center align-items-center col" >
         <div class="col-md-6 col-md-offset-3">
-            <h1 class="d-flex justify-content-center">Create Post</h1>
-            <form action="/posts" method="POST">
+            <% if (post){%>
+                <h1 class="d-flex justify-content-center">Edit Post</h1>
+            <% } else {%>
+                <h1 class="d-flex justify-content-center">Create Post</h1>
+            <%}%>
+                <form <% if (!post){%>action="/posts" <%} else {%> action="/posts/update"  <%}%> method="POST">
+
+                <%if (post) {%>
+                <input class="visually-hidden" name="id" value="<%=post.id%>">
+                <%}%>
                 <div class="form-group">
                     <label class="d-flex justify-content-center" for="title">Title</label>
-                    <input type="text" class="form-control" id="title" name="title">
+                    <input type="text" class="form-control" id="title" name="title" value="<%if (post) {%><%=post.title%><%}%>">
                 </div>
                 <div class="form-group">
                     <label class="d-flex justify-content-center" for="description">Description</label>
-                    <textarea rows="5" class="form-control" id="description" name="content"></textarea>
+                    <textarea rows="5" class="form-control" id="description" name="content"><%if (post) {%><%=post.content%><%}%></textarea>
                 </div>
-                <br>
-                <div class="form-group d-flex justify-content-center col">
 
-                    <label for="tagsList">Tags:</label>
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                        Tags
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="tagsList">
+                    <div class="form-group d-flex justify-content-center col">
 
-                    </ul>
-                </div>
-               <br>
+                        <label for="tagsList">Tags:</label>
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                            Tags
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="tagsList">
+                            <% tags.forEach(function (tag){%>
+                                <label class="dropdown-item"><input type="checkbox" name="tags"
+                                    <% if(post.tags.includes(tag.content)){%>
+                                                                    checked
+                                            <%}%>
+                                                                    value="<%=tag.content%>"><%=tag.content%></label>
+                            <%})%>
+                        </div>
+                    </div>
+
                 <div class="form-group d-flex justify-content-center">
+                    <% if (!post){%>
                     <button type="submit" class="btn btn-primary">
                         Create
                     </button>
-                    <a type="button" href="/profile?id=<%=user._id%>" class="btn btn-danger">
+                    <a  href="/profile?id=<%=user._id%>" class="btn btn-danger">
                         Cancel
                     </a>
+                    <%} else {%>
+                        <button type="submit" class="btn btn-primary">
+                            Update
+                        </button>
+                        <a type="button" href="#" onclick="confirmUser()" class="btn btn-danger">
+                            Delete
+                        </a>
+                    <%}%>
                 </div>
             </form>
         </div>
@@ -48,8 +71,17 @@
 
 
 <%- include('../partials/footer')%>
+<% if(post){%>
+<script>
+    function confirmUser(){
+        let ask = confirm("Are you sure you want to delete?");
+        if(ask === true){
+            window.location="/posts/delete?id=<%=post._id%>"
+        }
+    }
+</script>
+<%}%>
 
 
-<script src="/assets/js/createPost.js"></script>
 </body>
 </html>

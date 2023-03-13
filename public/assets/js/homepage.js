@@ -1,4 +1,8 @@
 
+// <% if (typeof  attempt !== 'undefined'){%><%=event.title%><%}%>
+
+
+
 //setting everything for initial page load with default options for filter/sort
 document.addEventListener("DOMContentLoaded", function(event) {
     updateTags();
