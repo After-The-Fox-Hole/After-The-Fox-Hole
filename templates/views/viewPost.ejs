@@ -3,45 +3,45 @@
 <head>
     <title>View Post</title>
 </head>
-<body>
+<body class="bodyBack">
 <%- include('../partials/header'), ({user})%>
 
 <div>
-    <div class="card mx-3 mt-2 border-0" style="">
+    <div class="card mx-3 mt-4 border-0 backGrey mainCard" style="">
         <div class="row">
             <div class="col-md-2"></div>
-            <div class="col-md-2 border">
+            <div class="col-md-2 border-end border-dark theseAreCards">
                 <div class="text-center">
                     <img src="<%=post.avatar%>" class="img-fluid rounded-circle mb-3 mt-4" style="width: 50px; height: 50px;" alt="...">
                     <a href="">
-                        <h6 class="card-subtitle mb-2 ms-2 text-muted" id="postCreator"><%=post.owner.name%></h6>
+                        <h4 class="card-subtitle mb-2 ms-2 text-muted" id="postCreator"><%=post.owner.name%></h4>
                     </a>
                     <% if (edit){ %>
-                        <button type="submit" id="edit-button"><a href="/posts/edit?id=<%=post._id%>">Edit Post</a></button>
+                        <button class="navBtnStyle" type="submit" id="edit-button"><a href="/posts/edit?id=<%=post._id%>">Edit Post</a></button>
                         <!--                                          insert path for post edit page-->
                     <%} else{%>
                     <%}%>
                 </div>
 
             </div>
-            <div class="col-md-5 border">
+            <div class="col-md-5 theseAreCards">
                 <div class="card-body">
                     <div> </div>
                     <a href="">
-                        <h5 class="card-title" id="postTitle"><%=post.title%></h5>
+                        <h3 class="card-title" id="postTitle"><%=post.title%></h3>
                     </a>
 
                     <p class="card-text" id="postContent"><%=post.content%></p>
                     <p class="card-text" id="postCreated"><%=post.timeCreated%></p>
                 </div>
             </div>
-            <div class="col-md-1 text-center border <% if(vote){%> voted<%}%>">
-                <form action="/vote" method="post">
+            <div class="col-md-1 text-center border-start border-dark theseAreCards voteable<% if(vote){%> voted<%}%>">
+                <form class="my-2 mx-auto pt-5" action="/vote" method="post">
                     <input class="visually-hidden" name="master" value="<%= post._id %>">
                     <input class="visually-hidden" name="attach" value="">
                     <input class="visually-hidden" name="type" value="post">
                     <input class="visually-hidden scrollField" name="scroll" value="">
-                    <button type="submit">VOTE</button>
+                    <button class="navBtnStyle voteBtn" type="submit">VOTE</button>
                     <input class="visually-hidden" name="value" value="<% if (vote){ %>-1<%} else{%>+1<%}%>">
                     </form>
             </div>
@@ -52,22 +52,22 @@
     </div>
     <br>
 </div>
-<div class="mx-auto my-2 w-50">
+<div class="mx-auto my-2 w-75 px-5 py-2 cardsContainer commentContent rounded">
     <form action="/comments/add" method="post">
         <div>
             <label for="addCommentText" class="form-label">Comment:</label>
-            <textarea class="form-control" id="addCommentText" rows="3" name="content"></textarea>
+            <textarea class="form-control theseAreCards" id="addCommentText" rows="3" name="content"></textarea>
         </div>
         <div class="d-flex justify-content-end">
                 <input class="visually-hidden" name="master" value="<%=post._id%>">
                 <input class="visually-hidden" name="type" value="post">
                 <input class="visually-hidden" id="scroll" name="scroll" value='0'>
-                <button type="submit" class="btn btn-primary my-1" id="addCmtBtn">Add Comment</button>
+                <button type="submit" class="btn btn-primary my-1 navBtnStyle" id="addCmtBtn">Add Comment</button>
         </div>
     </form>
     <br>
 </div>
-<div class="mx-auto my-2 w-50">
+<div class="mx-auto my-2 w-75 px-5 py-2 cardsContainer rounded">
     <%-cHtml%>
 </div>
 <!--<div style="padding-left: ${count}em">${x.content}</div>-->
@@ -83,7 +83,35 @@ $(document).ready(function(){
         openComment.each(function (){
 	        $(this).removeClass("visually-hidden")
         })
+        let hideThese = $(".hideOnComment")
+        hideThese.each(function (){
+            $(this).addClass("visually-hidden")
+        })
+        $(".formReply").addClass("d-flex flex-fill")
     })
+    $(".closeComment").click(function(){
+        let parent = $(this).parent()
+        let openComment= parent.children(".makeComment")
+        openComment.each(function (){
+            $(this).addClass("visually-hidden")
+        })
+        let hideThese = $(".hideOnComment")
+        hideThese.each(function(){
+            $(this).removeClass("visually-hidden")
+        })
+        $(".formReply").removeClass("d-flex flex-fill")
+    })
+     let voteable = $(".voteable")
+        voteable.each(function(){
+            console.log($(this))
+            if($(this).hasClass("voted")){
+                let buttons = $(this).find(".voteBtn")
+                buttons.each(function(){
+                    $(this).addClass("votedBtn")
+                })
+            }
+        })
+
 	window.scrollTo({
 		top: parseInt(jump),
 		left: 0,
