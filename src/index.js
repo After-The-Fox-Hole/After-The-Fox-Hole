@@ -17,6 +17,9 @@ app.get('', (request, response) => {
 	response.render('login', ({attempt}))
 });
 
+app.get('*', function(req, res) {
+	res.render('login')
+});
 
 
 
