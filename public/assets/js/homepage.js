@@ -72,7 +72,7 @@ async function displayCards(cards) {
     contentCards.innerHTML = "";
     let contents = '';
     cards.forEach(function(cd) {
-        console.log(cd.tags)
+        
             let date = new Date(cd.timeCreated);
             let options = {
                 year: 'numeric',
@@ -142,6 +142,7 @@ function handleFeedAndSearch() {
     let selectedType = document.getElementById("type").value;
     let selectedSort = document.getElementById("sort").value;
     let selectedTab = document.querySelector(".nav-tabs .active").getAttribute("href");
+    console.log(selectedTab)
 
     const requestOptions = {
         method: 'POST',

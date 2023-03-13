@@ -33,7 +33,18 @@
                         <button type="submit" id="edit-button"><a href="/profile/edit">Edit Profile</a></button>
 <!--                        <button type="submit" id="end-editing" class="visually-hidden">Save Profile</button>-->
                     <%} else{%>
-                        <button type="submit" id="fireTeam-button">Add to FireTeam</button>
+                            <% if(!fireteam){ %>
+                        <form action="/fireteam/add" method="post">
+                            <input class="visually-hidden" name="ownerId" value="<%=owner._id%>">
+                            <input class="visually-hidden" name="displayName" value="<%=owner.displayName%>">
+                            <button type="submit">Add To FireTeam</button>
+                        </form>
+                                <% } else {%>
+                        <form action="/fireteam/remove" method="post">
+                            <input class="visually-hidden" name="ownerId" value="<%=owner._id%>">
+                            <button type="submit">Remove From FireTeam</button>
+                        </form>
+                                    <%}%>
                     <%}%>
                 </div>
             </div>
