@@ -79,16 +79,16 @@ router.post('/homepage/info', auth, async (req, res) =>{
 	}
 
 	if (type === "event") {
-		collection = Event;
+	results =	await Event.find({$and:filter}).sort(sorting)
 	}
 	if(type === "post"){
-		collection = Post;
+	results =	await Post.find({$and:filter}).sort(sorting)
 	}
-	if (tab === "#all"){
-
-		results= await collection.find({$and:filter}).sort(sorting)
-
-	}
+	// if (tab === "#all"){
+	//
+	// 	results= await collection.find({$and:filter}).sort(sorting)
+	//
+	// }
 	else{
 		let followers = await Following.find({owner:req.user.id})
 		let following = [];
@@ -98,8 +98,13 @@ router.post('/homepage/info', auth, async (req, res) =>{
 
 			following.push(x)
 		}
-
-			 results = await collection.find({$and:[{$or:following}, {$and:filter}]}).sort(sorting)
+		if (type === "event") {
+		results = await Event.find({$and:[{$or:following}, {$and:filter}]}).sort(sorting)
+		}
+		if(type === "post"){
+			results = await Post.find({$and:[{$or:following}, {$and:filter}]}).sort(sorting)
+		}
+		
 	}
 
 	res.status(200).send(results)
