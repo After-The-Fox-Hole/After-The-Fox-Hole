@@ -32,25 +32,24 @@ router.post('/vote',auth,async (req,res)=>{
 	if(attach){
 		vote.attach = attach
 	}
-
 	try{
-		
+
 		if (value !== "-1"){
 			vote = await new Vote(vote);
 			await vote.save();
 		}
 		if (type === "event"){
 			await Event.findByIdAndUpdate(master,{$inc:{votes:value}})
-			
+
 		}
 		else{
 			await Post.findByIdAndUpdate(master,{$inc:{votes:value}})
 		}
-		
+
 		if (attach){
 			await Comment.findByIdAndUpdate(attach,{$inc:{votes:value}} )
 		}
-		if(value === "-1" && attach){
+		if(value === "-1"){
 			if(attach){
 				await Vote.deleteOne({$and:[{owner:user}, {attach:attach}]})
 			}
@@ -58,18 +57,18 @@ router.post('/vote',auth,async (req,res)=>{
 				await Vote.deleteOne({$and:[{owner:user}, {master:master}]})
 			}
 		}
-		
+
 	}
 	catch (e) {
 		console.log(e)
 	}
-	
+
 	if (!scroll){
 		scroll = 0;
 	}
 	if (type === "post"){
 		res.status(200).redirect(`/posts?id=${master}&scroll=${scroll}`)
-		
+
 	}
 	else{
 		res.status(200).redirect(`/events?id=${master}&scroll=${scroll}`)

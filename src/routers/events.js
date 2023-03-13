@@ -64,7 +64,9 @@ router.get('/events', auth, async (req,res)=>{
 	let votes = await Votes.find({$and:[{owner:req.user._id}, {master:req.query.id}]})
 	if(votes){
 		votes = votes.map(function(v){
-			return v.attach.valueOf()
+			if (v.attach){
+				return v.attach.valueOf()
+			}
 		})
 	}
 	let scroll = req.query.scroll;
@@ -99,7 +101,16 @@ router.get('/events', auth, async (req,res)=>{
 			scroll = 0;
 		}
 		
-		res.status(200).render('viewEvent', ({user,event, edit, cHtml, scroll}))
+		let vote= await Votes.findOne({$and:[{owner:user._id},{master:event._id}, {attach:null}]})
+		
+		if (!vote){
+			vote = false;
+		}
+		else{
+			vote = true;
+		}
+		
+		res.status(200).render('viewEvent', ({user,event, edit, cHtml, scroll, vote}))
 		
 		return
 	}
@@ -116,20 +127,23 @@ router.get("/events/create", auth, async (req, res)=>{
 	let user = req.user
 	user = await user.clean();
 
-	res.status(200).render("createEvent", ({user, tags, event}));
+	
+	res.status(200).render("createEvent", ({user, tags}));
+	
+	})
 
-})
 
 
-// router.get("/events/edit", auth,async(req, res)=>{
-// 	const id = req.query.id;
-// 	let event = await Event.findOne({_id:id});
-// 	let user = await req.user.clean();
-// 	let tags = await Tags.find({type:"event"})
-//
-//
-// 	res.status(200).render('editEvent', ({user,event, tags}))
-// } )
+router.get("/events/edit", auth,async(req, res)=>{
+	const id = req.query.id;
+	let event = await Event.findOne({_id:id});
+	let user = await req.user.clean();
+	let tags = await Tags.find({type:"event"})
+	
+	
+	res.status(200).render('editEvent', ({user,event, tags}))
+} )
+
 
 router.post("/events/update", auth, async (req, res)=>{
 	let event = await Event.findById(req.body.id)
