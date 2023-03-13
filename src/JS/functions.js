@@ -63,7 +63,7 @@ functions.commentLoop = async (comments, votes, master, masterText) =>{
 				if(votes.includes(x._id.valueOf())){
 					votedL = true;
 				}
-				html = html + `<div class="border my-1 p-2 theseAreCards" style="margin-left: ${count}em">
+				html = html + `<div class="border my-1 p-2 theseAreCards rounded" style="margin-left: ${count}em">
 									<div>
 										<a href="/profile?id=${x.owner.id}">
 											<p class="commentContent">${x.owner.name}</p>
@@ -72,12 +72,10 @@ functions.commentLoop = async (comments, votes, master, masterText) =>{
 									<div class="commentContent mb-2">${x.content}</div>
 									<div>
 									<form action="/comments/add" method="post">
-									<div class="visually-hidden makeComment">
-											<textarea class=" " name="content" rows="3" type="text"></textarea>
-										</div>
+									
 									</form>
-									<div class="d-flex justify-content-end">
-									<div class="`;
+									<div class="d-flex ">
+									<div class="voteable voteDiv ms-auto `;
 				if(votedL){
 					html = html + "voted"
 				}
@@ -87,7 +85,7 @@ functions.commentLoop = async (comments, votes, master, masterText) =>{
 										<input class="visually-hidden" name="attach" value="${x._id}">
 										<input class="visually-hidden" name="type" value="${masterText}">
 										<input class="visually-hidden scrollField" name="scroll" value="">
-										<button class="hideOnComment navBtnStyle" type="submit">VOTE</button>
+										<button class="hideOnComment navBtnStyle voteBtn" type="submit">VOTE</button>
 										<input class="visually-hidden" name="value" value="`;
 				if(votedL){
 					html = html + "-1"
@@ -98,13 +96,14 @@ functions.commentLoop = async (comments, votes, master, masterText) =>{
 				html = html + `">
 									</form>
 									</div>
-									<form action="/comments/add" method="post">
+									<form class="formReply" action="/comments/add" method="post">
 										<input class="visually-hidden" name="master" value="${master._id}">
 										<input class="visually-hidden" name="attach" value="${x._id}">
 										<input class="visually-hidden" name="type" value="${masterText}">
 										<input class="visually-hidden scrollField" name="scroll" value="">
-										
-										
+										<div class="visually-hidden makeComment d-flex flex-grow-1 me-2">
+											<textarea class="flex-fill" name="content" rows="3" type="text"></textarea>
+										</div>
 										<button class="visually-hidden makeComment reset navBtnStyle" type="submit">Submit</button>
 										<button class="visually-hidden makeComment closeComment navBtnStyle" type="button">Cancel</button>
 									</form>
