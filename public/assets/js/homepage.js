@@ -62,12 +62,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
  }
 
 //function to build the cards in the tabs
-function displayCards(cards) {
+async function displayCards(cards) {
     let whichTab = document.querySelector(".nav-tabs .active").getAttribute("href").substring(1);
     let contentCards = document.getElementById(whichTab);
     contentCards.innerHTML = "";
     let contents = '';
     cards.forEach(function(cd) {
+        console.log(cd.tags)
             let date = new Date(cd.timeCreated);
             let options = {
                 year: 'numeric',
