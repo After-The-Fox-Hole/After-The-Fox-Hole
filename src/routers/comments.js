@@ -12,7 +12,7 @@ const Posts = require("../models/posts")
 
 
 router.post('/comments/add',auth,async (req,res)=>{
-
+	
 	
 	let master = req.body.master;
 	let user = req.user;
@@ -21,6 +21,8 @@ router.post('/comments/add',auth,async (req,res)=>{
 	let type = req.body.type
 	let collection;
 
+	
+	
 	let comment = {
 		content: content,
 		owner:{
@@ -36,9 +38,10 @@ router.post('/comments/add',auth,async (req,res)=>{
 	if(attach){
 		comment.attach = attach
 	}
-
+	
 	if (type === "post"){
 		collection = Posts;
+		type = "posts";
 	}
 	if (type === "event"){
 		collection = Event;

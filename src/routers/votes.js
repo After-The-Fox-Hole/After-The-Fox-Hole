@@ -34,6 +34,7 @@ router.post('/vote',auth,async (req,res)=>{
 	if(attach){
 		vote.attach = attach
 	}
+	
 	try{
 		vote = await new Vote(vote);
 		await vote.save();
