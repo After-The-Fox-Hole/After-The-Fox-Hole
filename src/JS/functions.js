@@ -60,7 +60,6 @@ functions.commentLoop = async (comments, votes, master, masterText) =>{
 			})
 			for (let x of arr){
 				let votedL = false;
-				console.log(votes.includes(x._id.valueOf()))
 				if(votes.includes(x._id.valueOf())){
 					votedL = true;
 				}
