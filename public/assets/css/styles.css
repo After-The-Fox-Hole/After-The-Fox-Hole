@@ -1,6 +1,10 @@
-#testBody {
+.bodyBack {
     background-color: #3E4F88;
     font-family: 'Teko', sans-serif;
+}
+
+.backGrey {
+    background-color: #A9ADBC;
 }
 
 h5.card-subtitle {
@@ -11,12 +15,20 @@ a.tabbing{
     font-size: 48px;
 }
 
+.commentContent {
+    font-size: 20px
+}
+
 label.filterSort{
     font-size: 24px;
 }
 
 a.universalHead{
     font-size: 20px;
+}
+
+.cardsContainer {
+    background-color: #A9ADBC;
 }
 
 .theseAreCards {
@@ -70,6 +82,10 @@ p.cardContentEach {
 
 /* unvisited link */
 a:link {
+    color: #5c7ab4;
+}
+
+a:visited {
     color: #5c7ab4;
 }
 
