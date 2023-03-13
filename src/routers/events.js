@@ -58,28 +58,6 @@ router.post('/events',auth,async (req,res)=>{
 	
 })
 
-// router.get('/events', auth, async (req,res)=>{
-//
-// 	const id = req.query.id;
-// 	let event = await Event.findOne({_id:id});
-// 	let user = await req.user.clean();
-// 	let owner;
-// 	try{
-// 		 owner = await User.findOne({_id: event.owner.id})
-// 	}
-// 	catch (e) {
-// 		res.status(200).redirect(`/profile?id=${req.user.id}`)
-// 		return
-// 	}
-//
-// 	let edit=false;
-// 	if(owner.id.valueOf() === user._id){
-// 		edit=true
-// 	}
-//
-// 	res.status(200).render('viewEvent', ({user,event, edit}))
-// })
-
 
 router.get('/events', auth, async (req,res)=>{
 	let votes = await Votes.find({$and:[{owner:req.user._id}, {master:req.query.id}]})
@@ -121,7 +99,7 @@ router.get('/events', auth, async (req,res)=>{
 		}
 		
 		res.status(200).render('viewEvent', ({user,event, edit, cHtml, scroll}))
-		// res.status(200).render('viewPost', ({user,post, edit, cHtml, scroll}))
+		
 		return
 	}
 	res.status(200).redirect('/profile')
@@ -137,16 +115,16 @@ router.get("/events/create", auth, async (req, res)=>{
 
 })
 
-router.get('/events/view', auth,async (req,res)=>{
-	let id = req.query.id
-	let event = await Event.findOne({_id:id})
-	let user = req.user
-	user = await user.clean();
-	res.status(200).render("viewEvent", ({user, event}))
-	
-	//// comments for events and handling and owner
-	
-})
+// router.get('/events/view', auth,async (req,res)=>{
+// 	let id = req.query.id
+// 	let event = await Event.findOne({_id:id})
+// 	let user = req.user
+// 	user = await user.clean();
+// 	res.status(200).render("viewEvent", ({user, event}))
+//
+// 	//// comments for events and handling and owner
+//
+// })
 
 router.get("/events/edit", auth,async(req, res)=>{
 	const id = req.query.id;
