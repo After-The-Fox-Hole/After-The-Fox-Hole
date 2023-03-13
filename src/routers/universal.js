@@ -1,4 +1,4 @@
-const app = require("../app");
+
 const User = require("../models/user");
 const Org = require("../models/org");
 const express = require("express");
@@ -10,8 +10,8 @@ router.post('/login', async (req, res)=>{
 		email: req.body.email,
 		
 	}
-	let token;
-	let user;
+	let token = null;
+	let user = null;
 		if (req.body.type === "user") {
 			try{
 				user = await User.findByCredentials(req.body.email, req.body.password);

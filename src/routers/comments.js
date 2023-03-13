@@ -1,10 +1,7 @@
 const express = require('express')
-const User = require("../models/user");
 const router = new express.Router;
 const auth = require('../middleware/auth');
-const app = require("../app");
 const Event = require("../models/event");
-const Tags = require("../models/tags")
 const Comments = require("../models/comment")
 const Posts = require("../models/posts")
 
@@ -12,15 +9,17 @@ const Posts = require("../models/posts")
 
 
 router.post('/comments/add',auth,async (req,res)=>{
-
+	
 	
 	let master = req.body.master;
 	let user = req.user;
 	let attach = req.body.attach;
 	let content = req.body.content;
 	let type = req.body.type
-	let collection;
+	let collection="";
 
+	
+	
 	let comment = {
 		content: content,
 		owner:{
@@ -36,9 +35,10 @@ router.post('/comments/add',auth,async (req,res)=>{
 	if(attach){
 		comment.attach = attach
 	}
-
+	
 	if (type === "post"){
 		collection = Posts;
+		type = "posts";
 	}
 	if (type === "event"){
 		collection = Event;

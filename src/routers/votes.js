@@ -1,10 +1,7 @@
 const express = require('express')
-const User = require("../models/user");
 const router = new express.Router;
 const auth = require('../middleware/auth');
-const app = require("../app");
 const Event = require("../models/event");
-const Tags = require("../models/tags");
 const Vote=require("../models/votes");
 const Post =require("../models/posts");
 const Comment =require("../models/comment");
@@ -21,10 +18,10 @@ router.post('/vote',auth,async (req,res)=>{
 	let master = req.body.master;
 	/// query for the master load, event/post
 	let value = req.body.value
-	
-	
-	let collection;
-	
+
+
+	let path = null;
+
 	let vote = {
 		owner: user,
 		master:master,
@@ -34,17 +31,18 @@ router.post('/vote',auth,async (req,res)=>{
 	if(attach){
 		vote.attach = attach
 	}
+
 	try{
 		vote = await new Vote(vote);
 		await vote.save();
-		
+
 		if (type === "event"){
-			collection = Event;
+			path = Event;
 		}
 		else{
-			collection = Post;
+			path = Post;
 		}
-		await collection.findByIdAndUpdate(master,{$inc:{votes:value}})
+		await path.findByIdAndUpdate(master,{$inc:{votes:value}})
 		if (attach){
 			await Comment.findByIdAndUpdate(attach,{$inc:{votes:value}} )
 		}
@@ -52,8 +50,8 @@ router.post('/vote',auth,async (req,res)=>{
 	catch (e) {
 		console.log(e)
 	}
-	
-	
+
+
 	res.status(200).send();
 })
 

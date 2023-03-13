@@ -3,11 +3,11 @@ const User = require("../models/user");
 const Followers = require("../models/following");
 const router = new express.Router;
 const auth = require('../middleware/auth');
-const app = require("../app");
+
 const Post = require("../models/posts");
 const Event = require("../models/event");
 const Avatar = require("../models/avatars");
-const {del} = require("express/lib/application");
+
 
 
 
