@@ -133,6 +133,18 @@ router.get('/posts/edit', auth, async (req, res)=>{
 	res.status(200).render("createPost", ({user, post, tags}))
 })
 
+router.get("/posts/delete", auth, async (req, res)=>{
+		let userId = req.user._id;
+		let postId = req.query.id;
+		try{
+			await Post.findOneAndRemove({$and:[{_id:postId}, {'owner.id':userId}]})
+		}
+		catch (e) {
+			console.log(e)
+		}
+	res.status(200).redirect("/homepage")
+})
+
 
 
 module.exports = router;

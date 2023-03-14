@@ -2,6 +2,7 @@ const express = require('express')
 const User = require("../models/user");
 const router = new express.Router;
 const auth = require('../middleware/auth');
+const Post = require("../models/posts");
 
 
 
@@ -148,4 +149,18 @@ router.post("/users/recovery", async (req, res)=>{
 	}
 	res.status(200).redirect("/")
 })
+
+router.get("/users/delete", auth, async (req, res)=>{
+	let userId = req.user._id;
+	try{
+		await User.findByIdAndRemove(userId)
+	}
+	catch (e) {
+		console.log(e)
+		res.status(200).redirect("/homepage")
+	}
+	res.status(200).redirect("")
+})
+
+
 module.exports = router;

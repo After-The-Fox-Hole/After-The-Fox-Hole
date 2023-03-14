@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const {Mongoose} = require("mongoose");
-
+const Votes = require("../models/votes");
+const Comments = require("../models/comment");
 
 
 const eventSchema = new mongoose.Schema({
@@ -98,6 +99,21 @@ eventSchema.pre('save', async function(next){
 	
 	next()
 })
+
+eventSchema.pre('remove', async function (next){
+	const event = this;
+	let comments = await Comments.find({$and:[{master:event._id}, {attach: null}]})
+	if (comments.length > 0){
+		for(let c of comments){
+			await Comments.findByIdAndRemove(c._id)
+		}
+	}
+	 await Event.findByIdAndRemove(event._id)
+	await Votes.deleteMany({master:event._id})
+	next();
+})
+
+
 
 const Event = mongoose.model('Event', eventSchema)
 

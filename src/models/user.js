@@ -5,6 +5,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 const Attending = require("./attending");
 const Events = require("./event");
+const Posts = require("./posts");
+const Comments = require("./comment");
 
 
 const userSchema = new mongoose.Schema({
@@ -290,6 +292,16 @@ userSchema.pre('save', async function(next){
 	if(user.isModified('password')){
 		user.password = await bcrypt.hash(user.password, 8)
 	}
+	next()
+})
+
+userSchema.pre('remove', async function(next){
+	const user = this;
+	await Posts.deleteMany({'owner.id':user._id})
+	await Events.deleteMany({'owner.id':user._id})
+	await Comments.deleteMany({'owner.id':user._id})
+	await User.findByIdAndRemove(user._id)
+	
 	next()
 })
 
