@@ -7,10 +7,9 @@
 <%- include('../partials/header'), ({user})%>
 
 <div>
-    <div class="card mx-3 mt-4 border-0 backGrey mainCard" style="">
+    <div class="card mx-auto mt-4 border-0 theseAreCards mainCard w-75 px-3">
         <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-2 border-end border-dark theseAreCards d-flex align-items-center ">
+            <div class="col-md-2 border-end border-dark theseAreCards d-flex align-items-center rounded-start flex-fill">
                 <div class="text-center mx-auto">
                     <div class="mx-auto">
                         <a href="">
@@ -23,30 +22,36 @@
                     <%}%>
                 </div>
             </div>
-            <div class="col-md-5 theseAreCards">
+            <div class="col-md-8 theseAreCards">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                                <h2 class="card-title" id="eventTitle"><%=event.title%></h2>
-                        </div>
-                        <div class="col-md-3 viewPageTags">
-                            <span >Tags: <%= (event.tags.length === 0) ? 'None' : '' %></span>
-                            <% event.tags.forEach(function(tag){ %>
-                            <span class="badge rounded-pill buttonStyle pt-2"><%=tag%></span>
-                            <%})%>
-                        </div>
-                        <div class="col-md-3">
-                            <p class="viewPageTags">Votes: <%=event.votes%></p>
-                            <p class="viewPageTags">Comment Count: <%=event.commentCount%></p>
-                        </div>
-                    </div>
 
-                    <p class="card-text" id="eventContent"><%=event.content%></p>
-                    <p class="card-text viewPageDates" id="eventCreated">Event Created: <%=event.timeCreated%></p>
-                    <p class="card-text viewPageDates" id="eventDate">When is the event? <%=event.date%></p>
+                        <div>
+                            <h2 class="card-title" id="eventTitle"><%=event.title%></h2>
+                        </div>
+                        <div>
+                            <h3 class="card-text" id="eventContent"><%=event.content%></h3>
+                        </div>
+                        <hr>
+                        <div class="row mb-2">
+                            <div class="viewPageTags col-lg-8">
+                                <span >Tags: <%= (event.tags.length === 0) ? 'None' : '' %></span>
+                                <% event.tags.forEach(function(tag){ %>
+                                <span class="badge rounded-pill buttonStyle pt-2"><%=tag%></span>
+                                <%})%>
+                            </div>
+                            <div class="col-md-2">
+                                <h5 class="viewPageTags">Votes: <%=event.votes%></h5>
+                            </div>
+                            <div class="col-md-2">
+                                <h5 class="viewPageTags">Comments: <%=event.commentCount%></h5>
+                            </div>
+                        </div>
+
+                    <h5 class="card-text viewPageDates" id="eventCreated">Event Created: <%=event.timeCreated%></h5>
+                    <h5 class="card-text viewPageDates" id="eventDate">When is the event? <%=event.date%></h5>
                 </div>
             </div>
-            <div class="col-md-1 text-center border-start border-dark theseAreCards d-flex align-items-center">
+            <div class="col-md-2 text-center border-start border-dark theseAreCards d-flex align-items-center rounded-end">
                 <div class="row">
                     <div class="col-12">
                         <form <% if (user.attending.some(e => e.id.valueOf() === event._id.valueOf())) { %>
@@ -55,11 +60,16 @@
                             action="/attending/add"
                                 <% } %> method="get">
                             <input class="visually-hidden" name="id" value="<%=event._id%>">
-                            <button class="btn navBtnStyle
+                            <button class="me-0 pt-2 pb-1 navBtnStyle
                                 <% if (user.attending.some(e => e.id.valueOf() === event._id.valueOf())) { %>
                                 votedBtn
                                 <% }  %>
-                                " type="submit">Attending <span class="material-symbols-outlined">add_circle</span>
+                                " type="submit"><span class="material-symbols-outlined">add_circle</span> <br>
+                                <% if (user.attending.some(e => e.id.valueOf() === event._id.valueOf())) { %>
+                                    ATTENDING!
+                                <% } else { %>
+                                    ATTENDING?
+                                <%}%>
                             </button>
                         </form>
                     </div>
@@ -69,13 +79,12 @@
                             <input class="visually-hidden" name="attach" value="">
                             <input class="visually-hidden" name="type" value="event">
                             <input class="visually-hidden scrollField" name="scroll" value="">
-                            <button class="btn voteBtn navBtnStyle <% if(vote){%>voted<%}%>" type="submit">VOTE</button>
+                            <button class="me-0 pt-2 pb-1 btn voteBtn navBtnStyle <% if(vote){%>voted<%}%>" type="submit"><%if(vote){%>DOWNVOTE<%}else{%>UPVOTE<%}%></button>
                             <input class="visually-hidden" name="value" value="<% if (vote){ %>-1<%} else{%>+1<%}%>">
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="col-md-2">
 
             </div>
         </div>
@@ -92,7 +101,7 @@
             <input class="visually-hidden" name="master" value="<%=event._id%>">
             <input class="visually-hidden" name="type" value="event">
             <input class="visually-hidden" id="scroll" name="scroll" value='0'>
-            <button type="submit" class="btn navBtnStyle my-1" id="addCmtBtn">Add Comment</button>
+            <button type="submit" class="btn navBtnStyle my-1 pt-2 pb-1" id="addCmtBtn">ADD COMMENT</button>
         </div>
     </form>
     <br>
@@ -139,9 +148,7 @@
                 $(this).removeClass("votedBtn")
             }
         })
-        if (!$(<%=cHtml%>)){
 
-        }
 		window.scrollTo({
 			top: parseInt(jump),
             left: 0,

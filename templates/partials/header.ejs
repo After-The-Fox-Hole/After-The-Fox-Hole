@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/assets/css/styles.css"/>
     <nav class="navbar navbar-expand-lg bg-body-tertiary p-0 ">
         <div class="container-fluid navBarStyle">
-            <a class="navbar-brand navBtnStyle my-3 universalHead" href="/homepage"><i class="fa-brands fa-wolf-pack-battalion"></i>After the Foxhole</a>
+            <a class="navbar-brand navBtnStyle m-auto universalHead text-center pt-2 pb-1" href="/homepage"><i class="fa-brands fa-wolf-pack-battalion"></i>After the Foxhole</a>
             <button class="navbar-toggler navBtnStyle" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -27,20 +27,20 @@
                     <ul class="navbar-nav ms-auto">
                         <% if (typeof user === 'undefined') { %>
                             <li class="nav-item">
-                                <a class="nav-link active universalHead my-2" aria-current="page" href="/register">Register</a>
+                                <a class="nav-link active universalHead my-2 pt-2 pb-1" aria-current="page" href="/register">Register</a>
                             </li>
                         <% } else { %>
                             <li class="nav-item">
-                                <a class="nav-link navBtnStyle universalHead my-2" aria-current="page" href="/posts/create" role="button">Create a Post</a>
+                                <a class="nav-link navBtnStyle universalHead my-2 pt-2 pb-1" aria-current="page" href="/posts/create" role="button">Create a Post</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link navBtnStyle universalHead my-2" aria-current="page" href="/events/create" role="button">Create an Event</a>
+                                <a class="nav-link navBtnStyle universalHead my-2 pt-2 pb-1" aria-current="page" href="/events/create" role="button">Create an Event</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle navBtnStyle universalHead my-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle navBtnStyle universalHead my-2 pt-2 pb-1" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Upcoming Events
                                 </a>
-                                <ul class="dropdown-menu" id="myEvents">
+                                <ul class="dropdown-menu cardsContainer p-2 ps-2" id="myEvents">
                                     <% user.attending.forEach(function (attending){%>
                                        <% let date = new Date(attending.date);%>
                                        <% let options = {
@@ -51,8 +51,8 @@
                                         %>
                                         <% let cardCreated = date.toLocaleString('en-US', options);
                                        %>
-                                    <div class="card post" style="width: 15rem;">
-                                        <div class="card-body">
+                                    <div class="card post my-1 ms-1" style="width: 15rem;">
+                                        <div class="card-body theseAreCards">
                                             <a href="/events?id=<%=attending._id%>">
                                                 <h5 class="card-title"><%=attending.title%></h5>
                                             </a>
@@ -64,10 +64,10 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link navBtnStyle universalHead my-2" aria-current="page" href="/profile?id=<%=user._id%>" role="button">Profile</a>
+                                <a class="nav-link navBtnStyle universalHead my-2 pt-2 pb-1" aria-current="page" href="/profile?id=<%=user._id%>" role="button">Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link navBtnStyle universalHead my-2" aria-current="page" href="/users/logout" role="button">Logout</a>
+                                <a class="nav-link navBtnStyle universalHead my-2 pt-2 pb-1" aria-current="page" href="/users/logout" role="button">Logout</a>
                             </li>
 
                         <% } %>
@@ -77,5 +77,7 @@
 
         </div>
     </nav>
-
+<script>
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+</script>
 </header>

@@ -86,12 +86,12 @@ functions.commentLoop = async (comments, votes, master, masterText) =>{
 										<input class="visually-hidden" name="attach" value="${x._id}">
 										<input class="visually-hidden" name="type" value="${masterText}">
 										<input class="visually-hidden scrollField" name="scroll" value="">
-										<button class="hideOnComment navBtnStyle voteBtn `;
+										<button class="pt-2 pb-1 hideOnComment navBtnStyle voteBtn `;
 				if(votedL){
 					html = html + "voted"
 				}
 				html = html + `" 
-									type="submit">VOTE</button>
+									type="submit">UPVOTE</button>
 										<input class="visually-hidden" name="value" value="`;
 				if(votedL){
 					html = html + "-1"
@@ -110,11 +110,11 @@ functions.commentLoop = async (comments, votes, master, masterText) =>{
 										<div class="visually-hidden makeComment d-flex flex-grow-1 me-2">
 											<textarea class="flex-fill" name="content" rows="3" type="text"></textarea>
 										</div>
-										<button class="visually-hidden makeComment reset navBtnStyle" type="submit">Submit</button>
-										<button class="visually-hidden makeComment closeComment navBtnStyle" type="button">Cancel</button>
+										<button class="pt-2 pb-1 visually-hidden makeComment reset navBtnStyle" type="submit">SUBMIT</button>
+										<button class="pt-2 pb-1 visually-hidden makeComment closeComment navBtnStyle" type="button">CANCEL</button>
 									</form>
 									
-									<button class="btn-sm openComment hideOnComment navBtnStyle">reply</button>
+									<button class="btn-sm openComment hideOnComment navBtnStyle pt-2 pb-1 ">REPLY</button>
 									</div>
 									</div>
 								</div>`
