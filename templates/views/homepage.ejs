@@ -7,29 +7,6 @@
 <body class="bodyBack">
 <%- include('../partials/header', ({user}))%>
 
-<!-- Navigation Bar -->
-<!--<nav class="navbar navbar-expand-lg navbar-light bg-light">-->
-<!--    <a class="navbar-brand" href="#">Home</a>-->
-
-<!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--        <span class="navbar-toggler-icon"></span>-->
-<!--    </button>-->
-
-<!--    <div class="collapse navbar-collapse" id="navbarNav">-->
-<!--        <ul class="navbar-nav ml-auto">-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="#">Create Event</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="#">Create Post</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="#">Profile</a>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--    </div>-->
-<!--</nav>-->
-
 <div class="container my-5">
     <div class="card" id="testCard">
         <div class="card-header ">
@@ -44,7 +21,7 @@
         </div>
         <div class="card-body">
             <!-- Filter Selector -->
-            <div class="row">
+            <div class="row px-3">
                 <div class="form-group col-lg-3 px-2">
                     <label class="filterSort" for="type">Type Filter:</label>
                     <select class="form-control feedControl theseAreCards" id="type" name="type">
@@ -95,7 +72,7 @@
 
             <div><br></div>
             <!-- Post and Event Feed -->
-            <div id="tabCards">
+            <div class="ps-2" id="tabCards">
                 <div class="tab-content">
 
                     <div class="tab-pane fade show active feedTab" id="fireteam">
@@ -149,6 +126,11 @@
 <%- include('../partials/footer')%>
 <!-- Bootstrap JS -->
 <script src="/assets/js/homepage.js"></script>
+<script>
+    if (isMobile) {
+        $("#tabCards").addClass("mobileScreens");
+    }
+</script>
 
 
 
