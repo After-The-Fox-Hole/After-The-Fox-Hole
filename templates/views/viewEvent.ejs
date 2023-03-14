@@ -36,12 +36,14 @@
                 </div>
             </div>
             <div class="col-md-1 text-center border">
-                <a href="">
-                    <div>
-                        <span class="material-symbols-outlined">add_circle</span>
-                        <p>Attending</p>
-                    </div>
-                </a>
+                    <form <% if (user.attending.includes(event._id)) { %>
+                        action="/attending/remove"
+                    <% } else { %>
+                        action="/attending/add"
+                            <% } %> method="get">
+                        <input class="visually-hidden" name="id" value="<%=event._id%>">
+                        <button type="submit">Attending <span class="material-symbols-outlined">add_circle</span> </button>
+                    </form>
                     <div class="col-md-1 text-center border <% if(vote){%>voted<%}%>">
                         <form action="/vote" method="post">
                             <input class="visually-hidden" name="master" value="<%= event._id %>">
