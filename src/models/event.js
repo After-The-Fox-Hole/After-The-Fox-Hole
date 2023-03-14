@@ -100,18 +100,7 @@ eventSchema.pre('save', async function(next){
 	next()
 })
 
-eventSchema.pre('remove', async function (next){
-	const event = this;
-	let comments = await Comments.find({$and:[{master:event._id}, {attach: null}]})
-	if (comments.length > 0){
-		for(let c of comments){
-			await Comments.findByIdAndRemove(c._id)
-		}
-	}
-	 await Event.findByIdAndRemove(event._id)
-	await Votes.deleteMany({master:event._id})
-	next();
-})
+
 
 
 

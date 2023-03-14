@@ -151,9 +151,9 @@ router.post("/users/recovery", async (req, res)=>{
 })
 
 router.get("/users/delete", auth, async (req, res)=>{
-	let userId = req.user._id;
+	
 	try{
-		await User.findByIdAndRemove(userId)
+		await req.user.cleaner(req.user._id);
 	}
 	catch (e) {
 		console.log(e)

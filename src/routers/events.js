@@ -186,7 +186,8 @@ router.get("/events/delete", auth, async (req, res)=>{
 	let userId = req.user._id;
 	let eventId = req.query.id;
 	try{
-		await Event.findOneAndRemove({$and:[{_id:eventId}, {'owner.id':userId}]})
+	const event =	await Event.findOne({$and:[{_id:eventId}, {'owner.id':userId}]})
+		await event.cleaner(eventId);
 	}
 	catch (e) {
 		console.log(e)

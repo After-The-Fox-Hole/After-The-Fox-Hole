@@ -78,30 +78,7 @@ commentSchema.pre('save', async function(next){
 	next()
 })
 
-commentSchema.pre("remove", async function (next) {
-	const comment = this;
-	let replies = await Comment.find({attach: comment._id})
-	if (replies.length > 0) {
-			for (let c of replies) {
-				if (c.model_typeM === "event") {
-					await Events.findByIdAndUpdate(c.master, {$inc: {commentCount: -1}})
-				} else {
-					await Posts.findByIdAndUpdate(c.master, {$inc: {commentCount: -1}})
-				}
-				await Comment.findByIdAndRemove(c._id);
-			}
-	}
-	if (comment.model_typeM === "event") {
-		await Events.findByIdAndUpdate(comment.master, {$inc: {commentCount: -1}})
-	} else {
-		await Posts.findByIdAndUpdate(comment.master, {$inc: {commentCount: -1}})
-	}
-	await Votes.deleteMany({attach:comment._id})
-	await Comment.findByIdAndRemove(comment._id)
-	next();
-	
-	// await Comment.findByIdAndUpdate(attach,{$inc:{votes:value}} )
-})
+
 
 const Comment = mongoose.model('Comment', commentSchema)
 

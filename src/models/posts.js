@@ -77,18 +77,6 @@ postSchema.methods.toJSON = function (){
 	return user.toObject();
 }
 
-postSchema.pre('remove', async function (next){
-	const post = this;
-	let comments = await Comments.find({$and:[{master:post._id}, {attach: null}]})
-	if (comments.length > 0){
-		for(let c of comments){
-			await Comments.findByIdAndRemove(c._id)
-		}
-	}
-	await Post.findByIdAndRemove(post._id)
-	await Votes.deleteMany({master:post._id})
-	next();
-})
 
 
 const Post = mongoose.model('Post', postSchema)

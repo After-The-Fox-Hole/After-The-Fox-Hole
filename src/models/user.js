@@ -295,15 +295,6 @@ userSchema.pre('save', async function(next){
 	next()
 })
 
-userSchema.pre('remove', async function(next){
-	const user = this;
-	await Posts.deleteMany({'owner.id':user._id})
-	await Events.deleteMany({'owner.id':user._id})
-	await Comments.deleteMany({'owner.id':user._id})
-	await User.findByIdAndRemove(user._id)
-	
-	next()
-})
 
 
 const User = mongoose.model('User', userSchema)

@@ -137,7 +137,9 @@ router.get("/posts/delete", auth, async (req, res)=>{
 		let userId = req.user._id;
 		let postId = req.query.id;
 		try{
-			await Post.findOneAndRemove({$and:[{_id:postId}, {'owner.id':userId}]})
+		   const post = await Post.findOne({$and:[{_id:postId}, {'owner.id':userId}]})
+			console.log(post)
+			await post.cleaner(postId);
 		}
 		catch (e) {
 			console.log(e)
