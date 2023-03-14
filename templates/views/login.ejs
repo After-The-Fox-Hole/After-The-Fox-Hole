@@ -6,7 +6,7 @@
     <title>After the Foxhole</title>
 
 </head>
-<body id="testBody">
+<body class="bodyBack">
 <% if (typeof user === 'undefined'){%>
 <%- include('../partials/header')%>
 <%}else{%>
@@ -14,7 +14,7 @@
     <%}%>
 
 <!-- Section: Design Block -->
-<section class="">
+<section class="container" style="padding-top: 10px">
     <!-- Jumbotron -->
     <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
         <div class="container">
@@ -60,7 +60,7 @@
                                 </div>
 
                                 <!-- Submit button -->
-                                <button  value="Submit" type="submit" class="btn btn-primary btn-block mb-4 buttonStyle" >
+                                <button  value="Submit" type="submit" class="btn btn-primary btn-block mb-4 navBtnStyle buttonStyle" >
                                     Login
                                     <!--href="homepage.ejs"-->
                                 </button>

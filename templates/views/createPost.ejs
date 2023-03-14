@@ -16,54 +16,57 @@
             <% } else {%>
                 <h1 class="d-flex justify-content-center">Create Post</h1>
             <%}%>
-                <form <% if (!post){%>action="/posts" <%} else {%> action="/posts/update"  <%}%> method="POST">
+                <div id="testCard">
+                    <form <% if (!post){%>action="/posts" <%} else {%> action="/posts/update"  <%}%> method="POST">
 
-                <%if (post) {%>
-                <input class="visually-hidden" name="id" value="<%=post.id%>">
-                <%}%>
-                <div class="form-group">
-                    <label class="d-flex justify-content-center createSpace" for="title">Title</label>
-                    <input type="text" class="form-control" id="title" name="title" value="<%if (post) {%><%=post.title%><%}%>">
-                </div>
-                <div class="form-group">
-                    <label class="d-flex justify-content-center createSpace" for="description">Description</label>
-                    <textarea rows="5" class="form-control" id="description" name="content"><%if (post) {%><%=post.content%><%}%></textarea>
-                </div>
-                    <div class="form-group d-flex justify-content-center col createSpace">
-                        <label for="tagsList">Tags:</label>
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-                            Tags
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="tagsList">
-                            <% tags.forEach(function (tag){%>
-                                <label class="dropdown-item"><input type="checkbox" name="tags"
-                                    <% if(post && post.tags.includes(tag.content)){%>
-                                                                    checked
-                                            <%}%>
-                                                                    value="<%=tag.content%>"><%=tag.content%></label>
-                            <%})%>
+                        <%if (post) {%>
+                        <input class="visually-hidden" name="id" value="<%=post.id%>">
+                        <%}%>
+                        <div class="form-group">
+                            <label class="d-flex justify-content-center createSpace" for="title">Title</label>
+                            <input type="text" class="form-control theseAreCards" id="title" name="title" value="<%if (post) {%><%=post.title%><%}%>">
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label class="d-flex justify-content-center createSpace" for="description">Description</label>
+                            <textarea rows="5" class="form-control theseAreCards" id="description" name="content"><%if (post) {%><%=post.content%><%}%></textarea>
+                        </div>
+                            <div class="form-group d-flex justify-content-center col createSpace">
+                                <label for="tagsList">Tags:</label>
+                                <button class="btn btn-primary dropdown-toggle navBtnStyle" type="button" id="dropdownMenuButton"
+                                        data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                                    Tags
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="tagsList">
+                                    <% tags.forEach(function (tag){%>
+                                        <label class="dropdown-item theseAreCards"><input type="checkbox" name="tags"
+                                            <% if(post && post.tags.includes(tag.content)){%>
+                                                                            checked
+                                                    <%}%>
+                                                                            value="<%=tag.content%>"><%=tag.content%></label>
+                                    <%})%>
+                                </div>
+                            </div>
 
-                <div class="form-group d-flex justify-content-between">
-                    <% if (!post){%>
-                    <button type="submit" class="btn btn-primary">
-                        Create
-                    </button>
-                    <a  href="/profile?id=<%=user._id%>" class="btn btn-danger">
-                        Cancel
-                    </a>
-                    <%} else {%>
-                        <button type="submit" class="btn btn-primary">
-                            Update
-                        </button>
-                        <a type="button" href="/posts/delete?id=<%=post.id%>" onclick="confirmUser()" class="btn btn-danger">
-                            Delete
-                        </a>
-                    <%}%>
+                        <div class="form-group d-flex justify-content-between">
+                            <% if (!post){%>
+                            <button type="submit" class="btn btn-primary navBtnStyle">
+                                Create
+                            </button>
+                            <a  href="/profile?id=<%=user._id%>" class="btn btn-danger">
+                                Cancel
+                            </a>
+                            <%} else {%>
+                                <button type="submit" class="btn btn-primary navBtnStyle">
+                                    Update
+                                </button>
+                                <a type="button" href="/posts/delete?id=<%=post.id%>" onclick="confirmUser()" class="btn btn-danger">
+                                    Delete
+                                </a>
+                            <%}%>
+                        </div>
+
+                    </form>
                 </div>
-            </form>
         </div>
 </div>
 
