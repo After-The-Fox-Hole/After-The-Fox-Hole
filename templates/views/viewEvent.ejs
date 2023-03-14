@@ -36,11 +36,11 @@
                 </div>
             </div>
             <div class="col-md-1 text-center border">
-                    <form <% if (user.attending.includes(event._id)) { %>
-                        action="/attending/remove"
-                    <% } else { %>
-                        action="/attending/add"
-                            <% } %> method="get">
+                <form <% if (user.attending.some(e => e.id.valueOf() === event._id.valueOf())) { %>
+                    action="/attending/remove"
+                <% } else { %>
+                    action="/attending/add"
+                        <% } %> method="get">
                         <input class="visually-hidden" name="id" value="<%=event._id%>">
                         <button type="submit">Attending <span class="material-symbols-outlined">add_circle</span> </button>
                     </form>

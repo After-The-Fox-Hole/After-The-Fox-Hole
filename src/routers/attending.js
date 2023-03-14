@@ -11,6 +11,7 @@ const Attending = require("../models/attending")
 ////////////////////////// ?id=
 
 router.get('/attending/add',auth,async (req,res)=>{
+	
 	const eventId = req.query.id
 	let attending = {
 		owner:{
