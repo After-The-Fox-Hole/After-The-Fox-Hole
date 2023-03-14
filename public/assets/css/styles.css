@@ -15,8 +15,12 @@ a.tabbing{
     font-size: 48px;
 }
 
-.postTags {
+.viewPageTags {
     font-size: 18px;
+}
+
+.viewPageDates {
+    font-size: 16px;
 }
 
 .mainCard{
@@ -110,9 +114,11 @@ p.cardContentEach {
 a:link {
     color: #5c7ab4;
 }
-
-a:visited {
-    color: #5c7ab4;
+a.navBtnStyle:link {
+    color: white;
+}
+a.whiteButtons:link {
+    color: white;
 }
 
 /* selected link */

@@ -1,5 +1,4 @@
 
-// <% if (typeof  attempt !== 'undefined'){%><%=event.title%><%}%>
 
 
 
@@ -8,6 +7,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
     updateTags();
     handleFeedAndSearch();
 });
+
+
 
  async function updateTags(){
     let tags;
