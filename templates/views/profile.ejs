@@ -8,14 +8,14 @@
     <title>Profile</title>
 </head>
 
-<body>
+<body class="bodyBack">
 <%- include('../partials/header', ({user}))%>
 
 <!--Profile information-->
 <div class="container-md">
     <div class="d-flex align-content-center align-items-top text-center">
         <div class="col-6 col-sm-3">
-            <div class="card" style="width: 15rem;">
+            <div class="card theseAreCards" style="width: 15rem;">
                 <img class="card-img-top" src="<%= owner.avatar%>" alt="">
                 <br>
                 <div class="card-body">
@@ -54,7 +54,7 @@
             <h3><u>Recent Post</u></h3>
             <% owner.posts.forEach(function (post){%>
             <div class="card post" style="width: 15rem;">
-                <div class="card-body">
+                <div class="card-body theseAreCards">
                     <a href="/posts?id=<%=post.id%>">
                         <h5 class="card-title"><%=post.title%></h5>
                     </a>
@@ -69,7 +69,7 @@
         <div class="col-6 col-sm-3">
             <h3><u>Fireteam</u></h3>
             <div class="card border-0" style="width: 15rem;">
-                <div class="card-body">
+                <div class="card-body theseAreCards">
 
                 </div>
             </div>
@@ -78,10 +78,10 @@
         <div class="col-6 col-sm-3">
             <h3><u>Recent Events</u></h3>
             <div class="card border-0" style="width: 15rem;">
-                <div class="card-body">
+<!--                <div class="card-body">-->
                     <%owner.events.forEach(function(post){ %>
-                    <div class="card post" style="width: 15rem;">
-                        <div class="card-body">
+                    <div class="card post " style="width: 15rem;">
+                        <div class="card-body theseAreCards">
                             <a href="/events?id=<%=post.id%>">
                                 <h5 class="card-title"><%=post.title%></h5>
                             </a>
@@ -90,7 +90,7 @@
                             <p class="card-text post-time"><%=post.timeCreated%></p>
                         </div>
                     </div> <% }); %>
-                </div>
+<!--                </div>-->
             </div>
         </div>
     </div>
