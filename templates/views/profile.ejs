@@ -14,7 +14,7 @@
 <!--Profile information-->
 <div class="container">
     <div class="row">
-        <div class="col" style="text-align: center">
+        <div class="col-lg-3 px-2" style="text-align: center">
             <div class="card theseAreCards mx-auto" style="width: 15rem;">
                 <img class="card-img-top" src="<%= owner.avatar%>" alt="">
                 <br>
@@ -50,7 +50,7 @@
             </div>
         </div>
     <!--Recent post-->
-        <div class="col" style="text-align: center">
+        <div class="col-lg-3 px-2" style="text-align: center">
             <h3><u>Recent Post</u></h3>
             <% owner.posts.forEach(function (post){%>
                 <div class="card-body theseAreCards">
@@ -65,14 +65,14 @@
             <%});%>
         </div>
     <!--Fireteam-->
-        <div class="col" style="text-align: center">
+        <div class="col-lg-3 px-2" style="text-align: center">
             <h3><u>Fireteam</u></h3>
                 <div class="card-body theseAreCards">
 
                 </div>
         </div>
     <!--Interest-->
-        <div class="col" style="text-align: center">
+        <div class="col-lg-3 px-2" style="text-align: center">
             <h3><u>Recent Events</u></h3>
             <%owner.events.forEach(function(post){ %>
                 <div class="card-body theseAreCards">
