@@ -11,6 +11,7 @@ const Comment = require("../models/comment");
 const Votes = require("../models/votes");
 const Helper = require("../JS/functions");
 const Post = require("../models/posts");
+const Cascade = require("../JS/Cleaner")
 
 
 
@@ -187,7 +188,7 @@ router.get("/events/delete", auth, async (req, res)=>{
 	let eventId = req.query.id;
 	try{
 	const event =	await Event.findOne({$and:[{_id:eventId}, {'owner.id':userId}]})
-		await event.cleaner(eventId);
+		await Cascade.postingCascade(event);
 	}
 	catch (e) {
 		console.log(e)

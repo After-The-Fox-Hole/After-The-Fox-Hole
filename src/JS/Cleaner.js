@@ -4,87 +4,80 @@ const Comments = require("../models/comment");
 const Votes = require("../models/votes");
 const mongoose = require('mongoose')
 const {Mongoose} = require("mongoose");
-const Post = require("../models/posts");
+const Users = require("../models/user");
 
 const clean = {};
 
-// userSchema.statics.cleaner= async function(id){
-// 	const user = await User.findById(id);
-// 	await Posts.deleteMany({'owner.id':user._id})
-// 	await Events.deleteMany({'owner.id':user._id})
-// 	await Comments.deleteMany({'owner.id':user._id})
-// 	await User.findByIdAndRemove(user._id)
-//
-// }
-
-clean.postCascade = async function(post){
-	console.log(post._id)
-	let comments = await Comments.find({$and:[{'master.id':post._id}, {attach: null}]})
-	console.log(comments)
-	// if (comments.length > 0){
-	// 	for(let c of comments){
-	// 		await Comments.findByIdAndRemove(c._id)
-	// 	}
-	// }
-	//
-	// await Votes.deleteMany({master:id})
-	// await Post.findByIdAndRemove(id)
+clean.userCascade = async function(user){
+	
+	const posts = await Posts.find({'owner.id':user._id})
+	if(posts && posts.length > 0){
+		for(let p of posts){
+			await clean.postingCascade(p, "post")
+		}
+	}
+	
+	const events = await Events.find({'owner.id':user._id})
+	if(events && events.length > 0){
+		for(let e of events){
+			await clean.postingCascade(e, "event")
+		}
+	}
+	
+	const comment = await Comments.find({"owner.id":user._id})
+	if (comment && comment > 0){
+		for (let c of comment){
+			await clean.commentCascade(c);
+		}
+	}
+	const votes = await Votes.find({owner:user._id})
+	if(votes && votes.length > 0){
+		for (let v of votes){
+			if(v.attach && v.attach.length>0){
+				await Comments.findByIdAndUpdate(v.attach._id, {$inc: {votes: -1}})
+			}
+			else{
+				if(v.model_TypeR === "post"){
+					await Posts.findByIdAndUpdate(v.master._id, {$inc: {votes: -1}})
+				}
+				else{
+					await Events.findByIdAndUpdate(v.master._id, {$inc: {votes: -1}})
+				}
+			}
+			await v.deleteOne();
+		}
+	}
+	await user.deleteOne();
+	
 }
 
-// eventSchema.statics.cleaner= async function(id){
-// 	const event = await Event.findById(id);
-// 	let comments = await Comments.find({$and:[{master:event._id}, {attach: null}]})
-// 	if (comments.length > 0){
-// 		for(let c of comments){
-// 			await Comments.findByIdAndRemove(c._id)
-// 		}
-// 	}
-//
-// 	await Votes.deleteMany({master:event._id})
-// 	await Event.findByIdAndRemove(event._id)
-// }
+clean.postingCascade = async function(posting){
+	await Comments.deleteMany({master:posting._id})
+	await Votes.deleteMany({master:posting._id})
+	
+		await posting.deleteOne();
+	
+	
+}
 
-// commentSchema.statics.cleaner= async function(id){
-// 	const comment = await Comment.findById(id);
-// 	let replies = await Comment.find({attach: comment._id})
-// 	if (replies.length > 0) {
-// 		for (let c of replies) {
-// 			if (c.model_typeM === "event") {
-// 				await Events.findByIdAndUpdate(c.master, {$inc: {commentCount: -1}})
-// 			} else {
-// 				await Posts.findByIdAndUpdate(c.master, {$inc: {commentCount: -1}})
-// 			}
-// 			await Comment.findByIdAndRemove(c._id);
-// 		}
-// 	}
-// 	if (comment.model_typeM === "event") {
-// 		await Events.findByIdAndUpdate(comment.master, {$inc: {commentCount: -1}})
-// 	} else {
-// 		await Posts.findByIdAndUpdate(comment.master, {$inc: {commentCount: -1}})
-// 	}
-// 	await Votes.deleteMany({attach:comment._id})
-// 	await Comment.findByIdAndRemove(comment._id)
-//
-//
-// 	// await Comment.findByIdAndUpdate(attach,{$inc:{votes:value}} )
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+clean.commentCascade = async function(comments){
+	if(comments && comments>0){
+		for (let c of comments){
+			if(c.attach && c.attach > 0){
+				for (let a of c.attach){
+					await clean.commentCascade(a)
+				}
+			}
+			if (c.model_typeM === "event") {
+				await Events.findByIdAndUpdate(c.master._id, {$inc: {commentCount: -1}})
+			} else {
+				await Posts.findByIdAndUpdate(c.master._id, {$inc: {commentCount: -1}})
+			}
+			await c.deleteOne();
+			await Votes.deleteMany({attach:c._id})
+			
+		}
+	}
+}
 
 module.exports = clean;
