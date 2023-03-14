@@ -38,12 +38,14 @@ router.post('/vote',auth,async (req,res)=>{
 			vote = await new Vote(vote);
 			await vote.save();
 		}
-		if (type === "event"){
+		if (type === "event" && !attach){
 			await Event.findByIdAndUpdate(master,{$inc:{votes:value}})
 
 		}
 		else{
-			await Post.findByIdAndUpdate(master,{$inc:{votes:value}})
+			if(!attach) {
+				await Post.findByIdAndUpdate(master, {$inc: {votes: value}})
+			}
 		}
 
 		if (attach){
