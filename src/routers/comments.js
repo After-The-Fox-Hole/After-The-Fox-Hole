@@ -31,7 +31,6 @@ router.post('/comments/add',auth,async (req,res)=>{
 		model_typeM:type,
 		timeCreated: Date.now()
 	}
-
 	if(attach){
 		comment.attach = attach
 	}
