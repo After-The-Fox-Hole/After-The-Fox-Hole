@@ -181,4 +181,17 @@ router.post("/events/update", auth, async (req, res)=>{
 	
 })
 
+
+router.get("/events/delete", auth, async (req, res)=>{
+	let userId = req.user._id;
+	let eventId = req.query.id;
+	try{
+		await Event.findOneAndRemove({$and:[{_id:eventId}, {'owner.id':userId}]})
+	}
+	catch (e) {
+		console.log(e)
+	}
+	res.status(200).redirect("/homepage")
+})
+
 module.exports = router;

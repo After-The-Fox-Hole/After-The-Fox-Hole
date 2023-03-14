@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const {Mongoose} = require("mongoose");
+const Events = require("../models/event");
+const Posts = require("../models/posts");
+const Votes = require("../models/votes");
 
 
 
@@ -33,7 +36,8 @@ const commentSchema = new mongoose.Schema({
 		},
 		attach: {
 			type: [mongoose.Schema.Types.ObjectId],
-			refPath: 'comment'
+			refPath: 'comment',
+			default: null
 		},
 		master:{
 			required:true,
@@ -71,8 +75,32 @@ commentSchema.pre('save', async function(next){
 	const comment = this;
 	comment.content = escape(comment.content);
 	
-	
 	next()
+})
+
+commentSchema.pre("remove", async function (next) {
+	const comment = this;
+	let replies = await Comment.find({attach: comment._id})
+	if (replies.length > 0) {
+			for (let c of replies) {
+				if (c.model_typeM === "event") {
+					await Events.findByIdAndUpdate(c.master, {$inc: {commentCount: -1}})
+				} else {
+					await Posts.findByIdAndUpdate(c.master, {$inc: {commentCount: -1}})
+				}
+				await Comment.findByIdAndRemove(c._id);
+			}
+	}
+	if (comment.model_typeM === "event") {
+		await Events.findByIdAndUpdate(comment.master, {$inc: {commentCount: -1}})
+	} else {
+		await Posts.findByIdAndUpdate(comment.master, {$inc: {commentCount: -1}})
+	}
+	await Votes.deleteMany({attach:comment._id})
+	await Comment.findByIdAndRemove(comment._id)
+	next();
+	
+	// await Comment.findByIdAndUpdate(attach,{$inc:{votes:value}} )
 })
 
 const Comment = mongoose.model('Comment', commentSchema)
