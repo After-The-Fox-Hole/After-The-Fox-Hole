@@ -26,22 +26,33 @@
             </div>
             <div class="col-md-5 theseAreCards">
                 <div class="card-body">
-                    <div> </div>
-                    <a href="">
-                        <h3 class="card-title" id="postTitle"><%=post.title%></h3>
-                    </a>
-
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="">
+                                <h3 class="card-title" id="postTitle"><%=post.title%></h3>
+                            </a>
+                        </div>
+                        <div class="col-md-3 postTags">
+                            <span >Tags: </span>
+                                <% post.tags.forEach(function(tag){ %>
+                                    <span class="badge rounded-pill buttonStyle pt-2"><%=tag%></span>
+                                <%})%>
+                        </div>
+                        <div class="col-md-3">
+                            <p>Votes: <%=post.votes%></p>
+                        </div>
+                    </div>
                     <p class="card-text" id="postContent"><%=post.content%></p>
                     <p class="card-text" id="postCreated"><%=post.timeCreated%></p>
                 </div>
             </div>
-            <div class="col-md-1 text-center border-start border-dark theseAreCards voteable<% if(vote){%> voted<%}%>">
+            <div class="col-md-1 text-center border-start border-dark theseAreCards">
                 <form class="my-2 mx-auto pt-5" action="/vote" method="post">
                     <input class="visually-hidden" name="master" value="<%= post._id %>">
                     <input class="visually-hidden" name="attach" value="">
                     <input class="visually-hidden" name="type" value="post">
                     <input class="visually-hidden scrollField" name="scroll" value="">
-                    <button class="navBtnStyle voteBtn" type="submit">VOTE</button>
+                    <button class="navBtnStyle voteBtn <% if(vote){%> voted<%}%>" type="submit">VOTE</button>
                     <input class="visually-hidden" name="value" value="<% if (vote){ %>-1<%} else{%>+1<%}%>">
                     </form>
             </div>
@@ -101,16 +112,14 @@ $(document).ready(function(){
         })
         $(".formReply").removeClass("d-flex flex-fill")
     })
-     let voteable = $(".voteable")
-        voteable.each(function(){
-            console.log($(this))
+    let voteBtns = $(".voteBtn")
+    voteBtns.each(function(){
             if($(this).hasClass("voted")){
-                let buttons = $(this).find(".voteBtn")
-                buttons.each(function(){
-                    $(this).addClass("votedBtn")
-                })
+                $(this).addClass("votedBtn")
+            } else {
+                $(this).removeClass("votedBtn")
             }
-        })
+    })
 
 	window.scrollTo({
 		top: parseInt(jump),
