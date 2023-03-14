@@ -5,6 +5,8 @@ const Votes = require("../models/votes");
 const mongoose = require('mongoose')
 const {Mongoose} = require("mongoose");
 const Users = require("../models/user");
+const Attending = require("../models/attending");
+const Fireteam = require("../models/following");
 
 const clean = {};
 
@@ -47,6 +49,8 @@ clean.userCascade = async function(user){
 			await v.deleteOne();
 		}
 	}
+	await Attending.deleteMany({'owner.id': user._id});
+	await Fireteam.deleteMany({owner:user._id});
 	await user.deleteOne();
 	
 }
