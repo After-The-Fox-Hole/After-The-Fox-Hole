@@ -161,3 +161,8 @@ a:hover {
     margin-right: 5px;
     margin-left: 5px;
 }
+
+.createSpace{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
