@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const {Mongoose} = require("mongoose");
+const Events = require("../models/event");
+const Posts = require("../models/posts");
+const Votes = require("../models/votes");
 
 
 
@@ -33,7 +36,8 @@ const commentSchema = new mongoose.Schema({
 		},
 		attach: {
 			type: [mongoose.Schema.Types.ObjectId],
-			refPath: 'comment'
+			refPath: 'comment',
+			default: null
 		},
 		master:{
 			required:true,
@@ -64,6 +68,12 @@ commentSchema.virtual("reports", {
 	foreignField: "type"
 })
 
+commentSchema.virtual("reports", {
+	ref: "Reports",
+	localField: "_id",
+	foreignField: "type"
+})
+
 
 const escape = (str) => validator.escape(str);
 
@@ -71,9 +81,10 @@ commentSchema.pre('save', async function(next){
 	const comment = this;
 	comment.content = escape(comment.content);
 	
-	
 	next()
 })
+
+
 
 const Comment = mongoose.model('Comment', commentSchema)
 

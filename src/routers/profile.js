@@ -32,7 +32,6 @@ router.get("/profile", auth, async (req,res)=>{
 	owner.followers =  await Followers.find({owner:owner._id})
 	
 	let fireteam = await Followers.findOne({$and:[{owner:user._id}, {"following.id": owner._id}]})
-	console.log(fireteam, user._id, owner._id)
 	if(fireteam){
 		fireteam = true;
 	}

@@ -5,6 +5,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken')
 const Attending = require("./attending");
 const Events = require("./event");
+const Posts = require("./posts");
+const Comments = require("./comment");
 
 
 const userSchema = new mongoose.Schema({
@@ -292,6 +294,7 @@ userSchema.pre('save', async function(next){
 	}
 	next()
 })
+
 
 
 const User = mongoose.model('User', userSchema)

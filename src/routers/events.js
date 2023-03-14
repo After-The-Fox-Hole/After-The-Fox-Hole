@@ -11,6 +11,7 @@ const Comment = require("../models/comment");
 const Votes = require("../models/votes");
 const Helper = require("../JS/functions");
 const Post = require("../models/posts");
+const Cascade = require("../JS/Cleaner")
 
 
 
@@ -179,6 +180,20 @@ router.post("/events/update", auth, async (req, res)=>{
 	res.status(200).redirect(`/events?id=${event._id}`)
 	
 	
+})
+
+
+router.get("/events/delete", auth, async (req, res)=>{
+	let userId = req.user._id;
+	let eventId = req.query.id;
+	try{
+	const event =	await Event.findOne({$and:[{_id:eventId}, {'owner.id':userId}]})
+		await Cascade.postingCascade(event);
+	}
+	catch (e) {
+		console.log(e)
+	}
+	res.status(200).redirect("/homepage")
 })
 
 module.exports = router;

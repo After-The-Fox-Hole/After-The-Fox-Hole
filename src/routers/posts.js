@@ -6,10 +6,11 @@ const auth = require('../middleware/auth');
 const Post = require("../models/posts");
 const Tags = require("../models/tags");
 const Comment = require("../models/comment")
-
+const Cascade = require("../JS/Cleaner")
 const format = require("date-format");
 const Votes = require("../models/votes");
 const Helper = require("../JS/functions")
+const Comments = require("../models/comment");
 
 
 ///////make a post
@@ -131,6 +132,27 @@ router.get('/posts/edit', auth, async (req, res)=>{
 	user = await user.clean();
 	let tags = await Tags.find({type:"post"})
 	res.status(200).render("createPost", ({user, post, tags}))
+})
+
+router.get("/posts/delete", auth, async (req, res)=>{
+		let userId = req.user._id;
+		let postId = req.query.id;
+	
+	try{
+		const post = await Post.findOne({$and:[{_id:postId}, {'owner.id':userId}]})
+		await Cascade.postingCascade(post);
+	}
+	catch (e) {
+		console.log(e)
+	}
+	
+	
+	
+	
+	
+	
+	
+	res.status(200).redirect("/homepage")
 })
 
 

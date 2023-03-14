@@ -65,6 +65,26 @@
                             <%}%>
                         </div>
 
+
+                    
+
+                <div class="form-group d-flex justify-content-between">
+                    <% if (!post){%>
+                    <button type="submit" class="btn btn-primary">
+                        Create
+                    </button>
+                    <a  href="/profile?id=<%=user._id%>" class="btn btn-danger">
+                        Cancel
+                    </a>
+                    <%} else {%>
+                        <button type="submit" class="btn btn-primary">
+                            Update
+                        </button>
+                        <a type="button"  onclick="confirmUser()" class="btn btn-danger">
+                            Delete
+                        </a>
+                    <%}%>
+
                     </form>
                 </div>
         </div>

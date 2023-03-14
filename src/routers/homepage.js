@@ -45,8 +45,10 @@ router.get('/homepage',auth,async (req,res)=>{
 
 	let user = req.user
 	user = await user.clean();
-
-	res.status(200).render("homepage", ({user}))
+	let fireteam= await Following.findOne({owner:user._id});
+	fireteam = !!fireteam;
+	
+	res.status(200).render("homepage", ({user, fireteam}))
 });
 
 router.post('/homepage/info', auth, async (req, res) =>{
@@ -77,8 +79,8 @@ router.post('/homepage/info', auth, async (req, res) =>{
 		}
 		filter.push(x)
 	}
-
 	
+	let followers=[]
 	if (tab === "#all"){
 		if (type === "event") {
 			results =	await Event.find({$and:filter}).sort(sorting)
@@ -89,7 +91,7 @@ router.post('/homepage/info', auth, async (req, res) =>{
 		
 	}
 	else{
-		let followers = await Following.find({owner:req.user.id})
+		followers = await Following.find({owner:req.user.id})
 		let following = [];
 		for(let f of followers){
 
@@ -107,7 +109,9 @@ router.post('/homepage/info', auth, async (req, res) =>{
 		}
 		
 	}
-
+	if(results.length === 0 && followers.length === 0){
+		results = ["999"]
+	}
 	res.status(200).send(results)
 })
 

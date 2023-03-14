@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const {Mongoose} = require("mongoose");
-
+const Votes = require("../models/votes");
+const Comments = require("../models/comment");
 
 
 const eventSchema = new mongoose.Schema({
@@ -98,6 +99,10 @@ eventSchema.pre('save', async function(next){
 	
 	next()
 })
+
+
+
+
 
 const Event = mongoose.model('Event', eventSchema)
 

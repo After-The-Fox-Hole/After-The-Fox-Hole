@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
 const validator = require('validator')
 const {Mongoose} = require("mongoose");
+const Comments = require("./comment");
+const Votes = require("./votes");
+
 
 
 
@@ -46,7 +49,7 @@ const postSchema = new mongoose.Schema({
 		timestamps:true,
 	});
 
-postSchema.virtual("comment", {
+postSchema.virtual("comments", {
 	ref: "Comment",
 	localField: "_id",
 	foreignField: "master"
@@ -69,11 +72,11 @@ postSchema.pre('save', async function(next){
 })
 
 
+
 postSchema.methods.toJSON = function (){
 	const user = this;
 	return user.toObject();
 }
-
 
 
 const Post = mongoose.model('Post', postSchema)

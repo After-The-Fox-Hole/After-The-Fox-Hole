@@ -2,6 +2,8 @@ const express = require('express')
 const User = require("../models/user");
 const router = new express.Router;
 const auth = require('../middleware/auth');
+const Post = require("../models/posts");
+const Cascade = require("../JS/Cleaner")
 
 
 
@@ -144,8 +146,25 @@ router.post("/users/recovery", async (req, res)=>{
 		
 	}
 	catch (e) {
-	
+	console.log(e)
 	}
-	res.status(200).redirect("/")
+	let attempt = {
+		status: "If The Account exists, an email was sent!"
+	}
+	res.render('login', ({attempt}))
 })
+
+router.get("/users/delete", auth, async (req, res)=>{
+	
+	try{
+		await Cascade.userCascade(req.user)
+	}
+	catch (e) {
+		console.log(e)
+		res.status(200).redirect("/homepage")
+	}
+	res.status(200).redirect("")
+})
+
+
 module.exports = router;

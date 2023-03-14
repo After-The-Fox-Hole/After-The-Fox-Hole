@@ -3,56 +3,77 @@
 <head>
     <title>View Event</title>
 </head>
-<body>
+<body class="bodyBack">
 <%- include('../partials/header'), ({user})%>
 
 <div>
-    <div class="card mx-3 mt-2 border-0" style="">
+    <div class="card mx-3 mt-4 border-0 backGrey mainCard" style="">
         <div class="row">
             <div class="col-md-2"></div>
-            <div class="col-md-2 border">
-                <div class="text-center">
-
-                    <a href="">
-                        <h6 class="card-subtitle mb-2 ms-2 text-muted" id="eventCreator"><%=event.owner.name%></h6>
-
-                    </a><% if (edit){ %>
-                        <button type="submit" id="edit-button"><a href="/events/edit?id=<%=event._id%>">Edit Event</a></button>
-
-                        <!--                                          insert path for post edit page-->
+            <div class="col-md-2 border-end border-dark theseAreCards d-flex align-items-center ">
+                <div class="text-center mx-auto">
+                    <div class="mx-auto">
+                        <a href="">
+                            <h6 class="card-subtitle mb-2 mx-auto text-muted" id="eventCreator"><%=event.owner.name%></h6>
+                        </a>
+                    </div>
+                    <% if (edit){ %>
+                        <button class="navBtnStyle mx-auto" type="submit" id="edit-button"><a class="whiteButtons" href="/events/edit?id=<%=event._id%>">Edit Event</a></button>
                     <%} else{%>
                     <%}%>
                 </div>
             </div>
-            <div class="col-md-5 border">
+            <div class="col-md-5 theseAreCards">
                 <div class="card-body">
-                    <div> </div>
-                    <a href="">
-                        <h5 class="card-title" id="eventTitle"><%=event.title%></h5>
-                    </a>
+                    <div class="row">
+                        <div class="col-md-6">
+                                <h2 class="card-title" id="eventTitle"><%=event.title%></h2>
+                        </div>
+                        <div class="col-md-3 viewPageTags">
+                            <span >Tags: <%= (event.tags.length === 0) ? 'None' : '' %></span>
+                            <% event.tags.forEach(function(tag){ %>
+                            <span class="badge rounded-pill buttonStyle pt-2"><%=tag%></span>
+                            <%})%>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="viewPageTags">Votes: <%=event.votes%></p>
+                            <p class="viewPageTags">Comment Count: <%=event.commentCount%></p>
+                        </div>
+                    </div>
 
                     <p class="card-text" id="eventContent"><%=event.content%></p>
-                    <p class="card-text" id="postCreated"><%=event.timeCreated%></p>
+                    <p class="card-text viewPageDates" id="eventCreated">Event Created: <%=event.timeCreated%></p>
+                    <p class="card-text viewPageDates" id="eventDate">When is the event? <%=event.date%></p>
                 </div>
             </div>
-            <div class="col-md-1 text-center border">
-                <a href="">
-                    <div>
-                        <span class="material-symbols-outlined">add_circle</span>
-                        <p>Attending</p>
+            <div class="col-md-1 text-center border-start border-dark theseAreCards d-flex align-items-center">
+                <div class="row">
+                    <div class="col-12">
+                        <form <% if (user.attending.some(e => e.id.valueOf() === event._id.valueOf())) { %>
+                            action="/attending/remove"
+                                <% } else { %>
+                            action="/attending/add"
+                                <% } %> method="get">
+                            <input class="visually-hidden" name="id" value="<%=event._id%>">
+                            <button class="btn navBtnStyle
+                                <% if (user.attending.some(e => e.id.valueOf() === event._id.valueOf())) { %>
+                                votedBtn
+                                <% }  %>
+                                " type="submit">Attending <span class="material-symbols-outlined">add_circle</span>
+                            </button>
+                        </form>
                     </div>
-                </a>
-                    <div class="col-md-1 text-center border <% if(vote){%>voted<%}%>">
+                    <div class="col-12 mt-2">
                         <form action="/vote" method="post">
                             <input class="visually-hidden" name="master" value="<%= event._id %>">
                             <input class="visually-hidden" name="attach" value="">
                             <input class="visually-hidden" name="type" value="event">
                             <input class="visually-hidden scrollField" name="scroll" value="">
-                            <button type="submit">VOTE</button>
+                            <button class="btn voteBtn navBtnStyle <% if(vote){%>voted<%}%>" type="submit">VOTE</button>
                             <input class="visually-hidden" name="value" value="<% if (vote){ %>-1<%} else{%>+1<%}%>">
                         </form>
                     </div>
-
+                </div>
             </div>
             <div class="col-md-2">
 
@@ -61,22 +82,22 @@
     </div>
     <br>
 </div>
-<div class="mx-auto my-2 w-50">
+<div class="mx-auto my-2 w-75 px-5 py-2 cardsContainer commentContent rounded">
     <form action="/comments/add" method="post">
         <div>
             <label for="addCommentText" class="form-label">Comment:</label>
-            <textarea class="form-control" id="addCommentText" rows="3" name="content"></textarea>
+            <textarea class="form-control theseAreCards" id="addCommentText" rows="3" name="content"></textarea>
         </div>
         <div class="d-flex justify-content-end">
             <input class="visually-hidden" name="master" value="<%=event._id%>">
             <input class="visually-hidden" name="type" value="event">
             <input class="visually-hidden" id="scroll" name="scroll" value='0'>
-            <button type="submit" class="btn btn-primary my-1" id="addCmtBtn">Add Comment</button>
+            <button type="submit" class="btn navBtnStyle my-1" id="addCmtBtn">Add Comment</button>
         </div>
     </form>
     <br>
 </div>
-<div class="mx-auto my-2 w-50">
+<div class="mx-auto my-2 w-75 px-5 py-2 cardsContainer rounded commentFeed <%= (cHtml.length === 0) ? 'visually-hidden' : '' %>">
     <%-cHtml%>
 </div>
 
@@ -84,15 +105,43 @@
 <%- include('../partials/footer')%>
 <script>
 	$(document).ready(function(){
-		let jump = "<%=scroll%>"
-		let scrollPosition = 0;
-		$(".openComment").click(function(){
-			let parent = $(this).parent().children("form")
-			let openComment= parent.children(".makeComment")
-			openComment.each(function (){
-				$(this).removeClass("visually-hidden")
-			})
-		})
+        let jump = "<%=scroll%>"
+        let scrollPosition = 0;
+        $(".openComment").click(function(){
+            let parent = $(this).parent().children("form")
+            let openComment= parent.children(".makeComment")
+            openComment.each(function (){
+                $(this).removeClass("visually-hidden")
+            })
+            let hideThese = $(".hideOnComment")
+            hideThese.each(function (){
+                $(this).addClass("visually-hidden")
+            })
+            $(".formReply").addClass("d-flex flex-fill")
+        })
+        $(".closeComment").click(function(){
+            let parent = $(this).parent()
+            let openComment= parent.children(".makeComment")
+            openComment.each(function (){
+                $(this).addClass("visually-hidden")
+            })
+            let hideThese = $(".hideOnComment")
+            hideThese.each(function(){
+                $(this).removeClass("visually-hidden")
+            })
+            $(".formReply").removeClass("d-flex flex-fill")
+        })
+        let voteBtns = $(".voteBtn")
+        voteBtns.each(function(){
+            if($(this).hasClass("voted")){
+                $(this).addClass("votedBtn")
+            } else {
+                $(this).removeClass("votedBtn")
+            }
+        })
+        if (!$(<%=cHtml%>)){
+
+        }
 		window.scrollTo({
 			top: parseInt(jump),
             left: 0,

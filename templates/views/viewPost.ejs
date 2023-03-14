@@ -10,14 +10,14 @@
     <div class="card mx-3 mt-4 border-0 backGrey mainCard" style="">
         <div class="row">
             <div class="col-md-2"></div>
-            <div class="col-md-2 border-end border-dark theseAreCards">
-                <div class="text-center">
-                    <img src="<%=post.avatar%>" class="img-fluid rounded-circle mb-3 mt-4" style="width: 50px; height: 50px;" alt="...">
+            <div class="col-md-2 border-end border-dark theseAreCards d-flex align-items-center">
+                <div class="text-center mx-auto">
+                    <img src="<%=post.avatar%>" class="img-fluid rounded-circle mb-3" style="width: 50px; height: 50px;" alt="...">
                     <a href="">
-                        <h4 class="card-subtitle mb-2 ms-2 text-muted" id="postCreator"><%=post.owner.name%></h4>
+                        <h4 class="card-subtitle mb-2 mx-auto text-muted" id="postCreator"><%=post.owner.name%></h4>
                     </a>
                     <% if (edit){ %>
-                        <button class="navBtnStyle" type="submit" id="edit-button"><a href="/posts/edit?id=<%=post._id%>">Edit Post</a></button>
+                        <button class="navBtnStyle mx-auto" type="submit" id="edit-button"><a class="whiteButtons" href="/posts/edit?id=<%=post._id%>">Edit Post</a></button>
                         <!--                                          insert path for post edit page-->
                     <%} else{%>
                     <%}%>
@@ -28,26 +28,25 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <a href="">
-                                <h3 class="card-title" id="postTitle"><%=post.title%></h3>
-                            </a>
+                                <h2 class="card-title" id="postTitle"><%=post.title%></h2>
                         </div>
-                        <div class="col-md-3 postTags">
+                        <div class="col-md-3 viewPageTags">
                             <span >Tags: </span>
                                 <% post.tags.forEach(function(tag){ %>
                                     <span class="badge rounded-pill buttonStyle pt-2"><%=tag%></span>
                                 <%})%>
                         </div>
                         <div class="col-md-3">
-                            <p>Votes: <%=post.votes%></p>
+                            <p class="viewPageTags">Votes: <%=post.votes%></p>
+                            <p class="viewPageTags">Comment Count: <%=post.commentCount%></p>
                         </div>
                     </div>
                     <p class="card-text" id="postContent"><%=post.content%></p>
-                    <p class="card-text" id="postCreated"><%=post.timeCreated%></p>
+                    <p class="card-text viewPageDates" id="postCreated">Post Created: <%=post.timeCreated%></p>
                 </div>
             </div>
-            <div class="col-md-1 text-center border-start border-dark theseAreCards">
-                <form class="my-2 mx-auto pt-5" action="/vote" method="post">
+            <div class="col-md-1 text-center border-start border-dark theseAreCards d-flex align-items-center">
+                <form class="my-2 mx-auto" action="/vote" method="post">
                     <input class="visually-hidden" name="master" value="<%= post._id %>">
                     <input class="visually-hidden" name="attach" value="">
                     <input class="visually-hidden" name="type" value="post">
@@ -78,10 +77,9 @@
     </form>
     <br>
 </div>
-<div class="mx-auto my-2 w-75 px-5 py-2 cardsContainer rounded">
+<div class="mx-auto my-2 w-75 px-5 py-2 cardsContainer rounded <%= (cHtml.length === 0) ? 'visually-hidden' : '' %>">
     <%-cHtml%>
 </div>
-<!--<div style="padding-left: ${count}em">${x.content}</div>-->
 
 <%- include('../partials/footer')%>
 <script>
