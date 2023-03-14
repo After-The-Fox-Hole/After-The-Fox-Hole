@@ -6,7 +6,7 @@ const auth = require('../middleware/auth');
 const Post = require("../models/posts");
 const Tags = require("../models/tags");
 const Comment = require("../models/comment")
-
+const Cascade = require("../JS/Cleaner")
 const format = require("date-format");
 const Votes = require("../models/votes");
 const Helper = require("../JS/functions")
@@ -136,14 +136,21 @@ router.get('/posts/edit', auth, async (req, res)=>{
 router.get("/posts/delete", auth, async (req, res)=>{
 		let userId = req.user._id;
 		let postId = req.query.id;
-		try{
-		   const post = await Post.findOne({$and:[{_id:postId}, {'owner.id':userId}]})
-			console.log(post)
-			await post.cleaner(postId);
-		}
-		catch (e) {
-			console.log(e)
-		}
+		
+		const post = await Post.findById(postId);
+		await Cascade.postCascade(post)
+		
+		// try{
+		//    const post = await Post.findOne({$and:[{_id:postId}, {'owner.id':userId}]})
+		//
+		// 	await Cascade.postCascade(post._id);
+		// }
+		// catch (e) {
+		// 	console.log(e)
+		// }
+	
+	
+	
 	res.status(200).redirect("/homepage")
 })
 

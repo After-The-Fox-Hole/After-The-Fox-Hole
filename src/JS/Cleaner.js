@@ -2,7 +2,9 @@ const Posts = require("../models/posts");
 const Events = require("../models/event");
 const Comments = require("../models/comment");
 const Votes = require("../models/votes");
-
+const mongoose = require('mongoose')
+const {Mongoose} = require("mongoose");
+const Post = require("../models/posts");
 
 const clean = {};
 
@@ -15,19 +17,19 @@ const clean = {};
 //
 // }
 
-// postSchema.methods.cleaner= async function(id){
-// 	const post = await Post.findById(id);
-// 	let comments = await Comments.find({$and:[{master:post._id}, {attach: null}]})
-// 	if (comments.length > 0){
-// 		for(let c of comments){
-// 			await Comments.findByIdAndRemove(c._id)
-// 		}
-// 	}
-//
-// 	await Votes.deleteMany({master:post._id})
-// 	await Post.findByIdAndRemove(post._id)
-//
-// }
+clean.postCascade = async function(post){
+	console.log(post._id)
+	let comments = await Comments.find({$and:[{'master.id':post._id}, {attach: null}]})
+	console.log(comments)
+	// if (comments.length > 0){
+	// 	for(let c of comments){
+	// 		await Comments.findByIdAndRemove(c._id)
+	// 	}
+	// }
+	//
+	// await Votes.deleteMany({master:id})
+	// await Post.findByIdAndRemove(id)
+}
 
 // eventSchema.statics.cleaner= async function(id){
 // 	const event = await Event.findById(id);

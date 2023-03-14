@@ -68,6 +68,12 @@ commentSchema.virtual("reports", {
 	foreignField: "type"
 })
 
+commentSchema.virtual("reports", {
+	ref: "Reports",
+	localField: "_id",
+	foreignField: "type"
+})
+
 
 const escape = (str) => validator.escape(str);
 
