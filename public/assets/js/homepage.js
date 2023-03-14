@@ -161,8 +161,16 @@ function handleFeedAndSearch() {
     fetch('/homepage/info', requestOptions)
         .then(response => response.json())
         .then(data => {
-            displayCards(data);
-            //updateTags(data);
+            if(data.length === 0 || data[0] === "999"){
+                let whichTab = document.querySelector(".nav-tabs .active").getAttribute("href").substring(1);
+                let contentCards = document.getElementById(whichTab);
+                contentCards.innerHTML = "<h1>Uh oh! Your Fireteam is empty! Switch to the Scouting tab to explore everything and consider adding some other members to your Fireteam</h1>";
+            }
+            else{
+                displayCards(data);
+                //updateTags(data);
+            }
+          
         })
         .catch(error => {
             console.error(error);

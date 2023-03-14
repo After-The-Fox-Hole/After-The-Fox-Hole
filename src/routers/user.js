@@ -146,9 +146,12 @@ router.post("/users/recovery", async (req, res)=>{
 		
 	}
 	catch (e) {
-	
+	console.log(e)
 	}
-	res.status(200).redirect("/")
+	let attempt = {
+		status: "If The Account exists, an email was sent!"
+	}
+	res.render('login', ({attempt}))
 })
 
 router.get("/users/delete", auth, async (req, res)=>{
