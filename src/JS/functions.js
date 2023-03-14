@@ -64,10 +64,15 @@ functions.commentLoop = async (comments, votes, master, masterText) =>{
 					votedL = true;
 				}
 				html = html + `<div class="border my-1 p-2 theseAreCards rounded" style="margin-left: ${count}em">
-									<div>
-										<a href="/profile?id=${x.owner.id}">
-											<p class="commentContent">${x.owner.name}</p>
-										</a>
+									<div class="row">
+										<div class="col-md-10">
+											<a href="/profile?id=${x.owner.id}">
+												<p class="commentContent">${x.owner.name}</p>
+											</a>
+										</div>
+										<div class="col-md-2">
+											<p>Votes: ${x.votes}</p>
+										</div>
 									</div>
 									<div class="commentContent mb-2">${x.content}</div>
 									<div>
@@ -75,17 +80,18 @@ functions.commentLoop = async (comments, votes, master, masterText) =>{
 									
 									</form>
 									<div class="d-flex ">
-									<div class="voteable voteDiv ms-auto `;
-				if(votedL){
-					html = html + "voted"
-				}
-				html = html + `">
+									<div class="voteable voteDiv ms-auto">
 									<form action="/vote" method="post">
 										<input class="visually-hidden" name="master" value="${master._id}">
 										<input class="visually-hidden" name="attach" value="${x._id}">
 										<input class="visually-hidden" name="type" value="${masterText}">
 										<input class="visually-hidden scrollField" name="scroll" value="">
-										<button class="hideOnComment navBtnStyle voteBtn" type="submit">VOTE</button>
+										<button class="hideOnComment navBtnStyle voteBtn `;
+				if(votedL){
+					html = html + "voted"
+				}
+				html = html + `" 
+									type="submit">VOTE</button>
 										<input class="visually-hidden" name="value" value="`;
 				if(votedL){
 					html = html + "-1"
