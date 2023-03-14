@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Registration Page</title>
+    <title>Edit Page</title>
     <!-- Include Bootstrap CSS -->
 
 </head>
 <%- include('../partials/header'), ({user})%>
-
+<br>
 <body class="bodyBack">
 <div class="container">
     <div class="d-flex justify-content-center col">
@@ -15,6 +15,7 @@
                 <div>
                     <img class="rounded mx-auto d-block" src="<%=user.avatar%>">
                     <!-- Button trigger modal -->
+                    <br>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Change Profile Picture
                     </button>
@@ -37,6 +38,7 @@
                     </div>
                 </div>
             <!-- Button trigger modal -->
+            <br>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                 Change Password
             </button>
