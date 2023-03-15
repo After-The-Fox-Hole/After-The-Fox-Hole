@@ -9,14 +9,18 @@
 <%- include('../partials/header'), ({user})%>
 
 <body class="bodyBack">
-<div class="container d-flex justify-content-center align-items-top" >
+<div class="container d-flex justify-content-center align-items-top " >
         <div class="col-md-6 col-md-offset-3">
             <% if (post){%>
-                <h1 class="d-flex justify-content-center">Edit Post</h1>
+                <div class="p-2 mx-auto my-2 cardsContainer rounded text-center">
+                    <h1 class="d-flex justify-content-center">Edit Post</h1>
+                </div>
             <% } else {%>
-                <h1 class="d-flex justify-content-center">Create Post</h1>
+                <div class="p-2 mx-auto my-2 cardsContainer rounded text-center align-items-center">
+                    <h1 class="d-flex justify-content-center">Create Post</h1>
+                </div>
             <%}%>
-                <div id="testCard">
+                <div class="p-3 rounded" id="testCard">
                     <form <% if (!post){%>action="/posts" <%} else {%> action="/posts/update"  <%}%> method="POST">
 
                         <%if (post) {%>
@@ -31,8 +35,8 @@
                             <textarea rows="5" class="form-control theseAreCards" id="description" name="content"><%if (post) {%><%=post.content%><%}%></textarea>
                         </div>
                             <div class="form-group d-flex justify-content-center col createSpace">
-                                <label for="tagsList">Tags:</label>
-                                <button class="btn btn-primary dropdown-toggle navBtnStyle" type="button" id="dropdownMenuButton"
+                                <label class="my-auto me-2" for="tagsList">Tags:</label>
+                                <button class="btn btn-primary dropdown-toggle navBtnStyle pt-2 pb-1" type="button" id="dropdownMenuButton"
                                         data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                                     Tags
                                 </button>
@@ -49,17 +53,17 @@
 
                         <div class="form-group d-flex justify-content-between">
                             <% if (!post){%>
-                            <button type="submit" class="btn btn-primary navBtnStyle">
+                            <button type="submit" class="btn btn-primary navBtnStyle pt-2 pb-1">
                                 Create
                             </button>
-                            <a  href="/profile?id=<%=user._id%>" class="btn btn-danger">
+                            <a  href="/profile?id=<%=user._id%>" class="btn dangerBtn">
                                 Cancel
                             </a>
                             <%} else {%>
-                                <button type="submit" class="btn btn-primary navBtnStyle">
+                                <button type="submit" class="btn btn-primary navBtnStyle pt-2 pb-1">
                                     Update
                                 </button>
-                                <a type="button" href="/posts/delete?id=<%=post.id%>" onclick="confirmUser()" class="btn btn-danger">
+                                <a type="button" href="/posts/delete?id=<%=post.id%>" onclick="confirmUser()" class="btn dangerBtn">
                                     Delete
                                 </a>
                             <%}%>
@@ -79,6 +83,17 @@
             window.location="/posts/delete?id=<%=post._id%>"
         }
     }
+
+	// $(document).ready(function(){
+	// 	let blocks = $(".changeTime")
+	// 	for (let t of blocks){
+	// 		let current = $(this).val()
+	// 		const localDate = new Date(current);
+	// 		const utcDate = new Date(localDate.getTime() + localDate.getTimezoneOffset() * 60000);
+	// 		current=  utcDate.toISOString();
+	// 		$(this).val(current)
+	// 	}
+    // })
 </script>
 <%}%>
 

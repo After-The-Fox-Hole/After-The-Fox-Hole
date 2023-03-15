@@ -19,7 +19,7 @@
         <% if (typeof  attempt !== 'undefined'){%>
         <div class="col text-muted lead text-center m-auto bg-warning border rounded-pill"><%=attempt.error%></div>
         <%}%>
-        <div id="testCard">
+        <div class="p-3 rounded" id="testCard">
             <form <% if (event === null || !event._id){%>action="/events" <%} else {%> action="/events/update"  <%}%> method="POST">
 
                 <div class="form-group">
@@ -36,17 +36,17 @@
 
                     <div>
                         <label class="d-flex justify-content-center createSpace" for="date">Event Time and Date</label>
-                        <input required name="date" class="form-control theseAreCards" type="datetime-local" id="date" placeholder="Select Date and Time" value="<% if (typeof  attempt !== 'undefined' || event){%><%=event.date%><%}%>">
+                        <input required name="date" class="form-control theseAreCards singleTime" type="datetime-local" id="date" placeholder="Select Date and Time" value="<% if (typeof  attempt !== 'undefined' || event){%><%=event.date%><%}%>">
                     </div>
 
                 </div>
                 <div class="d-flex justify-content-center createSpace">
-                    <label for="location">Location</label><input type="text" class="theseAreCards" name="location" value="<% if (typeof  attempt !== 'undefined' || event){%><%=event.location.text%><%}%>">
+                    <label class="my-auto me-2" for="location">Location</label><input type="text" class="theseAreCards" name="location" value="<% if (typeof  attempt !== 'undefined' || event){%><%=event.location.text%><%}%>">
                 </div>
                 <div class="form-group d-flex justify-content-center col">
 
-                    <label for="tagsList">Tags:</label>
-                    <button class="btn btn-primary dropdown-toggle navBtnStyle" type="button" id="dropdownMenuButton"
+                    <label class="my-auto me-2" for="tagsList">Tags:</label>
+                    <button class="btn btn-primary dropdown-toggle navBtnStyle pt-2 pb-1" type="button" id="dropdownMenuButton"
                             data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                         Tags
                     </button>
@@ -64,7 +64,7 @@
                 </div>
                 <div class="form-group d-flex justify-content-between">
                     <% if (event === null || !event._id){%>
-                    <button type="submit" class="btn btn-primary navBtnStyle">
+                    <button type="submit" onclick="changeTime()" class="btn btn-primary navBtnStyle pt-2 pb-1">
                         Create
                     </button>
 
@@ -73,10 +73,10 @@
 
                     </a>
                     <%} else {%>
-                        <button type="submit" class="btn btn-primary navBtnStyle">
+                        <button type="submit" onclick="changeTime(Event)" class="btn btn-primary navBtnStyle pt-2 pb-1">
                             Update
                         </button>
-                        <a type="button" href="/events/delete?id=<%=event._id%>" onclick="confirmUser()" class="btn btn-danger">
+                        <a type="button"  onclick="confirmUser(Event)" class="btn btn-danger">
                             Delete
                         </a>
                     <%}%>
@@ -90,12 +90,45 @@
 <%- include('../partials/footer')%>
 <% if(event){%>
 <script>
-    function confirmUser(){
+    function confirmUser(e){
         let ask = confirm("Are you sure you want to delete?");
         if(ask === true){
             window.location="/events/delete?id=<%=event._id%>"
         }
+		else{
+			e.preventDefault();
+        }
     }
+
+	// const changeTime = () =>{
+	// 	let current = $(".singleTime").val()
+	// 	function localToUtc(dateTimeLocalValue) {
+	// 		const localDate = new Date(dateTimeLocalValue);
+	// 		const utcTimestamp = localDate.getTime() - localDate.getTimezoneOffset() * 60000;
+	// 		const utcDate = new Date(utcTimestamp);
+	// 		return utcDate.toISOString();
+	// 	}
+	// 	 current = localToUtc(current)
+	// 	$(".singleTime").val(current)
+    //     return
+	// }
+
+    // $(document).ready(function(){
+	//     let blocks = $(".changeTime")
+	//     for (let t of blocks){
+	// 	    let current = $(this).val()
+	// 	    const localDate = new Date(current);
+	// 	    const utcDate = new Date(localDate.getTime() + localDate.getTimezoneOffset() * 60000);
+	// 	    current=  utcDate.toISOString();
+	// 	    $(this).val(current)
+	//     }
+    //
+    //
+	// 	    const utcDate = new Date($(".singleTime").val());
+	// 	    const localDate = new Date(utcDate.getTime() - utcDate.getTimezoneOffset() * 60000);
+	//         $(".singleTime").val(localDate.toISOString().slice(0, -8))
+    //
+    // })
 </script>
 <%}%>
 

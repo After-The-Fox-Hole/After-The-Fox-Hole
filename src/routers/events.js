@@ -18,6 +18,7 @@ const Cascade = require("../JS/Cleaner")
 ///////make a event
 
 router.post('/events',auth,async (req,res)=>{
+	console.log(req.body.date)
 	let tags = await Tags.find({type:"event"})
 	let attempt = {text:req.body.location};
 	let options={};
