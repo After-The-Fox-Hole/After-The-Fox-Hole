@@ -102,10 +102,10 @@ async function displayCards(cards) {
                             <h2 class="card-title">${cd.title}</h2>
                         </a>
                     </div>
-                    <div class="col-md-6 mt-2">
+                    <div class="col-md-6 mt-2 commentContent">
                         <span>Tags: </span>`;
                         for (let i = 0; i < cd.tags.length; i++) {
-                                contents += `<span class="badge rounded-pill buttonStyle">${cd.tags[i]}</span> `;
+                                contents += `<span class="badge rounded-pill buttonStyle pt-2 pb-1">${cd.tags[i]}</span> `;
                             };
                     contents += `</div>
                 </div>
