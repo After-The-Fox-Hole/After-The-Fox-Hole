@@ -161,9 +161,9 @@ router.get("/users/delete", auth, async (req, res)=>{
 	}
 	catch (e) {
 		console.log(e)
-		res.status(200).redirect("/homepage")
+		res.status(200).redirect("/")
 	}
-	res.status(200).redirect("")
+	res.status(200).redirect("/")
 })
 
 
