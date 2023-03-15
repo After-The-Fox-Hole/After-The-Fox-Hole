@@ -189,7 +189,7 @@ router.get("/events/delete", auth, async (req, res)=>{
 	let eventId = req.query.id;
 	try{
 	const event =	await Event.findOne({$and:[{_id:eventId}, {'owner.id':userId}]})
-		await Cascade.postingCascade(event);
+		await Cascade.postingCascade(event, "event");
 	}
 	catch (e) {
 		console.log(e)
