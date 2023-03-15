@@ -80,16 +80,16 @@
         }
     }
 
-	$(document).ready(function(){
-		let blocks = $(".changeTime")
-		for (let t of blocks){
-			let current = $(this).val()
-			const localDate = new Date(current);
-			const utcDate = new Date(localDate.getTime() + localDate.getTimezoneOffset() * 60000);
-			current=  utcDate.toISOString();
-			$(this).val(current)
-		}
-    })
+	// $(document).ready(function(){
+	// 	let blocks = $(".changeTime")
+	// 	for (let t of blocks){
+	// 		let current = $(this).val()
+	// 		const localDate = new Date(current);
+	// 		const utcDate = new Date(localDate.getTime() + localDate.getTimezoneOffset() * 60000);
+	// 		current=  utcDate.toISOString();
+	// 		$(this).val(current)
+	// 	}
+    // })
 </script>
 <%}%>
 
