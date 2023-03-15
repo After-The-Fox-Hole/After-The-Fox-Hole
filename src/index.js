@@ -17,6 +17,11 @@ app.get('', (request, response) => {
 	response.render('login', ({attempt}))
 });
 
+app.get("/about", (req, res) =>{
+	
+	res.render('about')
+})
+
 app.get('*', function(req, res) {
 	res.render('login')
 });
