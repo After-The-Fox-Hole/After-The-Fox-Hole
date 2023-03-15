@@ -23,7 +23,7 @@
         <% if (typeof  attempt !== 'undefined'){%>
         <div class="col text-muted lead text-center m-auto bg-warning border rounded-pill"><%=attempt.error%></div>
         <%}%>
-        <div class="p-3 rounded createBox" id="testCard">
+        <div class="p-3 rounded createBox createEdit" id="testCard">
             <form <% if (event === null || !event._id){%>action="/events" <%} else {%> action="/events/update"  <%}%> method="POST">
 
                 <div class="form-group">

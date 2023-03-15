@@ -159,6 +159,25 @@ a:hover {
     /*overflow-y: scroll;*/
 }
 
+.size28 {
+    font-size: 28px;
+}
+
+.createEdit {
+    background-color: #A9ADBC;
+    background-image: url("https://drive.google.com/uc?id=18FSUKsFp2hWD5aTERZTp-O8Rx-_Lqd2T");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.loginLogo {
+    background-image: url("https://drive.google.com/uc?id=1qDKcKH-pTUjrugPIm5Fa0zMYR_IqKPQe");
+    background-size: 52%;
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
 #testCard::-webkit-scrollbar {
     width: 0.5em;
 }
