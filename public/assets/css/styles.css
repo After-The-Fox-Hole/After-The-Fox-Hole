@@ -158,7 +158,7 @@ a:hover {
 }
 
 #tabCards {
-    height: calc(64vh);
+    height: calc(59vh);
     overflow-y: scroll;
 }
 
@@ -224,7 +224,7 @@ a:hover {
 
 .scrollable-div {
     overflow-y: auto;
-    max-height: 300px;
+    max-height: calc(80vh);
 }
 
 .scrollable-div::-webkit-scrollbar {
