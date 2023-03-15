@@ -99,7 +99,7 @@ async function displayCards(cards) {
                                 contents += "posts"
                             }
                             contents +=  `?id=${cd._id}">
-                            <h2 class="card-title">${cd.title}</h2>
+                            <h2 class="card-title ownerColor">${cd.title}</h2>
                         </a>
                     </div>
                     <div class="col-md-6 mt-2 commentContent">
@@ -110,10 +110,19 @@ async function displayCards(cards) {
                     contents += `</div>
                 </div>
                 <a href="/profile?id=${cd.owner.id}" >
-                    <h5 class="card-subtitle">${cd.owner.name}</h5>
+                    <h5 class="card-subtitle size24">${cd.owner.name}</h5>
                 </a>
 				<p class="card-text cardContentEach my-2">${cd.content}</p>
-				<p class="card-text my-2">${cardCreated}</p>
+				<hr>
+				<div class="row">
+				    <div class="col-6">
+				        <span class="card-text my-2 commentContent">Posted: ${cardCreated}</span>
+                    </div>
+                    <div class="col-6">
+                        <span class="card-text my-2 commentContent">Comments: ${cd.commentCount}</span>
+                    </div>
+                </div>
+				
 			</div>
 		</div>`;
         contentCards.innerHTML = contents;

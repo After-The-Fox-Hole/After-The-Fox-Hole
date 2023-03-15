@@ -12,12 +12,12 @@
             <div class="col-md-2 border-end border-dark theseAreCards d-flex align-items-center rounded-start flex-fill">
                 <div class="text-center mx-auto">
                     <div class="mx-auto">
-                        <a href="">
-                            <h6 class="card-subtitle mb-2 mx-auto text-muted" id="eventCreator"><%=event.owner.name%></h6>
+                        <a class="standardLink ownerColor" href="/profile?id=<%=event.owner.id%>">
+                            <h4 class="card-subtitle mb-2 mx-auto " id="eventCreator"><%=event.owner.name%></h4>
                         </a>
                     </div>
                     <% if (edit){ %>
-                        <button class="navBtnStyle mx-auto" type="submit" id="edit-button"><a class="whiteButtons" href="/events/edit?id=<%=event._id%>">Edit Event</a></button>
+                        <button class="navBtnStyle mx-auto pt-2 pb-1" type="submit" id="edit-button"><a class="whiteButtons" href="/events/edit?id=<%=event._id%>">Edit Event</a></button>
                     <%} else{%>
                     <%}%>
                 </div>
@@ -33,22 +33,42 @@
                         </div>
                         <hr>
                         <div class="row mb-2">
-                            <div class="viewPageTags col-lg-8">
+                            <div class="viewPageTags commentContent col-lg-7">
                                 <span >Tags: <%= (event.tags.length === 0) ? 'None' : '' %></span>
                                 <% event.tags.forEach(function(tag){ %>
                                 <span class="badge rounded-pill buttonStyle pt-2"><%=tag%></span>
                                 <%})%>
                             </div>
                             <div class="col-md-2">
-                                <h5 class="viewPageTags">Votes: <%=event.votes%></h5>
+                                <h5 class="viewPageTags commentContent">Votes: <%=event.votes%></h5>
                             </div>
-                            <div class="col-md-2">
-                                <h5 class="viewPageTags">Comments: <%=event.commentCount%></h5>
+                            <div class="col-md-3">
+                                <h5 class="viewPageTags commentContent">Comments: <%=event.commentCount%></h5>
                             </div>
                         </div>
-
-                    <h5 class="card-text viewPageDates " id="eventCreated">Event Created: <span class="changeTime"><%=event.timeCreated%></span></h5>
-                    <h5 class="card-text viewPageDates " id="eventDate">When is the event? <%=event.date%></h5>
+                    <% let date = new Date(event.timeCreated);%>
+                    <% let options = {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                    };
+                    %>
+                    <% let eventCreated = date.toLocaleString('en-US', options);
+                    %>
+                    <% let dateScheduled = new Date(event.date);%>
+                    <% let optionsScheduled = {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: false,
+                    };
+                    %>
+                    <% let eventDate = dateScheduled.toLocaleString('en-US', optionsScheduled);
+                    %>
+                    <h5 class="card-text viewPageDates commentContent" id="eventCreated">Event Created: <span class="changeTime"><%=eventCreated%></span></h5>
+                    <h5 class="card-text viewPageDates commentContent" id="eventDate">When is the event? <%=eventDate%> </h5>
                 </div>
             </div>
             <div class="col-md-2 text-center border-start border-dark theseAreCards d-flex align-items-center rounded-end">
@@ -91,20 +111,19 @@
     </div>
     <br>
 </div>
-<div class="mx-auto my-2 w-75 px-5 py-2 cardsContainer commentContent rounded">
+<div class="mx-auto my-2 w-75 px-5 py-1 pb-3 cardsContainer commentContent rounded">
     <form action="/comments/add" method="post">
         <div>
-            <label for="addCommentText" class="form-label">Comment:</label>
+            <label for="addCommentText" class="form-label size24">Comment:</label>
             <textarea class="form-control theseAreCards" id="addCommentText" rows="3" name="content"></textarea>
         </div>
         <div class="d-flex justify-content-end">
             <input class="visually-hidden" name="master" value="<%=event._id%>">
-            <input class="visually-hidden" name="type" value="event">
+            <input class="visually-hidden" name="type" value="post">
             <input class="visually-hidden" id="scroll" name="scroll" value='0'>
-            <button type="submit" class="btn navBtnStyle my-1 pt-2 pb-1" id="addCmtBtn">ADD COMMENT</button>
+            <button type="submit" class="btn btn-primary mt-2 pt-2 pb-1 navBtnStyle" id="addCmtBtn">Add Comment</button>
         </div>
     </form>
-    <br>
 </div>
 <div class="mx-auto my-2 w-75 px-5 py-2 cardsContainer rounded commentFeed <%= (cHtml.length === 0) ? 'visually-hidden' : '' %>">
     <%-cHtml%>
