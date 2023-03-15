@@ -63,18 +63,35 @@ functions.commentLoop = async (comments, votes, master, masterText) =>{
 				if(votes.includes(x._id.valueOf())){
 					votedL = true;
 				}
+				let date = new Date(x.timeCreated);
+				let options = {
+					year: "numeric",
+					month: "short",
+					day: "numeric",
+				};
+				let postedDate = date.toLocaleString("en-US", options);
 				html = html + `<div class="border my-1 p-2 theseAreCards rounded" style="margin-left: ${count}em">
 									<div class="row">
-										<div class="col-md-10">
-											<a href="/profile?id=${x.owner.id}">
-												<p class="commentContent">${x.owner.name}</p>
+										<div class="col-md-9">
+											<a class="standardLink" href="/profile?id=${x.owner.id}">
+												<p class="commentContent ownerColor">${x.owner.name}</p>
 											</a>
+											<div class="size24 mb-2">${x.content}</div>
 										</div>
-										<div class="col-md-2">
-											<p>Votes: ${x.votes}</p>
+										<div class="col-md-3">
+											<div class="row">
+												<div class="col-12">
+													<p class="ms-4 commentContent">Votes: ${x.votes}</p>
+												</div>
+												<div class="col-12">
+													
+													<p class="ms-4 commentContent">Posted: ${postedDate}</p>
+												</div>
+											</div>
+											
 										</div>
 									</div>
-									<div class="commentContent mb-2">${x.content}</div>
+									
 									<div>
 									<form action="/comments/add" method="post">
 									

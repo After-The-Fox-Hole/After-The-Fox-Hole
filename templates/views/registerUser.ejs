@@ -8,42 +8,54 @@
 </head>
 <body class="bodyBack">
 <%- include('../partials/header')%>
-<div class="container my-5" id="testCard">
-    <div class="d-flex align-items-center justify-content-center">
-        <div class="col-md-6 col-md-offset-3 text-center" >
+<div class="container my-4 rounded p-3 cardsContainer regBox" >
+    <div class="d-flex align-items-center justify-content-center ">
+        <div class="col-10 text-center " >
             <h1>Registration Page</h1>
             <% if (typeof  error !== 'undefined'){%>
             <div class="col text-muted lead text-center m-auto bg-warning border rounded-pill"><%=error.error%></div>
                 <%}%>
-            <form action="/users" method="POST">
-                <div class="form-group">
-                    <label for="first">First Name</label>
-                    <input type="text" class="form-control theseAreCards" id="first" name="firstN" required
-                        value="<% if (typeof  user !== 'undefined'){%><%=user.info.name.first%><%}%>">
+            <form class="size24" action="/users" method="POST">
+                <div class="row mb-2">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="first">First Name</label>
+                            <input type="text" class="form-control theseAreCards commentContent pt-2 pb-1" id="first" name="firstN" required
+                                   value="<% if (typeof  user !== 'undefined'){%><%=user.info.name.first%><%}%>">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="last">Last Name</label>
+                            <input type="text" class="form-control theseAreCards commentContent pt-2 pb-1" id="last" name="last" required value="<% if (typeof  user !== 'undefined'){%><%=user.info.name.last%><%}%>">
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="last">Last Name</label>
-                    <input type="text" class="form-control theseAreCards" id="last" name="last" required value="<% if (typeof  user !== 'undefined'){%><%=user.info.name.last%><%}%>">
+                <div class="row mb-2">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" class="form-control theseAreCards commentContent pt-2 pb-1" id="email" name="email" required value="<% if (typeof  user !== 'undefined'){%><%=user.info.email%><%}%>">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="displayName">Display Name</label>
+                            <input type="text" class="form-control theseAreCards commentContent pt-2 pb-1" id="displayName" name="displayName" required value="<% if (typeof  user !== 'undefined'){%><%=user.displayName%><%}%>">
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" class="form-control theseAreCards" id="email" name="email" required value="<% if (typeof  user !== 'undefined'){%><%=user.info.email%><%}%>">
-                </div>
-                <div class="form-group">
-                    <label for="displayName">Display Name</label>
-                    <input type="text" class="form-control theseAreCards" id="displayName" name="displayName" required value="<% if (typeof  user !== 'undefined'){%><%=user.displayName%><%}%>">
-                </div>
-                <div class="form-group">
+                <div class="form-group col-6 mx-auto mb-2">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control theseAreCards" id="password" name="password" required value="<% if (typeof  user !== 'undefined'){%><%=user.password%><%}%>">
+                    <input type="password" class="form-control theseAreCards commentContent pt-2 pb-1" id="password" name="password" required value="<% if (typeof  user !== 'undefined'){%><%=user.password%><%}%>">
                 </div>
-                <div class="form-group">
+                <div class="form-group mb-2">
                     <label for="address">Location (Can Be City, State, or Address)</label>
-                    <input type="text" class="form-control theseAreCards" id="address" name="location" required value="<% if (typeof  user !== 'undefined'){%><%=user.info.location.text%><%}%>">
+                    <input type="text" class="form-control theseAreCards commentContent pt-2 pb-1" id="address" name="location" required value="<% if (typeof  user !== 'undefined'){%><%=user.info.location.text%><%}%>">
                 </div>
-                <div class="form-group">
+                <div class="form-group mb-2">
                     <label for="branchOfService">Branch of Service</label>
-                    <select class="form-control theseAreCards" id="branchOfService" name="branch" required>
+                    <select class="form-control theseAreCards commentContent commentContent pt-2 pb-1" id="branchOfService" name="branch" required>
                         <option value=""
                         <% if (typeof  user === 'undefined'){%>
                         selected
@@ -94,10 +106,10 @@
                                 <%}%>>Air-NG</option>
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group mb-2">
                     <label for="status">Status</label>
-                    <div>
-                        <label class="radio-inline">
+                    <div class="theseAreCards rounded col-6 mx-auto pt-2 pb-1">
+                        <label class="radio-inline mx-2">
                             <input type="radio" name="status" value="Active" required
                             <% if (typeof  user !== 'undefined'){%>
                                 <% if (  user.info.service.status === 'Active'){%>
@@ -106,7 +118,7 @@
                                     <%}%>
                             > Active Duty
                         </label>
-                        <label class="radio-inline">
+                        <label class="radio-inline mx-2">
                             <input type="radio" name="status" value="Veteran" required
                             <% if (typeof  user !== 'undefined'){%>
                                 <% if (  user.info.service.status === 'Veteran/Retired'){%>
@@ -114,7 +126,7 @@
                                         <%}%>
                                     <%}%>> Veteran/Retired
                         </label>
-                        <label class="radio-inline">
+                        <label class="radio-inline mx-2">
                         <input type="radio" name="status" value="Reserve" required
                         <% if (typeof  user !== 'undefined'){%>
                             <% if (  user.info.service.status === 'Reserve'){%>
@@ -124,14 +136,13 @@
                         </label>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group col-6 mx-auto mb-3">
                     <label for="currentJob">Current Job (CIV/MILITARY) (optional)</label>
-                    <input type="text" class="form-control theseAreCards" id="currentJob" name="currentJob"
+                    <input type="text" class="form-control theseAreCards commentContent pt-2 pb-1" id="currentJob" name="currentJob"
                     value="<% if (typeof user !== 'undefined'){%><%=user.info.currentJob%><%}%>">
                 </div>
-                <br>
                 <div class="text-center">
-                <button type="submit" class="btn btn-primary navBtnStyle buttonStyle">Submit</button>
+                <button type="submit" class="pt-2 pb-1 navBtnStyle buttonStyle">Submit</button>
                 </div>
             </form>
         </div>

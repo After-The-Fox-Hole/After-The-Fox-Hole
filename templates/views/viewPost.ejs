@@ -12,8 +12,8 @@
             <div class="col-md-2 border-end border-dark theseAreCards d-flex align-items-center rounded-start">
                 <div class="text-center mx-auto">
                     <img src="<%=post.avatar%>" class="img-fluid rounded-circle mb-3" style="width: 50px; height: 50px;" alt="...">
-                    <a href="">
-                        <h4 class="card-subtitle mb-2 mx-auto text-muted" id="postCreator"><%=post.owner.name%></h4>
+                    <a class="standardLink ownerColor" href="/profile?id=<%=post.owner.id%>">
+                        <h4 class="card-subtitle mb-2 mx-auto" id="postCreator"><%=post.owner.name%></h4>
                     </a>
                     <% if (edit){ %>
                         <button class="navBtnStyle mx-auto pt-2 pb-1" type="submit" id="edit-button"><a class="whiteButtons" href="/posts/edit?id=<%=post._id%>">Edit Post</a></button>
@@ -33,21 +33,30 @@
                         <h3 class="card-text" id="eventContent"><%=post.content%></h3>
                     </div>
                     <hr>
-                    <div class="row mb-2">
-                        <div class="viewPageTags col-lg-8">
+                    <div class="row mb-2 ">
+                        <div class="viewPageTags col-lg-7 commentContent">
                             <span >Tags: <%= (post.tags.length === 0) ? 'None' : '' %></span>
                             <% post.tags.forEach(function(tag){ %>
                             <span class="badge rounded-pill buttonStyle pt-2"><%=tag%></span>
                             <%})%>
                         </div>
                         <div class="col-md-2">
-                            <h5 class="viewPageTags">Votes: <%=post.votes%></h5>
+                            <h5 class="viewPageTags commentContent">Votes: <%=post.votes%></h5>
                         </div>
-                        <div class="col-md-2">
-                            <h5 class="viewPageTags">Comments: <%=post.commentCount%></h5>
+                        <div class="col-md-3">
+                            <h5 class="viewPageTags commentContent">Comments: <%=post.commentCount%></h5>
                         </div>
                     </div>
-                    <h5 class="card-text viewPageDates " id="postCreated">Post Created: <span class="changeTime"><%=post.timeCreated%></span></h5>
+                    <% let date = new Date(post.timeCreated);%>
+                    <% let options = {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                    };
+                    %>
+                    <% let postDate = date.toLocaleString('en-US', options);
+                    %>
+                    <h5 class="card-text viewPageDates commentContent" id="postCreated">Post Created: <span class="changeTime"><%=postDate%></span></h5>
                 </div>
             </div>
             <div class="col-md-2 text-center border-start border-dark theseAreCards d-flex align-items-center rounded-end">
@@ -65,20 +74,19 @@
     </div>
     <br>
 </div>
-<div class="mx-auto my-2 w-75 px-5 py-2 cardsContainer commentContent rounded">
+<div class="mx-auto my-2 w-75 px-5 py-1 pb-3 cardsContainer commentContent rounded">
     <form action="/comments/add" method="post">
         <div>
-            <label for="addCommentText" class="form-label">Comment:</label>
+            <label for="addCommentText" class="form-label size24">Comment:</label>
             <textarea class="form-control theseAreCards" id="addCommentText" rows="3" name="content"></textarea>
         </div>
         <div class="d-flex justify-content-end">
                 <input class="visually-hidden" name="master" value="<%=post._id%>">
                 <input class="visually-hidden" name="type" value="post">
                 <input class="visually-hidden" id="scroll" name="scroll" value='0'>
-                <button type="submit" class="btn btn-primary my-1 pt-2 pb-1 navBtnStyle" id="addCmtBtn">Add Comment</button>
+                <button type="submit" class="btn btn-primary mt-2 pt-2 pb-1 navBtnStyle" id="addCmtBtn">Add Comment</button>
         </div>
     </form>
-    <br>
 </div>
 <div class="mx-auto my-2 w-75 px-5 py-2 cardsContainer rounded <%= (cHtml.length === 0) ? 'visually-hidden' : '' %>">
     <%-cHtml%>
@@ -120,16 +128,6 @@ $(document).ready(function(){
             } else {
                 $(this).removeClass("votedBtn")
             }
-
-
-	    let blocks = $(".changeTime")
-	    for (let t of blocks){
-		    let current = $(this).val()
-		    const localDate = new Date(current);
-		    const utcDate = new Date(localDate.getTime() + localDate.getTimezoneOffset() * 60000);
-		    current=  utcDate.toISOString();
-		    $(this).val(current)
-	    }
     })
 
 	window.scrollTo({

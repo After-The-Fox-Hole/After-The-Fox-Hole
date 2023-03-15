@@ -14,24 +14,23 @@
 <!--Profile information-->
 <div class="container">
     <div class="row">
-        <div class="col-lg-3 px-2" style="text-align: center">
-            <div class="card theseAreCards mx-auto" style="width: 15rem;">
+        <div class="col-lg-3 px-2 mb-5" style="text-align: center">
+            <div class="card theseAreCards mx-auto" >
                 <img class="card-img-top" src="<%= owner.avatar%>" alt="">
                 <br>
                 <div class="card-body">
-                    <h6 class="card-title"><%=owner.displayName%></h6>
+                    <h6 class="card-title size24"><%=owner.displayName%></h6>
                     <h2 class="card-title"><%=owner.info.name.first + " " + owner.info.name.last%></h2>
                     <hr><br>
-                    <div class="card-text" id="edit">
-                        <div>Location:<span class="editLocation"><%=owner.info.location.text%></span></div>
-                        <div> Branch of Service:<span class="editBranch"><%=owner.info.service.branch%></span></div>
-                            <div>Status:<span class="editStatus"><%=owner.info.service.status%></span></div>
-                                <div> Current Job:<span class="editJob"><%=owner.info.currentJob%></span></div>
+                    <div class="card-text commentContent" id="edit">
+                        <div>Location:  <span class="editLocation"><%=owner.info.location.text%></span></div>
+                        <div> Branch of Service:  <span class="editBranch"><%=owner.info.service.branch%></span></div>
+                            <div>Status:  <span class="editStatus"><%=owner.info.service.status%></span></div>
+                                <div> Current Job:  <span class="editJob"><%=owner.info.currentJob%></span></div>
                     </div>
                     <br>
                     <% if (edit){ %>
-                        <button class="navBtnStyle " type="submit" id="edit-button"><a class="whiteButtons" href="/profile/edit">Edit Profile</a></button>
-<!--                        <button type="submit" id="end-editing" class="visually-hidden">Save Profile</button>-->
+                        <button class="navBtnStyle" type="submit" id="edit-button"><a class="whiteButtons" href="/profile/edit">Edit Profile</a></button>
                     <%} else{%>
                             <% if(!fireteam){ %>
                         <form action="/fireteam/add" method="post">
@@ -50,20 +49,28 @@
             </div>
         </div>
     <!--Recent post-->
-        <div class="col-lg-3 px-2 ">
-            <div class="theseAreCards rounded p-2 mb-2 me-2 mx-auto  d-flex align-items-center">
-                <h3 class="m-auto text-center"><u>Recent Posts</u></h3>
+        <div class="col-lg-3 px-2 mb-5">
+            <div class="theseAreCards rounded p-2 mb-2 mx-auto d-flex align-items-center scrollablePostsTitle">
+                <h3 class="m-auto text-center"><u><%=owner.displayName%>'s Posts</u></h3>
             </div>
-            <div class="scrollable-div">
+            <div class="scrollable-div scrollablePosts">
                 <div class="cardsContainer rounded p-2">
                     <% owner.posts.forEach(function (post){%>
+                        <% let date = new Date(post.timeCreated);%>
+                        <% let options = {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                        };
+                        %>
+                        <% let cardCreated = date.toLocaleString('en-US', options);
+                        %>
                         <div class="card-body theseAreCards rounded p-2 text-center">
-                            <a href="/posts?id=<%=post.id%>">
-                                <h5 class="card-title"><%=post.title%></h5>
+                            <a class="standardLink" href="/posts?id=<%=post.id%>">
+                                <h5 class="card-title size24"><%=post.title%></h5>
                             </a>
-        <!--                    <h5 class="card-title post-title">=post.title</h5>-->
-                            <p class="card-text post-content"><%=post.content%></p>
-                            <p class="card-text post-time"><%=post.timeCreated%></p>
+                            <p class="card-text post-content commentContent"><%=post.content%></p>
+                            <p class="card-text post-time commentContent"><%=cardCreated%></p>
                         </div>
                     <hr>
                     <%});%>
@@ -71,41 +78,53 @@
             </div>
         </div>
     <!--Fireteam-->
-        <div class="col-lg-3 px-2" >
+        <div class="col-lg-3 px-2 mb-5" >
             <div class="theseAreCards rounded p-2 mb-2 mx-auto  d-flex align-items-center">
-                <h3 class="m-auto text-center"><u>My Fireteam</u></h3>
+                <h3 class="m-auto text-center"><u><%=owner.displayName%>'s Fireteam</u></h3>
             </div>
                 <div class="scrollable-div">
-                    <div class="card-body theseAreCards rounded p-2">
-                        <%owner.followers.forEach(function(follower){ %>
-                        <div class="card-body theseAreCards text-center">
-                            <a href="/profile?id=<%=follower.following.id%>">
-                                <h5 class="card-title"><%=follower.following.name%></h5>
-                            </a>
+                    <div class="cardsContainer rounded p-2">
+                        <div class="card-body theseAreCards rounded p-2">
+                            <%owner.followers.forEach(function(follower){ %>
+                            <div class="card-body theseAreCards text-center">
+                                <a class="standardLink" href="/profile?id=<%=follower.following.id%>">
+                                    <h5 class="card-title size24"><%=follower.following.name%></h5>
+                                </a>
+                            </div>
+                            <hr>
+                            <% });%>
                         </div>
-                        <hr>
-                        <% });%>
                     </div>
                 </div>
         </div>
     <!--My Events-->
-        <div class="col-lg-3 px-2">
-            <div class="theseAreCards rounded p-2 mb-2 mx-auto  d-flex align-items-center">
-                <h3 class="m-auto text-center"><u>Recent Events</u></h3>
+        <div class="col-lg-3 px-2 mb-5">
+            <div class="theseAreCards rounded p-2 mb-2 mx-auto d-flex align-items-center scrollableEventsTitle">
+                <h3 class="m-auto text-center"><u><%=owner.displayName%>'s Events</u></h3>
             </div>
-            <div class="scrollable-div">
-            <%owner.events.forEach(function(post){ %>
-                <div class="card-body theseAreCards rounded p-2 text-center">
-                            <a href="/events?id=<%=post.id%>">
-                                <h5 class="card-title"><%=post.title%></h5>
-                            </a>
-<!--                                                <h5 class="card-title post-title">=post.title</h5>-->
-                            <p class="card-text post-content"><%=post.content%></p>
-                            <p class="card-text post-time changeTime"><%=post.timeCreated%></p>
+            <div class="scrollable-div scrollableEvents">
+                <div class="cardsContainer rounded p-2">
+                <%owner.events.forEach(function(event){ %>
+                        <% let date = new Date(event.timeCreated);%>
+                        <% let options = {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                        };
+                        %>
+                        <% let cardCreated = date.toLocaleString('en-US', options);
+                        %>
+                    <div class="card-body theseAreCards rounded p-2 text-center">
+                                <a class="standardLink" href="/events?id=<%=event.id%>">
+                                    <h5 class="card-title size24"><%=event.title%></h5>
+                                </a>
+                                <p class="card-text post-content commentContent"><%=event.content%></p>
+                                <p class="card-text post-time commentContent"><%=cardCreated%></p>
 
+                    </div>
+                <hr>
+                <% });%>
                 </div>
-            <hr>
-            <% });%>
             </div>
         </div>
     </div>
@@ -115,16 +134,32 @@
 <%- include('../partials/footer')%>
 </body>
 <script>
-    // $(document).ready(function(){
-	//     let blocks = $(".changeTime")
-	//     for (let t of blocks){
-	// 	    let current = $(this).val()
-	// 	    const localDate = new Date(current);
-	// 	    const utcDate = new Date(localDate.getTime() + localDate.getTimezoneOffset() * 60000);
-	// 	    current=  utcDate.toISOString();
-	// 	    $(this).val(current)
-	//     }
-    // })
+    function checkOverflowAndApplyClassPosts() {
+        const scrollablePostsDiv = $('.scrollablePosts');
+        const titleDiv = $('.scrollablePostsTitle');
+
+        if (scrollablePostsDiv[0].scrollHeight > scrollablePostsDiv[0].clientHeight) {
+            titleDiv.addClass('me-2');
+        } else {
+            titleDiv.removeClass('me-2');
+        }
+    }
+    function checkOverflowAndApplyClassEvents() {
+        const scrollableEventsDiv = $('.scrollableEvents');
+        const titleDiv = $('.scrollableEventsTitle');
+
+        if (scrollableEventsDiv[0].scrollHeight > scrollableEventsDiv[0].clientHeight) {
+            titleDiv.addClass('me-2');
+        } else {
+            titleDiv.removeClass('me-2');
+        }
+    }
+
+    checkOverflowAndApplyClassPosts();
+    checkOverflowAndApplyClassEvents();
+
+    $(".scrollablePosts").on('resize', checkOverflowAndApplyClassPosts);
+    $(".scrollableEvents").on('resize', checkOverflowAndApplyClassEvents);
 </script>
 <!--<script src="../assets/js/profile.js"></script>-->
 </html>

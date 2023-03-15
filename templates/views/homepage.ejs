@@ -12,10 +12,10 @@
         <div class="card-header ">
             <ul class="nav nav-tabs card-header-tabs nav-fill">
                 <li class="nav-item ">
-                    <a class="nav-link active feedControl tabbing " href="#fireteam" data-toggle="tab" id="fireTab">Fireteam</a>
+                    <a class="nav-link active feedControl tabbing ownerColor pt-2 pb-1" href="#fireteam" data-toggle="tab" id="fireTab">Fireteam</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link  feedControl tabbing" href="#all" data-toggle="tab" id="scoutTab">Scouting</a>
+                    <a class="nav-link  feedControl tabbing ownerColor pt-2 pb-1" href="#all" data-toggle="tab" id="scoutTab">Scouting</a>
                 </li>
             </ul>
         </div>
@@ -24,14 +24,14 @@
             <div class="row px-3">
                 <div class="form-group col-lg-3 px-2">
                     <label class="filterSort" for="type">Type Filter:</label>
-                    <select class="form-control feedControl theseAreCards" id="type" name="type">
+                    <select class="form-control feedControl theseAreCards commentContent pt-2 pb-1" id="type" name="type">
                         <option value="post">Posts</option>
                         <option value="event">Events</option>
                     </select>
                 </div>
                 <div class="form-group col-lg-3 px-2">
                     <label class="filterSort" for="sort">Sorting:</label>
-                    <select class="form-control feedControl theseAreCards" id="sort" name="sort">
+                    <select class="form-control feedControl theseAreCards commentContent pt-2 pb-1" id="sort" name="sort">
                         <option value="timeCreated">Newest First</option>
                         <option value="latestComment">Most Recent Activity</option>
                         <option value="commentCount">Most Popular</option>
@@ -47,7 +47,7 @@
                             </div>
                             <div class="row">
                                 <div class="dropdown d-grid">
-                                    <button class="btn btn-primary dropdown-toggle buttonStyle pt-2 pb-1" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="btn btn-primary dropdown-toggle buttonStyle pt-2 pb-1 commentContent" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                         Tags
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="tagsList"></ul>
@@ -58,10 +58,10 @@
                             <label class="filterSort" for="search">Search:</label>
                             <div class="row">
                                 <div class="col-9 pe-0">
-                                    <input type="text" class="form-control theseAreCards" id="search" name="search" placeholder="Enter search term...">
+                                    <input type="text" class="form-control theseAreCards commentContent pt-2 pb-1" id="search" name="search" placeholder="Enter search term...">
                                 </div>
                                 <div class="col-3 d-grid pe-0">
-                                    <button id="search-btn" class="btn btn-primary buttonStyle pt-2 pb-1">Search</button>
+                                    <button id="search-btn" class="btn btn-primary buttonStyle pt-2 pb-1 commentContent">Search</button>
                                 </div>
                             </div>
                         </div>
@@ -130,17 +130,6 @@
     if (isMobile) {
         $("#tabCards").addClass("mobileScreens");
     }
-
-	// $(document).ready(function(){
-	// 	let blocks = $(".changeTime")
-	// 	for (let t of blocks){
-	// 		let current = $(this).val()
-	// 		const localDate = new Date(current);
-	// 		const utcDate = new Date(localDate.getTime() + localDate.getTimezoneOffset() * 60000);
-	// 		current=  utcDate.toISOString();
-	// 		$(this).val(current)
-	// 	}
-    // })
 </script>
 
 

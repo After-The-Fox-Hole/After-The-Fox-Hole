@@ -11,9 +11,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Teko&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/styles.css"/>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary p-0 ">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary p-0 shift">
         <div class="container-fluid navBarStyle">
-            <a class="navbar-brand navBtnStyle me-auto my-2 universalHead text-center pt-2 pb-1" href="/homepage"><i class="fa-brands fa-wolf-pack-battalion"></i>After the Foxhole</a>
+            <a class="navbar-brand me-auto commentContent text-center py-auto brandBtn" href="/homepage"><i class="fa-brands fa-wolf-pack-battalion"></i>After the Foxhole</a>
             <button class="navbar-toggler navBtnStyle" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -31,14 +31,14 @@
                             </li>
                         <% } else { %>
                             <li class="nav-item">
-                                <a class="nav-link navBtnStyle universalHead my-2 pt-2 pb-1" aria-current="page" href="/posts/create" role="button">Create a Post</a>
+                                <a class="nav-link universalHead py-auto" aria-current="page" href="/posts/create">Create a Post</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link navBtnStyle universalHead my-2 pt-2 pb-1" aria-current="page" href="/events/create" role="button">Create an Event</a>
+                                <a class="nav-link universalHead py-auto" aria-current="page" href="/events/create" >Create an Event</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle navBtnStyle universalHead my-2 pt-2 pb-1" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Upcoming Events
+                                <a class="nav-link dropdown-toggle universalHead py-auto" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    My Upcoming Events
                                 </a>
                                 <ul class="dropdown-menu cardsContainer p-2 ps-2" id="myEvents">
                                     <% user.attending.forEach(function (attending){%>
@@ -64,10 +64,10 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link navBtnStyle universalHead my-2 pt-2 pb-1" aria-current="page" href="/profile?id=<%=user._id%>" role="button">Profile</a>
+                                <a class="nav-link universalHead py-auto" aria-current="page" href="/profile?id=<%=user._id%>">Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link navBtnStyle universalHead my-2 pt-2 pb-1" aria-current="page" href="/users/logout" role="button">Logout</a>
+                                <a class="nav-link universalHead py-auto" aria-current="page" href="/users/logout" >Logout</a>
                             </li>
                         <% } %>
                     </ul>

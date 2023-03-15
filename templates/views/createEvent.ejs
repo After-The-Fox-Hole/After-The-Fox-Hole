@@ -9,21 +9,25 @@
 <%- include('../partials/header'), ({user})%>
 
 <body class="bodyBack">
-<div class="container d-flex justify-content-center align-items-top col">
-    <div class="col-md-6 col-md-offset-3">
+<div class="container d-flex justify-content-center align-items-top">
+    <div class="col-8">
         <% if (event !== null && event._id){%>
-        <h1 class="d-flex justify-content-center">Edit Event</h1>
+            <div class="p-2 pt-2 pb-1 mx-auto my-2 cardsContainer rounded text-center">
+                <h1 class="d-flex justify-content-center">Edit Event</h1>
+            </div>
         <% } else {%>
-        <h1 class="d-flex justify-content-center">Create Event</h1>
+            <div class=" pt-3 pb-1 mx-auto my-2 cardsContainer rounded text-center align-items-center">
+                <h1 class="d-flex justify-content-center">Create Event</h1>
+            </div>
         <%}%>
         <% if (typeof  attempt !== 'undefined'){%>
         <div class="col text-muted lead text-center m-auto bg-warning border rounded-pill"><%=attempt.error%></div>
         <%}%>
-        <div class="p-3 rounded" id="testCard">
+        <div class="p-3 rounded createBox" id="testCard">
             <form <% if (event === null || !event._id){%>action="/events" <%} else {%> action="/events/update"  <%}%> method="POST">
 
                 <div class="form-group">
-                    <label class="d-flex justify-content-center createSpace" for="title">Event Title</label>
+                    <label class="d-flex justify-content-center createSpace mainCard" for="title">Event Title</label>
                     <input type="text" class="form-control theseAreCards" id="title" name="title" value="<% if (typeof  attempt !== 'undefined' || event){%><%=event.title%><%}%>">
 
                 </div>
@@ -31,21 +35,21 @@
                     <% if (event !== null && event._id){%>
                     <input class="visually-hidden" name="id" value="<%=event._id%>">
                     <%}%>
-                    <label class="d-flex justify-content-center createSpace" for="content">Event Description</label>
+                    <label class="d-flex justify-content-center createSpace mainCard" for="content">Event Description</label>
                     <textarea rows="5" class="form-control theseAreCards" id="content" name="content" ><% if (typeof  attempt !== 'undefined' || event){%><%=event.content%><%}%></textarea>
 
                     <div>
-                        <label class="d-flex justify-content-center createSpace" for="date">Event Time and Date</label>
+                        <label class="d-flex justify-content-center createSpace mainCard" for="date">Event Time and Date</label>
                         <input required name="date" class="form-control theseAreCards singleTime" type="datetime-local" id="date" placeholder="Select Date and Time" value="<% if (typeof  attempt !== 'undefined' || event){%><%=event.date%><%}%>">
                     </div>
 
                 </div>
                 <div class="d-flex justify-content-center createSpace">
-                    <label class="my-auto me-2" for="location">Location</label><input type="text" class="theseAreCards" name="location" value="<% if (typeof  attempt !== 'undefined' || event){%><%=event.location.text%><%}%>">
+                    <label class="my-auto me-2 mainCard" for="location">Location</label><input type="text" class="theseAreCards" name="location" value="<% if (typeof  attempt !== 'undefined' || event){%><%=event.location.text%><%}%>">
                 </div>
-                <div class="form-group d-flex justify-content-center col">
+                <div class="form-group d-flex justify-content-center col createSpace mb-3">
 
-                    <label class="my-auto me-2" for="tagsList">Tags:</label>
+                    <label class="my-auto me-2 mainCard" for="tagsList">Tags:</label>
                     <button class="btn btn-primary dropdown-toggle navBtnStyle pt-2 pb-1" type="button" id="dropdownMenuButton"
                             data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                         Tags
@@ -62,13 +66,14 @@
                         <%})%>
                     </div>
                 </div>
-                <div class="form-group d-flex justify-content-between">
+                <hr>
+                <div class="form-group d-flex justify-content-between mt-4">
                     <% if (event === null || !event._id){%>
                     <button type="submit" onclick="changeTime()" class="btn btn-primary navBtnStyle pt-2 pb-1">
                         Create
                     </button>
 
-                    <a  href="/profile?id=<%=user._id%>" class="btn btn-danger">
+                    <a  href="/profile?id=<%=user._id%>" class="btn dangerBtn pt-2 pb-1">
                         Cancel
 
                     </a>
@@ -76,7 +81,7 @@
                         <button type="submit" onclick="changeTime(Event)" class="btn btn-primary navBtnStyle pt-2 pb-1">
                             Update
                         </button>
-                        <a type="button"  onclick="confirmUser(Event)" class="btn btn-danger">
+                        <a type="button"  onclick="confirmUser(Event)" class="btn dangerBtn pt-2 pb-1">
                             Delete
                         </a>
                     <%}%>

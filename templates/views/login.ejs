@@ -16,14 +16,14 @@
 <!-- Section: Design Block -->
 <section class="container" style="padding-top: 10px">
     <!-- Jumbotron -->
-    <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+    <div class="px-4 py-5 px-md-5 text-center text-lg-start theseAreCards rounded loginBox" >
         <div class="container">
             <div class="row gx-lg-5 align-items-center">
                 <div class="col-lg-6 mb-5 mb-lg-0">
                     <h1 class="my-5 display-3 fw-bold ls-tight">
                         After the FoxHole
                     </h1>
-                    <p>
+                    <p class="commentContent">
                         We are a website with the goal to bring all veterans and active duty members together.
                         We provide a platform where veterans and active duty members can share any news, information, and changing that
                         can have an impact of both active duty and veteran members. We also offer this platform to organizations that are
@@ -31,36 +31,48 @@
                     </p>
                 </div>
 
-                <div class="col-lg-6 mb-5 mb-lg-0">
+                <div class="col-lg-6 mb-5 mb-lg-0 ">
                     <div class="card">
-                        <div class="card-body py-5 px-md-5 text-center" id="testCard">
+                        <div class="card-body py-5 px-md-5 text-center rounded createBox" id="testCard">
                             <form  action="/login" method="post">
-                                <h6>Ready to join the community?</h6>
+                                <div class="row mb-5">
+                                    <div class="col-12">
+                                        <h2>Ready to join the community?</h2>
+                                    </div>
+                                    <div class="col-12">
+                                        <a class="ownerColor" href="/register">
+                                            <h1>Sign Up for After the Foxhole</h1>
+                                        </a>
 
-                                <h2>Sign Up for After the Foxhole</h2>
+                                    </div>
+                                </div>
 
+<!--                                form check error display-->
                                 <% if (typeof  attempt !== 'undefined'){%>
                                 <div class="m-3 bg-warning rounded-pill"><%=attempt.error%></div>
                                 <%}%>
 
                                 <!-- Email input -->
-                                <div class="form-outline mb-4">
+                                <div class="row mb-2">
+                                    <h3>Already a member?</h3>
+                                </div>
+                                <div class="form-outline mb-2">
                                     <input type="hidden" name="type" value="user"/>
                                     <input type="email" id="email" name="email"
                                             <% if (typeof  attempt !== 'undefined'){%>
                                             value="<%=attempt.email%>"
-                                           <%}%>class="form-control" />
-                                    <label class="form-label" for="email">Email address</label>
+                                           <%}%>class="form-control theseAreCards" />
+                                    <label class="form-label mt-1 size24" for="email">Email address</label>
                                 </div>
 
                                 <!-- Password input -->
-                                <div class="form-outline mb-4">
-                                    <input type="password" id="password" name="password" class="form-control" />
-                                    <label class="form-label" for="password">Password</label>
+                                <div class="form-outline mb-2">
+                                    <input type="password" id="password" name="password" class="form-control theseAreCards" />
+                                    <label class="form-label mt-1 size24" for="password">Password</label>
                                 </div>
 
                                 <!-- Submit button -->
-                                <button  value="Submit" type="submit" class="btn btn-primary btn-block mb-4 navBtnStyle buttonStyle" >
+                                <button  value="Submit" type="submit" class="mx-auto mb-4 navBtnStyle buttonStyle pt-2 pb-1" >
                                     Login
                                     <!--href="homepage.ejs"-->
                                 </button>
@@ -68,8 +80,8 @@
 
                                 <!-- Button trigger modal -->
                                 <div>
-                                    <a role="button" class="link" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        Lost Password
+                                    <a role="button" class="link commentContent" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        Lost Password?
                                     </a>
                                 </div>
 
