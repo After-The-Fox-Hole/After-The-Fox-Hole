@@ -19,7 +19,7 @@
         <% if (typeof  attempt !== 'undefined'){%>
         <div class="col text-muted lead text-center m-auto bg-warning border rounded-pill"><%=attempt.error%></div>
         <%}%>
-        <div id="testCard">
+        <div class="p-3 rounded" id="testCard">
             <form <% if (event === null || !event._id){%>action="/events" <%} else {%> action="/events/update"  <%}%> method="POST">
 
                 <div class="form-group">
@@ -41,12 +41,12 @@
 
                 </div>
                 <div class="d-flex justify-content-center createSpace">
-                    <label for="location">Location</label><input type="text" class="theseAreCards" name="location" value="<% if (typeof  attempt !== 'undefined' || event){%><%=event.location.text%><%}%>">
+                    <label class="my-auto me-2" for="location">Location</label><input type="text" class="theseAreCards" name="location" value="<% if (typeof  attempt !== 'undefined' || event){%><%=event.location.text%><%}%>">
                 </div>
                 <div class="form-group d-flex justify-content-center col">
 
-                    <label for="tagsList">Tags:</label>
-                    <button class="btn btn-primary dropdown-toggle navBtnStyle" type="button" id="dropdownMenuButton"
+                    <label class="my-auto me-2" for="tagsList">Tags:</label>
+                    <button class="btn btn-primary dropdown-toggle navBtnStyle pt-2 pb-1" type="button" id="dropdownMenuButton"
                             data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                         Tags
                     </button>
@@ -64,7 +64,7 @@
                 </div>
                 <div class="form-group d-flex justify-content-between">
                     <% if (event === null || !event._id){%>
-                    <button type="submit" onclick="changeTime()" class="btn btn-primary navBtnStyle">
+                    <button type="submit" onclick="changeTime()" class="btn btn-primary navBtnStyle pt-2 pb-1">
                         Create
                     </button>
 
@@ -73,7 +73,7 @@
 
                     </a>
                     <%} else {%>
-                        <button type="submit" onclick="changeTime(Event)" class="btn btn-primary navBtnStyle">
+                        <button type="submit" onclick="changeTime(Event)" class="btn btn-primary navBtnStyle pt-2 pb-1">
                             Update
                         </button>
                         <a type="button"  onclick="confirmUser(Event)" class="btn btn-danger">
