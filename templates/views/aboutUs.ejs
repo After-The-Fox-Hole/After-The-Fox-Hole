@@ -5,141 +5,234 @@
 </head>
 
 <body class="bodyBack">
-<%- include('../partials/header', ({user}))%>
+<%- include('../partials/header')%>
 
-    <div>
-        <div>
-            about the site/project
+    <div class="px-4 pb-5 m-5 text-center text-lg-start theseAreCards rounded loginBox">
+        <div class="d-flex align-items-center mb-2">
+            <img class="img-fluid logo mx-auto" src="https://drive.google.com/uc?id=1EvHWHowRte3ogRf9IRvmObpsxI07Tmpt">
         </div>
-        <div class="row">
-            headshots
-            <div class="col-4 d-flex align-items-center">
+        <div class="text-center commentContent">
+            <p>Thank you for visiting our site and checkout out or app. This project was built as the capstone for a Full Stack Web Development bootcamp taught by CodeUp LLC.
+            All three developers on this project are veterans so when coming up with ideas for a capstone project the three of us agreed to not just check the box and
+                build a random "throw away" project. We wanted to build something that could potentially do some good. That idea became "After the Foxhole"</p>
+            <p>After the Foxhole is a community for members of active duty, national guard, and the reserves, as well as veterans and retired service members.
+                Within After the Foxhole, members can post about various topics, respond to posts and other members, create and rsvp to events, and follow other users by
+            adding them to their "fireteam"</p>
+            <p>The three of us, Nicholas, Matthew, and Dereck, would again like to thank you for visiting our app. Please feel free to register for an account
+                and join the After the Foxhole community!</p>
+        </div>
+        <div class="row px-5">
+            <div class="col-4 d-flex align-items-center px-5">
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#nickModal">
+                                <div>
+                                    <img class="img-fluid" src="https://drive.google.com/uc?id=1z3Nbh36ktIspNDJ0BYF3eFf2nnu5l9Qp">
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-12 text-center">
+                            <h3>Nicholas Van Dyken</h3>
+                        </div>
+                    </div>
+            </div>
+            <div class="col-4 d-flex align-items-center px-5">
                 <div class="row">
                     <div class="col-12">
-                        <a href="nickModal">
-                            <img>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#stanleyModal">
+                            <img class="img-fluid" src="https://drive.google.com/uc?id=1ohtCDf10JTEaURaQDv-Ut7uTD_e5zxR-">
                         </a>
                     </div>
-                    <div class="col-12">
-                        <h3>Nick</h3>
+                    <div class="col-12 text-center">
+                        <h3>Matthew Stanley</h3>
                     </div>
                 </div>
             </div>
-            <div class="col-4 d-flex align-items-center">
+            <div class="col-4 d-flex align-items-center px-5">
                 <div class="row">
                     <div class="col-12">
-                        <a href="stanleyModal">
-                            <img>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#dereckModal">
+                            <img src="https://drive.google.com/uc?id=1_-8HFppx4mJWWYLNppaCzVDJ0dExv-Wr" class="img-fluid w-100 dereckImg">
                         </a>
                     </div>
-                    <div class="col-12">
-                        <h3>Stanley</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-4 d-flex align-items-center">
-                <div class="row">
-                    <div class="col-12">
-                        <a href="dereckModal">
-                            <img>
-                        </a>
-                    </div>
-                    <div class="col-12">
-                        <h3>Dereck</h3>
+                    <div class="col-12 text-center">
+                            <h3>Dereck Rascon</h3>
                     </div>
                 </div>
             </div>
         </div>
-        <div>
-            Nick Modal
-            <div class="modal fade modal-dialog-centered" id="nickModal" tabindex="-1" aria-labelledby="nickModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="nickModalLabel">Nicholas Vandyken</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-4">
-                                    <a href="https://www.linkedin.com/in/nicholas-vandyken-167b48155/" class="" type="button">LinkedIn</a>
-                                </div>
-                                <div class="col-4">
-                                    <a href="https://github.com/VandykenNicholas" class="" type="button">GitHub</a>
-                                </div>
-                                <div class="col-4">
-                                    <a href="https://alumni.codeup.com/students/1776" class="" type="button">Codeup Alumni Page</a>
-                                </div>
+
+    </div>
+<div>
+    <div class="modal" id="nickModal" tabindex="-1" aria-labelledby="nickModalLabel" aria-hidden="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content cardsContainer">
+                <div class="modal-header d-flex">
+                    <div class="row flex-fill">
+                            <div class="col-2">
                             </div>
+                            <div class="col-8 text-center">
+                                <h5 class="modal-title size24" id="nickModalLabel">Nicholas Van Dyken</h5>
+                            </div>
+                            <div class="col-2 px-4">
+                                <div class="px-3">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                            </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row text-center commentContent m-3 theseAreCards p-2 rounded">
+                        <p>My name is Nicholas Van Dyken, and I'm a Navy veteran with 13 years of experience as a Nuclear Mechanic.
+                            During my time in the service, I have been involved in three separate gaming studio start-ups.
+                            Through my work in gaming, I discovered a passion for technology and web development, which has become my focus in recent years.
+                            I believe that technology can be a powerful tool for improving people's lives, and I'm committed to using my skills
+                            to create meaningful solutions. Whether I'm building websites, developing software, or tinkering with new technology,
+                            I'm always eager to explore new ways to make the world a better place.</p>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-4 text-center">
+                            <a href="https://www.linkedin.com/in/nicholas-vandyken-167b48155/" type="button">LinkedIn</a>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <div class="col-4 text-center border-dark border-start border-end">
+                            <a href="https://github.com/VandykenNicholas" type="button">GitHub</a>
+                        </div>
+                        <div class="col-4 text-center">
+                            <a href="https://alumni.codeup.com/students/1776" type="button">Codeup Alumni Page</a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div>
-            Stanley Modal
-            <div class="modal fade modal-dialog-centered" id="stanleyModal" tabindex="-1" aria-labelledby="stanleyModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="stanleyModalLabel">Matthew Stanley</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-4">
-                                    <a href="https://www.linkedin.com/in/matthewstanley35t/" class="" type="button">LinkedIn</a>
-                                </div>
-                                <div class="col-4">
-                                    <a href="https://github.com/matthew-stanley-35t" class="" type="button">GitHub</a>
-                                </div>
-                                <div class="col-4">
-                                    <a href="https://alumni.codeup.com/students/1780" class="" type="button">Codeup Alumni Page</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div>
-            Derek Modal
-            <div class="modal fade modal-dialog-centered" id="nickModal" tabindex="-1" aria-labelledby="nickModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="nickModalLabel">Nicholas Vandyken</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-4">
-                                    <a href="https://www.linkedin.com/in/dereckrascon/" class="" type="button">LinkedIn</a>
-                                </div>
-                                <div class="col-4">
-                                    <a href="https://github.com/DereckRascon" class="" type="button">GitHub</a>
-                                </div>
-                                <div class="col-4">
-                                    <a href="https://alumni.codeup.com/students/1782" class="" type="button">Codeup Alumni Page</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<div>
+    <div class="modal" id="stanleyModal" tabindex="-1" aria-labelledby="stanleyModalLabel" aria-hidden="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content cardsContainer">
+                <div class="modal-header d-flex">
+                    <div class="row flex-fill">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-8 text-center">
+                            <h5 class="modal-title size24" id="nickModalLabel">Matthew Stanley</h5>
+                        </div>
+                        <div class="col-2 px-4">
+                            <div class="px-3">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row text-center commentContent m-3 theseAreCards p-2 rounded">
+                        <p>My name is Matthew Stanley. I started out my professional career in the Colorado Army National
+                            Guard as a Military Intelligence Systems Maintainer and Unmanned Aerial Systems Maintainer/Technician
+                            and Crew Chief. As a civilian career I spent 8 years in IT before moving over to the Software
+                            field where I have spent the last 8 years moving from Customer Support, to Quality Assurance, and most
+                            recently I was a Product Manager/Product Owner for the last 4 years. All of that experience has been
+                            extremely beneficial as I begin my journey as a developer, as I have been able to see through the eyes
+                            of QA and Product as I thought about how to build this app. I have thoroughly enjoyed this learning
+                            experience and am eager to begin my career as a Software Developer with these newly acquired skills in my arsenal.</p>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-4 text-center">
+                            <a href="https://www.linkedin.com/in/matthewstanley35t/" class="" type="button">LinkedIn</a>
+                        </div>
+                        <div class="col-4 text-center border-dark border-start border-end">
+                            <a href="https://github.com/matthew-stanley-35t" class="" type="button">GitHub</a>
+                        </div>
+                        <div class="col-4 text-center">
+                            <a href="https://alumni.codeup.com/students/1780" class="" type="button">Codeup Alumni Page</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="modal" id="dereckModal" tabindex="-1" aria-labelledby="dereckModalLabel" aria-hidden="true" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content cardsContainer">
+                <div class="modal-header d-flex">
+                    <div class="row flex-fill">
+                        <div class="col-2">
+                        </div>
+                        <div class="col-8 text-center">
+                            <h5 class="modal-title size24" id="nickModalLabel">Dereck Rascon</h5>
+                        </div>
+                        <div class="col-2 px-4">
+                            <div class="px-3">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="row text-center commentContent m-3 theseAreCards p-2 rounded">
+                        <p>My name is Dereck Rascon and I am a Marine veteran who has transitioned into the tech field.
+                            After serving my country for 8 years, I decided to pursue my passion for technology and enroll
+                            in Codeup to learn the latest trends in the industry. During my time in the military, I gained
+                            valuable leadership skills that will help me excel in my new career path. I learned how to work
+                            in high-pressure environments, think critically, and solve complex problems efficiently.
+                            As a Marine, I had to adapt quickly to different situations and learn new skills on the fly.
+                            These experiences will be immensely helpful in my transition to the tech field, where new
+                            technologies and tools are constantly emerging. I am excited about the opportunities that the
+                            tech field presents and am committed to continuing to learn and grow in this industry. My goal
+                            is to use my skills and experience to contribute to the development of innovative technologies
+                            that solve real-world problems and make a positive impact on people’s lives.</p>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-4 text-center">
+                            <a href="https://www.linkedin.com/in/dereckrascon/" class="" type="button">LinkedIn</a>
+                        </div>
+                        <div class="col-4 text-center border-dark border-start border-end">
+                            <a href="https://github.com/DereckRascon" class="" type="button">GitHub</a>
+                        </div>
+                        <div class="col-4 text-center">
+                            <a href="https://alumni.codeup.com/students/1782" class="" type="button">Codeup Alumni Page</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <%- include('../partials/footer')%>
 <!-- Bootstrap JS -->
+<script>
+    $(document).ready(function() {
+
+        /* Centering the modal vertically */
+        function alignModal() {
+            let modalDialog = $(this).find(".modal-dialog");
+            modalDialog.css("margin-top", Math.max(0,
+                ($(window).height() - modalDialog.height()) / 2));
+        }
+        $(".modal").on("shown.bs.modal", alignModal);
+
+        /* Resizing the modal according the screen size */
+        $(window).on("resize", function() {
+            $(".modal:visible").each(alignModal);
+        });
+    });
+</script>
 </body>
 </html>
