@@ -1,7 +1,7 @@
 Welcome to After The Fox Hole, the forum website designed specifically for veterans! This app is packed with features that will allow you to connect with other veterans, share your experiences, and create a sense of community.
 
 Getting Started:
-To begin using After The Fox Hole, simply go to www.afterthefoxhole.com and create an account. Once you have created an account, you will be able to explore the different features and connect with other veterans.
+To begin using After The Fox Hole, simply go to https://www.afterthefoxhole.com and create an account. Once you have created an account, you will be able to explore the different features and connect with other veterans.
 
 Features:
 
