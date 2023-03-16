@@ -178,6 +178,13 @@ a:hover {
     background-position: left;
 }
 
+.homepageLogo {
+    background-image: url("https://drive.google.com/uc?id=1qDKcKH-pTUjrugPIm5Fa0zMYR_IqKPQe");
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 #testCard::-webkit-scrollbar {
     width: 0.5em;
 }
