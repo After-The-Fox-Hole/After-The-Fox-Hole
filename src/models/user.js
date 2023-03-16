@@ -225,9 +225,30 @@ userSchema.methods.clean = async function(){
 	for (let e of upcoming){
 		let y;
 		y = await Events.findOne({_id:e.event._id})
+		
+		
+		let dateNew = y.date.split("-")
+		let day = dateNew[2].substring(0,2)
+		let hours = dateNew[2].substring(3,5)
+		let min = dateNew[2].substring(6,8)
+		let month = (dateNew[1] - 1).toString()
+		let dateSort = new Date(dateNew[0],month, day, hours,min )
+		y.date = dateSort
 		attending.push(y)
+		
 	}
-	
+	attending = attending.sort((a,b)=>{
+		if (a.date < b.date){
+			return -1
+		}
+		else if (a.date > b.date){
+			return +1
+		}
+		else{
+			return 0
+		}
+
+	})
 	
 	userObj.attending = attending
 	
