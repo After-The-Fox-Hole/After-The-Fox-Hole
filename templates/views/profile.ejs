@@ -14,8 +14,8 @@
 <!--Profile information-->
 <div class="container">
     <div class="row">
-        <div class="col-lg-3 px-2 mb-5" style="text-align: center">
-            <div class="card theseAreCards mx-auto" >
+        <div class="col-lg-3 px-2 mb-5 profInfo" style="text-align: center">
+            <div class="card theseAreCards mx-auto profInfo" >
                 <img class="card-img-top" src="<%= owner.avatar%>" alt="">
                 <br>
                 <div class="card-body">
@@ -30,7 +30,7 @@
                     </div>
                     <br>
                     <% if (edit){ %>
-                        <button class="navBtnStyle" type="submit" id="edit-button"><a class="whiteButtons" href="/profile/edit">Edit Profile</a></button>
+                        <button class="navBtnStyle me-0" type="submit" id="edit-button"><a class="whiteButtons" href="/profile/edit">Edit Profile</a></button>
                     <%} else{%>
                             <% if(!fireteam){ %>
                         <form action="/fireteam/add" method="post">
@@ -45,15 +45,18 @@
                         </form>
                                     <%}%>
                     <%}%>
+                    <div class="d-flex align-items-center mt-3">
+                        <img class="img-fluid profLogo mx-auto" src="https://drive.google.com/uc?id=1EvHWHowRte3ogRf9IRvmObpsxI07Tmpt">
+                    </div>
                 </div>
             </div>
         </div>
     <!--Recent post-->
-        <div class="col-lg-3 px-2 mb-5">
+        <div class="col-lg-3 px-2 mb-5 profCols">
             <div class="theseAreCards rounded p-2 mb-2 mx-auto d-flex align-items-center scrollablePostsTitle">
                 <h3 class="m-auto text-center"><u><%-owner.displayName%>'s Posts</u></h3>
             </div>
-            <div class="scrollable-div scrollablePosts">
+            <div class="scrollable-div scrollablePosts <%= (owner.posts.length === 0) ? 'visually-hidden' : '' %>">
                 <div class="cardsContainer rounded p-2">
                     <% owner.posts.forEach(function (post){%>
                         <% let date = new Date(post.timeCreated);%>
@@ -78,11 +81,11 @@
             </div>
         </div>
     <!--Fireteam-->
-        <div class="col-lg-3 px-2 mb-5" >
+        <div class="col-lg-3 px-2 mb-5 profCols" >
             <div class="theseAreCards rounded p-2 mb-2 mx-auto  d-flex align-items-center">
                 <h3 class="m-auto text-center"><u><%-owner.displayName%>'s Fireteam</u></h3>
             </div>
-                <div class="scrollable-div">
+                <div class="scrollable-div <%= (owner.followers.length === 0) ? 'visually-hidden' : '' %>">
                     <div class="cardsContainer rounded p-2">
                         <div class="card-body theseAreCards rounded p-2">
                             <%owner.followers.forEach(function(follower){ %>
@@ -98,11 +101,11 @@
                 </div>
         </div>
     <!--My Events-->
-        <div class="col-lg-3 px-2 mb-5">
+        <div class="col-lg-3 px-2 mb-5 profCols">
             <div class="theseAreCards rounded p-2 mb-2 mx-auto d-flex align-items-center scrollableEventsTitle">
                 <h3 class="m-auto text-center"><u><%-owner.displayName%>'s Events</u></h3>
             </div>
-            <div class="scrollable-div scrollableEvents">
+            <div class="scrollable-div scrollableEvents <%= (owner.events.length === 0) ? 'visually-hidden' : '' %>">
                 <div class="cardsContainer rounded p-2">
                 <%owner.events.forEach(function(event){ %>
                         <% let date = new Date(event.timeCreated);%>

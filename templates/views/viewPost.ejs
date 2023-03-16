@@ -66,7 +66,7 @@
                     <input class="visually-hidden" name="attach" value="">
                     <input class="visually-hidden" name="type" value="post">
                     <input class="visually-hidden scrollField" name="scroll" value="">
-                    <button class="pt-2 pb-1 navBtnStyle voteBtn <% if(vote){%> voted<%}%>" type="submit">VOTE</button>
+                    <button class="pt-2 pb-1 navBtnStyle voteBtn <% if(vote){%> voted<%}%>" type="submit"><%if(vote){%>DOWNVOTE<%}else{%>UPVOTE<%}%></button>
                     <input class="visually-hidden" name="value" value="<% if (vote){ %>-1<%} else{%>+1<%}%>">
                     </form>
             </div>

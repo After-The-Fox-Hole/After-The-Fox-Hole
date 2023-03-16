@@ -60,6 +60,10 @@ p.cardContentEach {
     font-family: 'Teko', sans-serif;
 }
 
+.profInfo{
+    min-height: 85vh;
+}
+
 .navBtnStyle {
     color: white;
     margin-right: 0.5rem;
@@ -275,8 +279,17 @@ a:hover {
 }
 
 .scrollable-div {
-    overflow-y: auto;
-    max-height: calc(80vh);
+    max-height: 78.7vh;
+    overflow-y: scroll;
+
+}
+
+.profLogo {
+    max-width: 125px;
+}
+
+.profCols {
+    max-height: 85vh;
 }
 
 .scrollable-div::-webkit-scrollbar {
