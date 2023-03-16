@@ -66,6 +66,7 @@ router.post('/users',async (req,res)=>{
 			error:"Email already exists"
 		}
 		let attempt = user
+		user.password = req.body.password
 		res.status(200).render("registerUser", ({attempt,error}));
 		return;
 	}
