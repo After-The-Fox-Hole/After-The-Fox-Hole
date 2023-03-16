@@ -28,7 +28,7 @@
 
                 <div class="form-group">
                     <label class="d-flex justify-content-center createSpace mainCard" for="title">Event Title</label>
-                    <input type="text" class="form-control theseAreCards" id="title" name="title" value="<% if (typeof  attempt !== 'undefined' || event){%><%=event.title%><%}%>">
+                    <input type="text" class="form-control theseAreCards" id="title" name="title" value="<% if (typeof  attempt !== 'undefined' || event){%><%-event.title%><%}%>">
 
                 </div>
                 <div class="form-group" >
@@ -36,7 +36,7 @@
                     <input class="visually-hidden" name="id" value="<%=event._id%>">
                     <%}%>
                     <label class="d-flex justify-content-center createSpace mainCard" for="content">Event Description</label>
-                    <textarea rows="5" class="form-control theseAreCards" id="content" name="content" ><% if (typeof  attempt !== 'undefined' || event){%><%=event.content%><%}%></textarea>
+                    <textarea rows="5" class="form-control theseAreCards" id="content" name="content" ><% if (typeof  attempt !== 'undefined' || event){%><%-event.content%><%}%></textarea>
 
                     <div>
                         <label class="d-flex justify-content-center createSpace mainCard" for="date">Event Time and Date</label>

@@ -28,11 +28,11 @@
                         <%}%>
                         <div class="form-group">
                             <label class="d-flex justify-content-center createSpace mainCard" for="title">Title</label>
-                            <input type="text" class="form-control theseAreCards" id="title" name="title" value="<%if (post) {%><%=post.title%><%}%>">
+                            <input type="text" class="form-control theseAreCards" id="title" name="title" value="<%if (post) {%><%-post.title%><%}%>">
                         </div>
                         <div class="form-group">
                             <label class="d-flex justify-content-center createSpace mainCard" for="description">Description</label>
-                            <textarea rows="5" class="form-control theseAreCards" id="description" name="content"><%if (post) {%><%=post.content%><%}%></textarea>
+                            <textarea rows="5" class="form-control theseAreCards" id="description" name="content"><%if (post) {%><%-post.content%><%}%></textarea>
                         </div>
                             <div class="form-group d-flex justify-content-center col createSpace mb-3">
                                 <label class="my-auto me-2 mainCard" for="tagsList">Tags:</label>

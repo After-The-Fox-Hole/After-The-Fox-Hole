@@ -19,14 +19,14 @@
                 <img class="card-img-top" src="<%= owner.avatar%>" alt="">
                 <br>
                 <div class="card-body">
-                    <h6 class="card-title size24"><%=owner.displayName%></h6>
+                    <h6 class="card-title size24"><%-owner.displayName%></h6>
                     <h2 class="card-title"><%=owner.info.name.first + " " + owner.info.name.last%></h2>
                     <hr><br>
                     <div class="card-text commentContent" id="edit">
                         <div>Location:  <span class="editLocation"><%=owner.info.location.text%></span></div>
                         <div> Branch of Service:  <span class="editBranch"><%=owner.info.service.branch%></span></div>
                             <div>Status:  <span class="editStatus"><%=owner.info.service.status%></span></div>
-                                <div> Current Job:  <span class="editJob"><%=owner.info.currentJob%></span></div>
+                                <div> Current Job:  <span class="editJob"><%-owner.info.currentJob%></span></div>
                     </div>
                     <br>
                     <% if (edit){ %>
@@ -35,7 +35,7 @@
                             <% if(!fireteam){ %>
                         <form action="/fireteam/add" method="post">
                             <input class="visually-hidden" name="ownerId" value="<%=owner._id%>">
-                            <input class="visually-hidden" name="displayName" value="<%=owner.displayName%>">
+                            <input class="visually-hidden" name="displayName" value="<%-owner.displayName%>">
                             <button class="navBtnStyle" type="submit">Add To FireTeam</button>
                         </form>
                                 <% } else {%>
@@ -51,7 +51,7 @@
     <!--Recent post-->
         <div class="col-lg-3 px-2 mb-5">
             <div class="theseAreCards rounded p-2 mb-2 mx-auto d-flex align-items-center scrollablePostsTitle">
-                <h3 class="m-auto text-center"><u><%=owner.displayName%>'s Posts</u></h3>
+                <h3 class="m-auto text-center"><u><%-owner.displayName%>'s Posts</u></h3>
             </div>
             <div class="scrollable-div scrollablePosts">
                 <div class="cardsContainer rounded p-2">
@@ -80,7 +80,7 @@
     <!--Fireteam-->
         <div class="col-lg-3 px-2 mb-5" >
             <div class="theseAreCards rounded p-2 mb-2 mx-auto  d-flex align-items-center">
-                <h3 class="m-auto text-center"><u><%=owner.displayName%>'s Fireteam</u></h3>
+                <h3 class="m-auto text-center"><u><%-owner.displayName%>'s Fireteam</u></h3>
             </div>
                 <div class="scrollable-div">
                     <div class="cardsContainer rounded p-2">
@@ -100,7 +100,7 @@
     <!--My Events-->
         <div class="col-lg-3 px-2 mb-5">
             <div class="theseAreCards rounded p-2 mb-2 mx-auto d-flex align-items-center scrollableEventsTitle">
-                <h3 class="m-auto text-center"><u><%=owner.displayName%>'s Events</u></h3>
+                <h3 class="m-auto text-center"><u><%-owner.displayName%>'s Events</u></h3>
             </div>
             <div class="scrollable-div scrollableEvents">
                 <div class="cardsContainer rounded p-2">

@@ -14,7 +14,7 @@
                 <div class="text-center mx-auto">
                     <img src="<%=post.avatar%>" class="img-fluid rounded-circle mb-3" style="width: 50px; height: 50px;" alt="...">
                     <a class="standardLink ownerColor" href="/profile?id=<%=post.owner.id%>">
-                        <h4 class="card-subtitle mb-2 mx-auto" id="postCreator"><%=post.owner.name%></h4>
+                        <h4 class="card-subtitle mb-2 mx-auto" id="postCreator"><%-post.owner.name%></h4>
                     </a>
                     <% if (edit){ %>
                         <button class="navBtnStyle mx-auto pt-2 pb-1" type="submit" id="edit-button"><a class="whiteButtons" href="/posts/edit?id=<%=post._id%>">Edit Post</a></button>
