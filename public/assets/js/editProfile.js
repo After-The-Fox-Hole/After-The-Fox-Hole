@@ -2,8 +2,14 @@ $(document).ready(async function(){
 	let pics = await fetch("/profile/avatars");
 	pics = await pics.json();
 	let insert = $("#pictureModalInsert");
-	for(let pic of pics){
-		insert.append(`<div class="col"><a href="/profile/avatar/change?pic=${pic.image}"> <img class="img-fluid pic-change" src="${pic.image}"></a></div>`)
+	let modo = pics.length%4
+	for(let i = 0; i < pics.length; i++){
+		if(i > (pics.length-1 - modo)){
+			insert.append(`<div class="col"><a href="/profile/avatar/change?pic=${pics[i].image}"> <img class="img-fluid pic-change" src="${pics[i].image}"></a></div>`)
+		}
+		else{
+			insert.append(`<div class="col mb-3"><a href="/profile/avatar/change?pic=${pics[i].image}"> <img class="img-fluid pic-change" src="${pics[i].image}"></a></div>`)
+		}
 	}
 })
 
