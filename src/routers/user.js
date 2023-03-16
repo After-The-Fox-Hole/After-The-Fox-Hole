@@ -4,6 +4,7 @@ const router = new express.Router;
 const auth = require('../middleware/auth');
 const Post = require("../models/posts");
 const Cascade = require("../JS/Cleaner")
+const sgMail = require("@sendgrid/mail");
 
 
 
@@ -63,9 +64,11 @@ router.post('/users',async (req,res)=>{
 	}
 	catch (e){
 		let error={
-			error:"Email already exsists"
+			error:"Email already exists"
 		}
-		res.status(200).render("registerUser", ({error}));
+		let attempt = user
+		user.password = req.body.password
+		res.status(200).render("registerUser", ({attempt,error}));
 		return;
 	}
 })
@@ -147,7 +150,7 @@ router.post("/users/recovery", async (req, res)=>{
 		
 	}
 	catch (e) {
-	console.log(e)
+		console.log(e)
 	}
 	let attempt = {
 		status: "If The Account exists, an email was sent!"
