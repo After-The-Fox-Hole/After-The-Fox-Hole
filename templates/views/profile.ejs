@@ -67,9 +67,9 @@
                         %>
                         <div class="card-body theseAreCards rounded p-2 text-center">
                             <a class="standardLink" href="/posts?id=<%=post.id%>">
-                                <h5 class="card-title size24"><%=post.title%></h5>
+                                <h5 class="card-title size24"><%-post.title%></h5>
                             </a>
-                            <p class="card-text post-content commentContent"><%=post.content%></p>
+                            <p class="card-text post-content commentContent"><%-post.content%></p>
                             <p class="card-text post-time commentContent"><%=cardCreated%></p>
                         </div>
                     <hr>
@@ -116,9 +116,9 @@
                         %>
                     <div class="card-body theseAreCards rounded p-2 text-center">
                                 <a class="standardLink" href="/events?id=<%=event.id%>">
-                                    <h5 class="card-title size24"><%=event.title%></h5>
+                                    <h5 class="card-title size24"><%-event.title%></h5>
                                 </a>
-                                <p class="card-text post-content commentContent"><%=event.content%></p>
+                                <p class="card-text post-content commentContent"><%-event.content%></p>
                                 <p class="card-text post-time commentContent"><%=cardCreated%></p>
 
                     </div>

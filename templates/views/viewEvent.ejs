@@ -12,7 +12,7 @@
             <div class="col-md-2 border-end border-dark theseAreCards d-flex align-items-center rounded-start flex-fill">
                 <div class="text-center mx-auto">
                     <div class="mx-auto">
-                        <a class="standardLink ownerColor" href="/profile?id=<%=event.owner.id%>">
+                        <a class="standardLink ownerColor" href="/profile?id=<%-event.owner.id%>">
                             <h4 class="card-subtitle mb-2 mx-auto " id="eventCreator"><%=event.owner.name%></h4>
                         </a>
                     </div>
@@ -26,10 +26,10 @@
                 <div class="card-body">
 
                         <div>
-                            <h2 class="card-title" id="eventTitle"><%=event.title%></h2>
+                            <h2 class="card-title" id="eventTitle"><%-event.title%></h2>
                         </div>
                         <div>
-                            <h3 class="card-text" id="eventContent"><%=event.content%></h3>
+                            <h3 class="card-text" id="eventContent"><%-event.content%></h3>
                         </div>
                         <hr>
                         <div class="row mb-2">
