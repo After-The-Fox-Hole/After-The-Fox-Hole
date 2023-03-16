@@ -29,10 +29,16 @@ clean.userCascade = async function(user){
 	}
 	
 	const comment = await Comments.find({"owner.id":user._id})
-	if (comment && comment.length > 0){
-		for (let c of comment){
-			await clean.commentCascade(c);
+	if (comment){
+		if (comment.length > 0){
+			for (let c of comment){
+				await clean.commentCascade(c);
+			}
 		}
+		else{
+			await clean.commentCascade(comment);
+		}
+		
 	}
 	const votes = await Votes.find({owner:user._id})
 	if(votes && votes.length > 0){
@@ -74,12 +80,12 @@ clean.postingCascade = async function(posting, type){
 }
 
 clean.commentCascade = async function(c){
+			
 			if (c.model_typeM === "event") {
-				
-				await Events.findByIdAndUpdate(c.master._id, {$inc: {commentCount: -1}})
+				await Events.findByIdAndUpdate(c.master[0].valueOf(), {$inc: {commentCount: -1}})
 			} else {
 				
-				await Posts.findByIdAndUpdate(c.master._id, {$inc: {commentCount: -1}})
+				await Posts.findByIdAndUpdate(c.master[0].valueOf(), {$inc: {commentCount: -1}})
 			}
 			await c.deleteOne();
 			await Votes.deleteMany({attach:c._id})

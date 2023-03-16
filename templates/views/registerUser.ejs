@@ -21,13 +21,13 @@
                         <div class="form-group">
                             <label for="first">First Name</label>
                             <input type="text" class="form-control theseAreCards commentContent pt-2 pb-1" id="first" name="firstN" required
-                                   value="<% if (typeof  user !== 'undefined'){%><%=user.info.name.first%><%}%>">
+                                   value="<% if (typeof  attempt !== 'undefined'){%><%=attempt.info.name.first%><%}%>">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="last">Last Name</label>
-                            <input type="text" class="form-control theseAreCards commentContent pt-2 pb-1" id="last" name="last" required value="<% if (typeof  user !== 'undefined'){%><%=user.info.name.last%><%}%>">
+                            <input type="text" class="form-control theseAreCards commentContent pt-2 pb-1" id="last" name="last" required value="<% if (typeof  attempt !== 'undefined'){%><%=attempt.info.name.last%><%}%>">
                         </div>
                     </div>
                 </div>
@@ -35,72 +35,72 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label for="email">Email Address</label>
-                            <input type="email" class="form-control theseAreCards commentContent pt-2 pb-1" id="email" name="email" required value="<% if (typeof  user !== 'undefined'){%><%=user.info.email%><%}%>">
+                            <input type="email" class="form-control theseAreCards commentContent pt-2 pb-1" id="email" name="email" required value="<% if (typeof  attempt !== 'undefined'){%><%=attempt.info.email%><%}%>">
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
                             <label for="displayName">Display Name</label>
-                            <input type="text" class="form-control theseAreCards commentContent pt-2 pb-1" id="displayName" name="displayName" required value="<% if (typeof  user !== 'undefined'){%><%=user.displayName%><%}%>">
+                            <input type="text" class="form-control theseAreCards commentContent pt-2 pb-1" id="displayName" name="displayName" required value="<% if (typeof  attempt !== 'undefined'){%><%=attempt.displayName%><%}%>">
                         </div>
                     </div>
                 </div>
                 <div class="form-group col-6 mx-auto mb-2">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control theseAreCards commentContent pt-2 pb-1" id="password" name="password" required value="<% if (typeof  user !== 'undefined'){%><%=user.password%><%}%>">
+                    <input type="password" class="form-control theseAreCards commentContent pt-2 pb-1" id="password" name="password" required value="<% if (typeof  attempt !== 'undefined'){%><%=attempt.password%><%}%>">
                 </div>
                 <div class="form-group mb-2">
                     <label for="address">Location (Can Be City, State, or Address)</label>
-                    <input type="text" class="form-control theseAreCards commentContent pt-2 pb-1" id="address" name="location" required value="<% if (typeof  user !== 'undefined'){%><%=user.info.location.text%><%}%>">
+                    <input type="text" class="form-control theseAreCards commentContent pt-2 pb-1" id="address" name="location" required value="<% if (typeof  attempt !== 'undefined'){%><%=attempt.info.location.text%><%}%>">
                 </div>
                 <div class="form-group mb-2">
                     <label for="branchOfService">Branch of Service</label>
                     <select class="form-control theseAreCards commentContent commentContent pt-2 pb-1" id="branchOfService" name="branch" required>
                         <option value=""
-                        <% if (typeof  user === 'undefined'){%>
+                        <% if (typeof  attempt === 'undefined'){%>
                         selected
                         <%}%>
                                 disabled>Choose your branch of service</option>
                         <option value="Army"
-                        <% if (typeof  user !== 'undefined'){%>
-                            <% if (  user.info.service.branch === 'Army'){%>
+                        <% if (typeof  attempt !== 'undefined'){%>
+                            <% if (  attempt.info.service.branch === 'Army'){%>
                             selected
                             <%}%>
                         <%}%>
                         >Army</option>
                         <option value="Navy"
-                        <% if (typeof  user !== 'undefined'){%>
-                            <% if (  user.info.service.branch === 'Navy'){%>
+                        <% if (typeof  attempt !== 'undefined'){%>
+                            <% if (  attempt.info.service.branch === 'Navy'){%>
                                 selected
                                     <%}%>
                                 <%}%>>Navy</option>
                         <option value="Air Force"
-                        <% if (typeof  user !== 'undefined'){%>
-                            <% if (  user.info.service.branch === 'Air Force'){%>
+                        <% if (typeof  attempt !== 'undefined'){%>
+                            <% if (  attempt.info.service.branch === 'Air Force'){%>
                                 selected
                                     <%}%>
                                 <%}%>>Air Force</option>
                         <option value="Marines"
-                        <% if (typeof  user !== 'undefined'){%>
-                            <% if (  user.info.service.branch === 'Marines'){%>
+                        <% if (typeof  attempt !== 'undefined'){%>
+                            <% if (  attempt.info.service.branch === 'Marines'){%>
                                 selected
                                     <%}%>
                                 <%}%>>Marines</option>
                         <option value="Coast Guard"
-                        <% if (typeof  user !== 'undefined'){%>
-                            <% if (  user.info.service.branch === 'Coast Guard'){%>
+                        <% if (typeof  attempt !== 'undefined'){%>
+                            <% if (  attempt.info.service.branch === 'Coast Guard'){%>
                                 selected
                                     <%}%>
                                 <%}%>>Coast Guard</option>
                         <option value="Army-NG"
-                        <% if (typeof  user !== 'undefined'){%>
-                            <% if (  user.info.service.branch === 'Army-NG'){%>
+                        <% if (typeof  attempt !== 'undefined'){%>
+                            <% if (  attempt.info.service.branch === 'Army-NG'){%>
                                 selected
                                     <%}%>
                                 <%}%>>Army-NG</option>
                         <option value="Air-NG"
-                        <% if (typeof  user !== 'undefined'){%>
-                            <% if (  user.info.service.branch === 'Air-NG'){%>
+                        <% if (typeof  attempt !== 'undefined'){%>
+                            <% if (  attempt.info.service.branch === 'Air-NG'){%>
                                 selected
                                     <%}%>
                                 <%}%>>Air-NG</option>
@@ -111,8 +111,8 @@
                     <div class="theseAreCards rounded col-6 mx-auto pt-2 pb-1">
                         <label class="radio-inline mx-2">
                             <input type="radio" name="status" value="Active" required
-                            <% if (typeof  user !== 'undefined'){%>
-                                <% if (  user.info.service.status === 'Active'){%>
+                            <% if (typeof  attempt !== 'undefined'){%>
+                                <% if (  attempt.info.service.status === 'Active'){%>
                                    checked
                                         <%}%>
                                     <%}%>
@@ -120,16 +120,16 @@
                         </label>
                         <label class="radio-inline mx-2">
                             <input type="radio" name="status" value="Veteran" required
-                            <% if (typeof  user !== 'undefined'){%>
-                                <% if (  user.info.service.status === 'Veteran/Retired'){%>
+                            <% if (typeof  attempt !== 'undefined'){%>
+                                <% if (  attempt.info.service.status === 'Veteran/Retired'){%>
                                    checked
                                         <%}%>
                                     <%}%>> Veteran/Retired
                         </label>
                         <label class="radio-inline mx-2">
                         <input type="radio" name="status" value="Reserve" required
-                        <% if (typeof  user !== 'undefined'){%>
-                            <% if (  user.info.service.status === 'Reserve'){%>
+                        <% if (typeof  attempt !== 'undefined'){%>
+                            <% if (  attempt.info.service.status === 'Reserve'){%>
                                checked
                                     <%}%>
                                 <%}%>> Reserve
@@ -139,7 +139,7 @@
                 <div class="form-group col-6 mx-auto mb-3">
                     <label for="currentJob">Current Job (CIV/MILITARY) (optional)</label>
                     <input type="text" class="form-control theseAreCards commentContent pt-2 pb-1" id="currentJob" name="currentJob"
-                    value="<% if (typeof user !== 'undefined'){%><%=user.info.currentJob%><%}%>">
+                    value="<% if (typeof attempt !== 'undefined'){%><%=attempt.info.currentJob%><%}%>">
                 </div>
                 <div class="text-center">
                 <button type="submit" class="pt-2 pb-1 navBtnStyle buttonStyle">Submit</button>
