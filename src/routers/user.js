@@ -63,9 +63,11 @@ router.post('/users',async (req,res)=>{
 	}
 	catch (e){
 		let error={
-			error:"Email already exsists"
+			error:"Email already exists"
 		}
-		res.status(200).render("registerUser", ({error}));
+		let attempt = user
+		user.password = req.body.password
+		res.status(200).render("registerUser", ({attempt,error}));
 		return;
 	}
 })
