@@ -3,7 +3,7 @@
 <head>
     <title>Edit Event</title>
     <meta charset="UTF-8">
-
+    <link rel="icon" type="image/x-icon" href="https://drive.google.com/uc?id=1AlaZkDZUsGL5OceU6Ah4WViHLdwIO5WS">
 
 </head>
 <%- include('../partials/header'), ({user})%>
@@ -23,7 +23,7 @@
         <% if (typeof  attempt !== 'undefined'){%>
         <div class="col text-muted lead text-center m-auto bg-warning border rounded-pill"><%=attempt.error%></div>
         <%}%>
-        <div class="p-3 rounded createBox createEdit" id="testCard">
+        <div class="px-3 rounded createBox createEdit" id="testCard">
             <form <% if (event === null || !event._id){%>action="/events" <%} else {%> action="/events/update"  <%}%> method="POST">
 
                 <div class="form-group">
@@ -44,10 +44,11 @@
                     </div>
 
                 </div>
-                <div class="d-flex justify-content-center createSpace">
-                    <label class="my-auto me-2 mainCard" for="location">Location</label><input type="text" class="theseAreCards size24" name="location" value="<% if (typeof  attempt !== 'undefined' || event){%><%=event.location.text%><%}%>">
+                <div class=" form-group">
+                    <label class="d-flex createSpace justify-content-center mainCard" for="location">Location</label>
+                    <input type="text" class="form-control theseAreCards size24" name="location" value="<% if (typeof  attempt !== 'undefined' || event){%><%=event.location.text%><%}%>">
                 </div>
-                <div class="form-group d-flex justify-content-center col createSpace mb-3">
+                <div class="form-group d-flex justify-content-center col createSpace mb-2">
 
                     <label class="my-auto me-2 mainCard" for="tagsList">Tags:</label>
                     <button class="btn btn-primary dropdown-toggle navBtnStyle pt-2 pb-1" type="button" id="dropdownMenuButton"
@@ -66,8 +67,7 @@
                         <%})%>
                     </div>
                 </div>
-                <hr>
-                <div class="form-group d-flex justify-content-between mt-4">
+                <div class="form-group d-flex justify-content-between mt-1">
                     <% if (event === null || !event._id){%>
                     <button type="submit" onclick="changeTime()" class="btn btn-primary navBtnStyle pt-2 pb-1">
                         Create
