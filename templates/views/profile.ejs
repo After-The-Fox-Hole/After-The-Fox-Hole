@@ -14,10 +14,10 @@
 <!--Profile information-->
 <div class="container">
     <div class="row">
-        <div class="col-lg-3 px-2 mb-5 profInfo" style="text-align: center">
+        <div class="col-lg-3 px-2 mb-3 profInfo" style="text-align: center">
             <div class="card theseAreCards mx-auto profInfo" >
                 <img class="card-img-top" src="<%= owner.avatar%>" alt="">
-                <br>
+
                 <div class="card-body">
                     <h6 class="card-title size24"><%-owner.displayName%></h6>
                     <h2 class="card-title"><%=owner.info.name.first + " " + owner.info.name.last%></h2>
@@ -52,7 +52,7 @@
             </div>
         </div>
     <!--Recent post-->
-        <div class="col-lg-3 px-2 mb-5 profCols">
+        <div class="col-lg-3 px-2 mb-3 profCols">
             <div class="theseAreCards rounded p-2 mb-2 mx-auto d-flex align-items-center scrollablePostsTitle">
                 <h3 class="m-auto text-center"><u><%-owner.displayName%>'s Posts</u></h3>
             </div>
@@ -81,7 +81,7 @@
             </div>
         </div>
     <!--Fireteam-->
-        <div class="col-lg-3 px-2 mb-5 profCols" >
+        <div class="col-lg-3 px-2 mb-3 profCols" >
             <div class="theseAreCards rounded p-2 mb-2 mx-auto  d-flex align-items-center">
                 <h3 class="m-auto text-center"><u><%-owner.displayName%>'s Fireteam</u></h3>
             </div>
@@ -101,7 +101,7 @@
                 </div>
         </div>
     <!--My Events-->
-        <div class="col-lg-3 px-2 mb-5 profCols">
+        <div class="col-lg-3 px-2 mb-3 profCols">
             <div class="theseAreCards rounded p-2 mb-2 mx-auto d-flex align-items-center scrollableEventsTitle">
                 <h3 class="m-auto text-center"><u><%-owner.displayName%>'s Events</u></h3>
             </div>

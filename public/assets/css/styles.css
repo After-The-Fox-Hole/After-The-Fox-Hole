@@ -61,7 +61,8 @@ p.cardContentEach {
 }
 
 .profInfo{
-    min-height: 85vh;
+    min-height: 90vh;
+    max-height: 90vh;
 }
 
 .navBtnStyle {
@@ -174,7 +175,7 @@ a:hover {
 
 .createEdit {
     background-color: #A9ADBC;
-    background-image: url("https://drive.google.com/uc?id=18FSUKsFp2hWD5aTERZTp-O8Rx-_Lqd2T");
+    background-image: url("https://drive.google.com/uc?id=1gtx-Ej9XPQubfrqXnRZxIfS9O_hWRumN");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -279,7 +280,7 @@ a:hover {
 }
 
 .scrollable-div {
-    max-height: 78.7vh;
+    max-height: 83.6vh;
     overflow-y: scroll;
 
 }
@@ -289,7 +290,7 @@ a:hover {
 }
 
 .profCols {
-    max-height: 85vh;
+    max-height: 90vh;
 }
 
 .scrollable-div::-webkit-scrollbar {
@@ -301,7 +302,21 @@ a:hover {
 }
 
 .loginBox {
-    max-height: calc(90vh);
+    max-height: 85vh;
+}
+
+.loginBox > * {
+    max-width: 100%;
+    height: auto;
+}
+
+.headshot {
+    max-width: 85%;
+    height: auto;
+}
+
+.col-12 .d-flex a {
+    display: inline-flex;
 }
 
 .loginFormBox {

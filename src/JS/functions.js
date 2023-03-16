@@ -125,7 +125,7 @@ functions.commentLoop = async (comments, votes, master, masterText) =>{
 										<input class="visually-hidden" name="type" value="${masterText}">
 										<input class="visually-hidden scrollField" name="scroll" value="">
 										<div class="visually-hidden makeComment d-flex flex-grow-1 me-2">
-											<textarea class="flex-fill" name="content" rows="3" type="text"></textarea>
+											<textarea class="flex-fill commentContent" name="content" rows="3" type="text"></textarea>
 										</div>
 										<button class="pt-2 pb-1 visually-hidden makeComment reset navBtnStyle" type="submit">SUBMIT</button>
 										<button class="pt-2 pb-1 visually-hidden makeComment closeComment navBtnStyle" type="button">CANCEL</button>

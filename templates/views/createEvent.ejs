@@ -28,7 +28,7 @@
 
                 <div class="form-group">
                     <label class="d-flex justify-content-center createSpace mainCard" for="title">Event Title</label>
-                    <input type="text" class="form-control theseAreCards" id="title" name="title" value="<% if (typeof  attempt !== 'undefined' || event){%><%-event.title%><%}%>">
+                    <input type="text" class="form-control theseAreCards size24" id="title" name="title" value="<% if (typeof  attempt !== 'undefined' || event){%><%-event.title%><%}%>">
 
                 </div>
                 <div class="form-group" >
@@ -36,16 +36,16 @@
                     <input class="visually-hidden" name="id" value="<%=event._id%>">
                     <%}%>
                     <label class="d-flex justify-content-center createSpace mainCard" for="content">Event Description</label>
-                    <textarea rows="5" class="form-control theseAreCards" id="content" name="content" ><% if (typeof  attempt !== 'undefined' || event){%><%-event.content%><%}%></textarea>
+                    <textarea rows="3" class="form-control theseAreCards size24" id="content" name="content" ><% if (typeof  attempt !== 'undefined' || event){%><%-event.content%><%}%></textarea>
 
                     <div>
                         <label class="d-flex justify-content-center createSpace mainCard" for="date">Event Time and Date</label>
-                        <input required name="date" class="form-control theseAreCards singleTime" type="datetime-local" id="date" placeholder="Select Date and Time" value="<% if (typeof  attempt !== 'undefined' || event){%><%=event.date%><%}%>">
+                        <input required name="date" class="form-control theseAreCards singleTime size24" type="datetime-local" id="date" placeholder="Select Date and Time" value="<% if (typeof  attempt !== 'undefined' || event){%><%=event.date%><%}%>">
                     </div>
 
                 </div>
                 <div class="d-flex justify-content-center createSpace">
-                    <label class="my-auto me-2 mainCard" for="location">Location</label><input type="text" class="theseAreCards" name="location" value="<% if (typeof  attempt !== 'undefined' || event){%><%=event.location.text%><%}%>">
+                    <label class="my-auto me-2 mainCard" for="location">Location</label><input type="text" class="theseAreCards size24" name="location" value="<% if (typeof  attempt !== 'undefined' || event){%><%=event.location.text%><%}%>">
                 </div>
                 <div class="form-group d-flex justify-content-center col createSpace mb-3">
 
