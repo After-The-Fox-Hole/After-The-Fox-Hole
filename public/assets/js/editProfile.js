@@ -3,7 +3,7 @@ $(document).ready(async function(){
 	pics = await pics.json();
 	let insert = $("#pictureModalInsert");
 	for(let pic of pics){
-		insert.append(`<a href="/profile/avatar/change?pic=${pic.image}"> <img class="pic-change" src="${pic.image}"></a>`)
+		insert.append(`<div class="col"><a href="/profile/avatar/change?pic=${pic.image}"> <img class="img-fluid pic-change" src="${pic.image}"></a></div>`)
 	}
 })
 

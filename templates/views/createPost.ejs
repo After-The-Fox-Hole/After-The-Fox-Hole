@@ -40,7 +40,7 @@
                                         data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                                     Tags
                                 </button>
-                                <div class="dropdown-menu theseAreCards" aria-labelledby="dropdownMenuButton" id="tagsList">
+                                <div class="dropdown-menu theseAreCards overflow-scroll" aria-labelledby="dropdownMenuButton" id="tagsList" style="max-height: 20vh">
                                     <% tags.forEach(function (tag){%>
                                         <label class="dropdown-item theseAreCards commentContent"><input type="checkbox" name="tags"
                                             <% if(post && post.tags.includes(tag.content)){%>

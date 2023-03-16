@@ -51,6 +51,15 @@ router.post('/events',auth,async (req,res)=>{
 		if(!event.tags){
 			event.tags=[];
 		}
+		tags = tags.sort((t,z) =>{
+			if(t.content < z.content){
+				return -1
+			}
+			else if(t.content > z.content){
+				return +1
+			}
+			
+		})
 		res.status(200).render("createEvent", ({event,user, attempt, tags}))
 		return;
 	}
@@ -128,7 +137,16 @@ router.get("/events/create", auth, async (req, res)=>{
 	let tags = await Tags.find({type:"event"})
 	let user = req.user
 	user = await user.clean();
-
+	tags = tags.sort((t,z) =>{
+		if(t.content < z.content){
+			return -1
+		}
+		else if(t.content > z.content){
+			return +1
+		}
+		
+	})
+	
 	
 	res.status(200).render("createEvent", ({user, tags, event}));
 	
@@ -141,6 +159,15 @@ router.get("/events/edit", auth,async(req, res)=>{
 	let event = await Event.findOne({_id:id});
 	let user = await req.user.clean();
 	let tags = await Tags.find({type:"event"})
+	tags = tags.sort((t,z) =>{
+		if(t.content < z.content){
+			return -1
+		}
+		else if(t.content > z.content){
+			return +1
+		}
+		
+	})
 	
 	
 	res.status(200).render('createEvent', ({user,event, tags}))
@@ -173,6 +200,15 @@ router.post("/events/update", auth, async (req, res)=>{
 		attempt.error = "Could not find location"
 		let user = req.user
 		user = await user.clean()
+		tags = tags.sort((t,z) =>{
+			if(t.content < z.content){
+				return -1
+			}
+			else if(t.content > z.content){
+				return +1
+			}
+			
+		})
 		res.status(200).render("createEvent", ({event,user, attempt, tags}))
 		return;
 	}

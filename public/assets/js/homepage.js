@@ -23,6 +23,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
      let postTags = tags.filter(function(tag) { return tag.type === "post"; });
      let eventTags = tags.filter(function(tag) { return tag.type === "event"; });
+     const tagSort = (tags) =>{
+         tags = tags.sort((t,z) =>{
+             if(t.content < z.content){
+                 return -1
+             }
+             else if(t.content > z.content){
+                 return +1
+             }
+        
+         })
+         return tags
+     }
+     postTags = tagSort(postTags);
+     eventTags = tagSort(eventTags)
+     
+     
      let typeVal = document.getElementById("type").value;
      let tagsSelector = document.getElementById("tagsList");
      tagsSelector.innerHTML = ""
@@ -42,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
              checkbox.value = ptag.content;
              checkbox.classList.add("form-check-input");
              label.appendChild(checkbox);
-             label.appendChild(document.createTextNode("  " + ptag.content));
+             label.appendChild(document.createTextNode("   -   " + ptag.content));
              li.appendChild(label);
              tagsSelector.appendChild(li);
          })
@@ -58,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
              checkbox.type = "checkbox";
              checkbox.value = etag.content;
              label.appendChild(checkbox);
-             label.appendChild(document.createTextNode(etag.content));
+             label.appendChild(document.createTextNode("    -    " +etag.content));
              li.appendChild(label);
              tagsSelector.appendChild(li);
          })

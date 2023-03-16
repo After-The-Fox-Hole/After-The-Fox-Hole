@@ -55,7 +55,7 @@
                         Tags
                     </button>
 
-                    <div class="dropdown-menu theseAreCards" aria-labelledby="dropdownMenuButton" id="tagsList">
+                    <div class="dropdown-menu theseAreCards overflow-scroll" aria-labelledby="dropdownMenuButton" id="tagsList" style="max-height: 20vh">
                         <% tags.forEach(function (tag){%>
                             <label class="dropdown-item commentContent"><input type="checkbox" name="tags"
                                 <% if (typeof  attempt !== 'undefined' || event){%>

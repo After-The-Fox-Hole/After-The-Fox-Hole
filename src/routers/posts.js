@@ -122,6 +122,15 @@ router.get("/posts/create", auth, async (req, res)=>{
 	let tags = await Tags.find({type:"post"})
 	let user = req.user
 	user = await user.clean();
+	tags = tags.sort((t,z) =>{
+		if(t.content < z.content){
+			return -1
+		}
+		else if(t.content > z.content){
+			return +1
+		}
+		
+	})
 	res.status(200).render("createPost", ({user, tags, post}));
 })
 
@@ -131,6 +140,15 @@ router.get('/posts/edit', auth, async (req, res)=>{
 	let user = req.user;
 	user = await user.clean();
 	let tags = await Tags.find({type:"post"})
+	tags = tags.sort((t,z) =>{
+		if(t.content < z.content){
+			return -1
+		}
+		else if(t.content > z.content){
+			return +1
+		}
+		
+	})
 	res.status(200).render("createPost", ({user, post, tags}))
 })
 
