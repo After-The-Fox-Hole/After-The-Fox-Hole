@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
              checkbox.value = ptag.content;
              checkbox.classList.add("form-check-input");
              label.appendChild(checkbox);
-             label.appendChild(document.createTextNode(ptag.content));
+             label.appendChild(document.createTextNode("  " + ptag.content));
              li.appendChild(label);
              tagsSelector.appendChild(li);
          })
