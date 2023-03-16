@@ -10,15 +10,23 @@
 <body class="bodyBack">
 <div class="container">
     <div class="d-flex justify-content-center col">
-        <div class="col-md-6 col-md-offset-3 text-center">
-            <h1>Edit Profile</h1>
+        <div class="col-10 text-center cardsContainer rounded createEdit">
+            <div class="mb-2">
+                <h1>Edit Profile</h1>
+            </div>
+
                 <div>
-                    <img class="img-fluid" src="<%=user.avatar%>">
-                    <!-- Button trigger modal -->
-                    <br>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Change Profile Picture
-                    </button>
+                    <div class="row">
+                        <div class="col-12">
+                            <img class="img-fluid editProfImg mb-2" src="<%=user.avatar%>">
+                        </div>
+                        <div class="col-12">
+                            <button type="button" class="navBtnStyle pt-2 pb-1 mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Change Profile Picture
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -38,8 +46,7 @@
                     </div>
                 </div>
             <!-- Button trigger modal -->
-            <br>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+            <button type="button" class="navBtnStyle pt-2 pb-1 mb-4" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                 Change Password
             </button>
 
@@ -80,64 +87,71 @@
             <h2 class="m-3 bg-warning rounded-pill"><%=attempt.error%></h2>
             <%}%>
             <form action="/profile/edit" method="POST">
-                <div class="form-group">
+                <div class="form-group commentContent my-2">
                     <label for="address">Location (Can Be City, State, or Address)</label>
-                    <input type="text" class="form-control" id="address" name="location" value="<%=user.info.location.text%>" required>
+                    <div class="col-4 mx-auto">
+                        <input type="text" class="form-control theseAreCards pt-2 pb-1 commentContent" id="address" name="location" value="<%=user.info.location.text%>" required>
+                    </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group commentContent mb-2">
                     <label for="branchOfService">Branch of Service</label>
-                    <select class="form-control" id="branchOfService" name="branch" required>
-                        <option disabled>Choose your branch of service</option>
-                        <option value="Army"<% if(user.info.service.branch === "Army"){
-                        %> selected
-                                <% } %>>Army</option>
-                        <option value="Navy" <% if(user.info.service.branch === "Navy"){
-                        %> selected
-                                <% } %>>Navy</option>
-                        <option value="Air Force" <% if(user.info.service.branch === "Air Force"){
-							%> selected
-                        <% } %>>Air Force</option>
-                        <option value="Marines"<% if(user.info.service.branch === "Marines"){
-                        %> selected
-                                <% } %>>Marines</option>
-                        <option value="Coast Guard"<% if(user.info.service.branch === "Coast Guard"){
-                        %> selected
-                                <% } %>>Coast Guard</option>
-                        <option value="Army-NG"<% if(user.info.service.branch === "Army-NG"){
-                        %> selected
-                                <% } %>>Army-NG</option>
-                        <option value="Air-NG"<% if(user.info.service.branch === "Air-NG"){
-                        %> selected
-                                <% } %>>Air-NG </option>
-                    </select>
+                    <div class="col-4 mx-auto">
+                        <select class="form-control theseAreCards commentContent" id="branchOfService" name="branch" required>
+                            <option disabled>Choose your branch of service</option>
+                            <option value="Army"<% if(user.info.service.branch === "Army"){
+                            %> selected
+                                    <% } %>>Army</option>
+                            <option value="Navy" <% if(user.info.service.branch === "Navy"){
+                            %> selected
+                                    <% } %>>Navy</option>
+                            <option value="Air Force" <% if(user.info.service.branch === "Air Force"){
+                                %> selected
+                            <% } %>>Air Force</option>
+                            <option value="Marines"<% if(user.info.service.branch === "Marines"){
+                            %> selected
+                                    <% } %>>Marines</option>
+                            <option value="Coast Guard"<% if(user.info.service.branch === "Coast Guard"){
+                            %> selected
+                                    <% } %>>Coast Guard</option>
+                            <option value="Army-NG"<% if(user.info.service.branch === "Army-NG"){
+                            %> selected
+                                    <% } %>>Army-NG</option>
+                            <option value="Air-NG"<% if(user.info.service.branch === "Air-NG"){
+                            %> selected
+                                    <% } %>>Air-NG </option>
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group commentContent mb-2">
                     <label for="status">Status</label>
-                    <div>
-                        <label class="radio-inline">
+                    <div class="col-4 mx-auto theseAreCards rounded pt-2 pb-1">
+                        <label class="radio-inline mx-2">
                             <input type="radio" name="status" value="Active" required <% if(user.info.service.status === "Active"){
                             %> checked
                                     <% } %>> Active Duty
                         </label>
-                        <label class="radio-inline">
+                        <label class="radio-inline mx-2">
                             <input type="radio" name="status" value="Veteran" required <% if(user.info.service.status === "Veteran"){
                             %> checked
                                     <% } %>> Veteran/Retired
                         </label>
-                        <label class="radio-inline">
+                        <label class="radio-inline mx-2">
                             <input type="radio" name="status" value="Reserve" required <% if(user.info.service.status === "Reserve"){
                             %> checked
                                     <% } %>> Reserve
                         </label>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group commentContent mb-2">
                     <label for="currentJob">Current Job (CIV/MILITARY) (optional)</label>
-                    <input type="text" class="form-control" id="currentJob" name="currentJob" value="<%=user.info.currentJob%>">
+                    <div class="col-4 mx-auto">
+                        <input type="text" class="form-control theseAreCards pt-2 pb-1 commentContent" id="currentJob" name="currentJob" value="<%=user.info.currentJob%>">
+                    </div>
+
                 </div>
 
-                <button type="submit" class="btn btn-primary">Update</button>
-                <a type="button" href="/users/delete?id=<%=user.id%>" class="btn btn-danger">
+                <button type="submit" class="navBtnStyle pt-2 pb-1 mb-4">Update</button>
+                <a type="button" href="/users/delete?id=<%=user.id%>" class="dangerBtn pt-2 pb-1 mb-4">
                     Delete
                 </a>
 

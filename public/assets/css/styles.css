@@ -116,8 +116,13 @@ p.cardContentEach {
 
 .navBtnStyle:hover {
     color: #fff;
-    background-color: black;
-    border-color: black;
+    background-color: #3E4F88;
+    border-color: #3E4F88;
+}
+
+.dangerBtn:hover {
+    color: black;
+    background-color: red;
 }
 
 .page-item .disabled {
@@ -157,6 +162,36 @@ a:hover {
     background-color: #A9ADBC;
     height: calc(85vh);
     /*overflow-y: scroll;*/
+}
+
+.size28 {
+    font-size: 28px;
+}
+
+.createEdit {
+    background-color: #A9ADBC;
+    background-image: url("https://drive.google.com/uc?id=18FSUKsFp2hWD5aTERZTp-O8Rx-_Lqd2T");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.loginLogo {
+    background-image: url("https://drive.google.com/uc?id=1qDKcKH-pTUjrugPIm5Fa0zMYR_IqKPQe");
+    background-size: 52%;
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+.homepageLogo {
+    background-image: url("https://drive.google.com/uc?id=1qDKcKH-pTUjrugPIm5Fa0zMYR_IqKPQe");
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.editProfImg {
+    max-width: 200px;
 }
 
 #testCard::-webkit-scrollbar {
@@ -327,6 +362,43 @@ nav ul li a:before {
 .brandBtn:before {
     transition: all .5s;
 }
+
+/* SHIFT */
+.hamburger {
+    position:relative;
+    z-index: 1;
+}
+.hamburger:hover {
+    color: white;
+}
+.hamburger:after {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 100%;
+    height: 1px;
+    content: '.';
+    color: transparent;
+    background: #5c7ab4;
+    visibility: hidden;
+    opacity: 0;
+    z-index: -1;
+}
+.hamburger:hover:after {
+    opacity: 1;
+    visibility: visible;
+    height: 100%;
+}
+.hamburger,
+.hamburger:after,
+.hamburger:before {
+    transition: all .5s;
+}
+
 
 .modal .modal-content {
     -webkit-animation-name: modal-animation;

@@ -23,7 +23,7 @@
         <% if (typeof  attempt !== 'undefined'){%>
         <div class="col text-muted lead text-center m-auto bg-warning border rounded-pill"><%=attempt.error%></div>
         <%}%>
-        <div class="p-3 rounded createBox" id="testCard">
+        <div class="p-3 rounded createBox createEdit" id="testCard">
             <form <% if (event === null || !event._id){%>action="/events" <%} else {%> action="/events/update"  <%}%> method="POST">
 
                 <div class="form-group">
@@ -55,14 +55,14 @@
                         Tags
                     </button>
 
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="tagsList">
+                    <div class="dropdown-menu theseAreCards" aria-labelledby="dropdownMenuButton" id="tagsList">
                         <% tags.forEach(function (tag){%>
-                            <label class="dropdown-item"><input type="checkbox" name="tags"
+                            <label class="dropdown-item commentContent"><input type="checkbox" name="tags"
                                 <% if (typeof  attempt !== 'undefined' || event){%>
                                 <% if(event.tags.includes(tag.content)){%>
                                                                 checked
                                         <%}%><%}%>
-                                                                value="<%=tag.content%>"><%=tag.content%></label>
+                                                                value="<%=tag.content%>"> <%=tag.content%></label>
                         <%})%>
                     </div>
                 </div>
