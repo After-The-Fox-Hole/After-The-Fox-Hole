@@ -56,7 +56,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
              let checkbox = document.createElement("input");
              checkbox.type = "checkbox";
              checkbox.value = ptag.content;
-             checkbox.classList.add("form-check-input");
              label.appendChild(checkbox);
              label.appendChild(document.createTextNode("   -   " + ptag.content));
              li.appendChild(label);
@@ -95,11 +94,6 @@ async function displayCards(cards) {
                 year: 'numeric',
                 month: 'short',
                 day: 'numeric',
-                // hour: 'numeric',
-                // minute: 'numeric',
-                // hour12: true,
-                // timeZone: timeZ,
-                // timeZoneName: 'short'
             };
             let cardCreated = date.toLocaleString('en-US', options);
         contents += `
@@ -144,14 +138,14 @@ async function displayCards(cards) {
         contentCards.innerHTML = contents;
     }
             );
-    const divA = document.querySelector('#tabCards');
-    const divB = document.querySelector('.pagBtns');
-
-    if (divA.scrollHeight > divA.clientHeight) {
-        divB.style.display = 'block';
-    } else {
-        divB.style.display = 'none';
-    }
+    // const divA = document.querySelector('#tabCards');
+    // const divB = document.querySelector('.pagBtns');
+    //
+    // if (divA.scrollHeight > divA.clientHeight) {
+    //     divB.addClass = 'block';
+    // } else {
+    //     divB.addClass = 'none';
+    // }
 };
 
 // Define Function to Handle Feed and Search Events
@@ -231,19 +225,19 @@ document.addEventListener("keypress", function(e){
 })
 
 // Function to handle pagination
-function pagination(results){
-    let paginationArea = document.getElementById("paginationUl")
-    let numPages;
-    if (results%10 > 0){
-        numPages = results/10;
-    } else {
-        numPages = results/10 + 1;
-    }
-    while(numPages > 0){
-        let pageNum = 1
-        paginationArea.innerHTML += `<li className="page-item"><a className="page-link" href="#">${pageNum}</a></li>`
-        pageNum ++;
-        numPages --;
-    }
-}
+// function pagination(results){
+//     let paginationArea = document.getElementById("paginationUl")
+//     let numPages;
+//     if (results%10 > 0){
+//         numPages = results/10;
+//     } else {
+//         numPages = results/10 + 1;
+//     }
+//     while(numPages > 0){
+//         let pageNum = 1
+//         paginationArea.innerHTML += `<li className="page-item"><a className="page-link" href="#">${pageNum}</a></li>`
+//         pageNum ++;
+//         numPages --;
+//     }
+// }
 

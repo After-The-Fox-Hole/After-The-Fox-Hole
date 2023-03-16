@@ -176,6 +176,13 @@ a:hover {
     background-position: center;
 }
 
+.editProfBack {
+    background-image: url("https://drive.google.com/uc?id=1uiBJ72NQvyXNSkBB4dlc_jBquRvKt49H");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 .loginLogo {
     background-image: url("https://drive.google.com/uc?id=1qDKcKH-pTUjrugPIm5Fa0zMYR_IqKPQe");
     background-size: 52%;
